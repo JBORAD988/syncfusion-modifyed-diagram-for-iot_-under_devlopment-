@@ -5,6 +5,7 @@
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
+    "emitDecoratorMetadata": true,
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
@@ -22,12 +23,15 @@
     "lib": [
       "ES2022",
       "dom"
-    ]
+    ],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
   },
-  "angularCompilerOptions": {
-    "enableI18nLegacyMessageIdFormat": false,
-    "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
-    "strictTemplates": true
-  }
+  // "angularCompilerOptions": {
+  //   "enableI18nLegacyMessageIdFormat": false,
+  //   "strictInjectionParameters": true,
+  //   "strictInputAccessModifiers": true,
+  //   "strictTemplates": true
+  // }
 }

@@ -1,0 +1,22 @@
+//sass-lint:disable-all
+@import 'ej2-base/styles/material.scss';
+@import 'ej2-navigations/styles/material.scss';
+@import 'ej2-splitbuttons/styles/material.scss';
+@import 'ej2-inputs/styles/material.scss'; 
+@import 'ej2-dropdowns/styles/material.scss'; 
+@import 'ej2-popups/styles/material.scss';
+@import 'ej2-lists/styles/material.scss';
+@import 'ej2-buttons/styles/material.scss';
+@import 'ej2-diagrams/styles/material.scss';
+
+
+
+#popup {
+    position: absolute;
+    top: 100px; /* Adjust as needed */
+    left: 100px; /* Adjust as needed */
+    background-color: white;
+    border: 1px solid black;
+    padding: 10px;
+    z-index: 1000; /* Ensure it appears above other elements */
+  }
