@@ -1397,7 +1397,7 @@
 
               <div style="margin-top: 10px;">
 
-                <p style="margin-bottom: 0;">Set Value:</p>
+                <p style="margin-bottom: 0;">Set Value:<span style="color: red;">*</span></p>
 
                 <div style="display: flex;flex-direction: row;justify-content: space-between;">
                   <div>
@@ -1672,6 +1672,20 @@
                         </div>
                       </div>
                     </div>
+
+                  </div>
+
+                  <div id="bitImageOnePropertyDiv">
+                    <div style="margin-top: 10px;">
+                      <div>
+                        <p style="margin-bottom: 0;">Set Image for Bit 1 to 0:</p>
+                        <div>
+                          <input id="textAudioFile" class="e-input" style="background: #FFFFFF;" type="file"
+                            placeholder="Set Audio" accept="Image/*"
+                            (change)="diagramPropertyBinding.bitImageChangeFor1to0($event)" />
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                   <div style="margin-top: 10px;">
@@ -1720,9 +1734,9 @@
                     </div>
                   </div>
 
-                  <div id="bitShapeTwoPropertyDiv">
+                  <div id="bitShapeTwoPropertyDiv" style="margin-top: 10px;">
 
-                    <p style="margin-bottom: 0;margin-top: 10px;">Set Shape Color For 0 to 1:</p>
+                    <p style="margin-bottom: 0;">Set Shape Color For 0 to 1:</p>
 
                     <div class="col-xs-12 db-col-left">
                       <div class="db-color-container">
@@ -1739,10 +1753,22 @@
 
                   </div>
 
-                  <div>
-                    <p>Set Audio File For 0 to 1:</p>
+                  <div id="bitImageTwoPropertyDiv">
                     <div style="margin-top: 10px;">
+                      <div>
+                        <p style="margin-bottom: 0;">Set Image for Bit 0 to 1:</p>
+                        <div>
+                          <input id="textAudioFile" class="e-input" style="background: #FFFFFF;" type="file"
+                            placeholder="Set Audio" accept="Image/*"
+                            (change)="diagramPropertyBinding.bitImageChangeFor0to1($event)" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
+                  <div style="margin-top: 10px;">
+                    <p style="margin-bottom: 0;">Set Audio File For 0 to 1:</p>
+                    <div>
                       <input id="textAudioFile" class="e-input" style="background: #FFFFFF;" type="file"
                         placeholder="Set Audio" accept="audio/*"
                         (change)="diagramPropertyBinding.bitAudio0to1Change($event)" />

@@ -306,7 +306,9 @@ export class DiagramClientSideEvents {
             document.getElementById("bitLablePropertyDiv").style.display = "";
             document.getElementById("bitLableOnePropertyDiv").style.display = "";
             document.getElementById("bitLableTwoPropertyDiv").style.display = "";
+            document.getElementById("bitImageOnePropertyDiv").style.display = "none";
             document.getElementById("bitImagePropertyDiv").style.display = "none";
+            document.getElementById("bitShapeTwoPropertyDiv").style.display = "none";
             document.getElementById("bitShapeOnePropertyDiv").style.display = "none";
             document.getElementById("bitShapePropertyDiv").style.display = "none";
             document.getElementById("numericPropertyDiv").style.display = "none";
@@ -319,6 +321,8 @@ export class DiagramClientSideEvents {
             document.getElementById("bitDisplayPropertyDiv").style.display = "";
             document.getElementById("bitShapePropertyDiv").style.display = "";
             document.getElementById("bitShapeOnePropertyDiv").style.display = "";
+            document.getElementById("bitShapeTwoPropertyDiv").style.display = "";
+            document.getElementById("bitImageOnePropertyDiv").style.display = "none";
             document.getElementById("bitImagePropertyDiv").style.display = "none";
             document.getElementById("bitLableOnePropertyDiv").style.display = "none";
             document.getElementById("bitLableTwoPropertyDiv").style.display = "none";
@@ -332,6 +336,8 @@ export class DiagramClientSideEvents {
             document.getElementById("bitDisplayPropertyDiv").style.display = "";
             document.getElementById("bitCommonConditionPropertyDiv").style.display = "";
             document.getElementById("bitImagePropertyDiv").style.display = "";
+            document.getElementById("bitImageOnePropertyDiv").style.display = "";
+            document.getElementById("bitShapeTwoPropertyDiv").style.display = "none";
             document.getElementById("bitShapePropertyDiv").style.display = "none";
             document.getElementById("bitShapeOnePropertyDiv").style.display = "none";
             document.getElementById("bitLableOnePropertyDiv").style.display = "none";
@@ -813,6 +819,41 @@ export class DiagramPropertyBinding {
 
       this.convertToBase64(file).then(base64 => {
         selectedNode.annotations[0].bitImagefor0 = base64;
+      });
+
+      diagram.dataBind();
+    }
+
+  }
+
+  bitImageChangeFor1to0(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+
+    if (selectedNode) {
+      const file = event.target.files[0];
+      const fileName = event.target.files[0].name
+
+      this.convertToBase64(file).then(base64 => {
+        selectedNode.annotations[0].bitImageFor1to0 = base64;
+      });
+
+      diagram.dataBind();
+    }
+
+  }
+
+
+  bitImageChangeFor0to1(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+
+    if (selectedNode) {
+      const file = event.target.files[0];
+      const fileName = event.target.files[0].name
+
+      this.convertToBase64(file).then(base64 => {
+        selectedNode.annotations[0].bitImageFor0to1 = base64;
       });
 
       diagram.dataBind();

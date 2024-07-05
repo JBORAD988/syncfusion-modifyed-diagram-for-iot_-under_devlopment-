@@ -131,8 +131,12 @@ export class PageCreation {
             console.log('diagramElement.annotations[0].tagName', diagramElement.annotations[0].tagName);
             pageData.pageOptionList[0].diagram.nodes.forEach(pageElement => {
 
-                if ((diagramElement.id.includes("Shape") || diagramElement.id.includes("bitLable") || diagramElement.id.includes("numeric") || diagramElement.id.includes("bitImage")) && pageElement.annotations[0].content == diagramElement.annotations[0].content && pageElement.id == diagramElement.id) {
+                if ((diagramElement.id.includes("Shape") || diagramElement.id.includes("bit") || diagramElement.id.includes("numeric")) && pageElement.annotations[0].content == diagramElement.annotations[0].content && pageElement.id == diagramElement.id) {
                     pageElement.annotations[0].content = diagramElement.annotations[0].content ? diagramElement.annotations[0].content : "";
+
+                    if (diagramElement.id.includes("bitImage")) {
+                        pageElement.annotations[0].bitTempSource = diagramElement.shape.source;
+                    }
 
                     pageElement.annotations[0].tagName = diagramElement.annotations[0].tagName;
                     pageElement.annotations[0].textAnalogChName = diagramElement.annotations[0].textAnalogChName;
@@ -206,6 +210,8 @@ export class PageCreation {
                     pageElement.annotations[0].bitTextColorFor1 = diagramElement.annotations[0].bitTextColorFor1;
                     pageElement.annotations[0].bitImagefor1 = diagramElement.annotations[0].bitImagefor1;
                     pageElement.annotations[0].bitImagefor0 = diagramElement.annotations[0].bitImagefor0;
+                    pageElement.annotations[0].bitImageFor1to0 = diagramElement.annotations[0].bitImageFor1to0;
+                    pageElement.annotations[0].bitImageFor0to1 = diagramElement.annotations[0].bitImageFor0to1;
 
                     pageElement.ports.forEach(element => {
                         element.constraints = 0;

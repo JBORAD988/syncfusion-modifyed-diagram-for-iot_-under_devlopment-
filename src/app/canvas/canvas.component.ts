@@ -2041,7 +2041,7 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
 
                   if (nodeElement.annotations[0].textSetValue == content) {
 
-                    if (nodeElement.annotations[0].textIsChecked) {
+                    if (nodeElement.annotations[0]?.textIsChecked) {
 
                       if (this.textDataBlink) {
                         if (nodeElement.annotations[0].style.opacity === 0) {
@@ -2071,7 +2071,7 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
 
                   if (content > nodeElement.annotations[0].textSetValue) {
 
-                    if (nodeElement.annotations[0].textIsChecked) {
+                    if (nodeElement.annotations[0]?.textIsChecked) {
 
                       if (this.textDataBlink) {
                         if (nodeElement.annotations[0].style.opacity === 0) {
@@ -2101,7 +2101,7 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
 
                   if (content < nodeElement.annotations[0].textSetValue) {
 
-                    if (nodeElement.annotations[0].textIsChecked) {
+                    if (nodeElement.annotations[0]?.textIsChecked) {
 
                       if (this.textDataBlink) {
                         if (nodeElement.annotations[0].style.opacity === 0) {
@@ -2131,7 +2131,7 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
 
                   if (content >= nodeElement.annotations[0].textSetValue) {
 
-                    if (nodeElement.annotations[0].textIsChecked) {
+                    if (nodeElement.annotations[0]?.textIsChecked) {
 
                       if (this.textDataBlink) {
                         if (nodeElement.annotations[0].style.opacity === 0) {
@@ -2161,7 +2161,7 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
 
                   if (content <= nodeElement.annotations[0].textSetValue) {
 
-                    if (nodeElement.annotations[0].textIsChecked) {
+                    if (nodeElement.annotations[0]?.textIsChecked) {
 
                       if (this.textDataBlink) {
                         if (nodeElement.annotations[0].style.opacity === 0) {
@@ -2191,7 +2191,7 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
 
                   if (content != nodeElement.annotations[0].textSetValue) {
 
-                    if (nodeElement.annotations[0].textIsChecked) {
+                    if (nodeElement.annotations[0]?.textIsChecked) {
 
                       if (this.textDataBlink) {
                         if (nodeElement.annotations[0].style.opacity === 0) {
@@ -2393,7 +2393,7 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
                 let content = parseFloat(element.chData);
 
                 if (nodeElement.annotations[0].analogUnit) {
-                  nodeElement.annotations[0].content = nodeElement.annotations[0].content.concat(" ", nodeElement.annotations[0].analogUnit, "  ", element.Date, " ", element.Time);
+                  nodeElement.annotations[0].content = nodeElement.annotations[0].content.concat(" ", nodeElement.annotations[0].analogUnit);
                 }
 
                 switch (true) {
@@ -2699,7 +2699,7 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
                 let content = parseFloat(element.chData);
 
                 if (nodeElement.annotations[0].analogUnit) {
-                  nodeElement.annotations[0].content = nodeElement.annotations[0].content.concat(" ", nodeElement.annotations[0].analogUnit, "  ", element.Date, " ", element.Time);
+                  nodeElement.annotations[0].content = nodeElement.annotations[0].content.concat(" ", nodeElement.annotations[0].analogUnit);
                 }
 
                 if (nodeElement.annotations[0].textLowLimitValue) {
@@ -2817,9 +2817,14 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
                   if ((element.chData).toLowerCase() == "remote" || (element.chData).toLowerCase() == "normal" || (element.chData).toLowerCase() == "on") {
                     nodeElement.annotations[0].content = "1";
 
+                    if (nodeElement.annotations[0].bitAudio0to1) {
+                      this.AudioService.loadAudio(nodeElement.annotations[0].bitAudio0to1);
+                    } else {
+                      this.AudioService.stopAudio();
+                    }
+
                     if (nodeElement.annotations[0].bitTextFor1) {
                       nodeElement.annotations[0].content = nodeElement.annotations[0].bitTextFor1;
-
                     }
 
                     if (nodeElement.annotations[0].bitTextColorFor1) {
@@ -2844,11 +2849,20 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
 
                     if (nodeElement.annotations[0].bitShapeColor0to1) {
                       nodeElement.style.fill = nodeElement.annotations[0].bitShapeColor0to1;
+                    } else {
+                      nodeElement.style.fill = '#ffffff';
                     }
 
 
                   } else {
                     nodeElement.annotations[0].content = "0";
+
+
+                    if (nodeElement.annotations[0].bitAudio1to0) {
+                      this.AudioService.loadAudio(nodeElement.annotations[0].bitAudio1to0);
+                    } else {
+                      this.AudioService.stopAudio();
+                    }
 
                     if (nodeElement.annotations[0].bitTextFor0) {
                       nodeElement.annotations[0].content = nodeElement.annotations[0].bitTextFor0;
@@ -2877,12 +2891,22 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
 
                     if (nodeElement.annotations[0].bitShapeColor1to0) {
                       nodeElement.style.fill = nodeElement.annotations[0].bitShapeColor1to0;
+                    } else {
+                      nodeElement.style.fill = '#ffffff';
                     }
 
                   }
                 } else if (nodeElement.annotations[0].bitSet1asAbnormal) {
                   if ((element.chData).toLowerCase() == "remote" || (element.chData).toLowerCase() == "normal" || (element.chData).toLowerCase() == "on") {
                     nodeElement.annotations[0].content = "0";
+
+
+                    if (nodeElement.annotations[0].bitAudio1to0) {
+                      this.AudioService.loadAudio(nodeElement.annotations[0].bitAudio1to0);
+                    } else {
+                      this.AudioService.stopAudio();
+                    }
+
                     if (nodeElement.annotations[0].bitTextFor0) {
                       nodeElement.annotations[0].content = nodeElement.annotations[0].bitTextFor0;
                     }
@@ -2894,7 +2918,6 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
                     if (nodeElement.annotations[0].bit0Color) {
                       nodeElement.annotations[0].style.color = nodeElement.annotations[0].bit0Color;
                     }
-
 
                     if (nodeElement.annotations[0].hideOnNormal) {
                       nodeElement.annotations[0].style.opacity = 0;
@@ -2910,10 +2933,19 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
 
                     if (nodeElement.annotations[0].bitShapeColor1to0) {
                       nodeElement.style.fill = nodeElement.annotations[0].bitShapeColor1to0;
+                    } else {
+                      nodeElement.style.fill = '#ffffff';
                     }
 
                   } else {
                     nodeElement.annotations[0].content = "1";
+
+                    if (nodeElement.annotations[0].bitAudio0to1) {
+                      this.AudioService.loadAudio(nodeElement.annotations[0].bitAudio0to1);
+                    } else {
+                      this.AudioService.stopAudio();
+                    }
+
                     if (nodeElement.annotations[0].bitTextFor1) {
                       nodeElement.annotations[0].content = nodeElement.annotations[0].bitTextFor1;
                     }
@@ -2941,6 +2973,8 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
 
                     if (nodeElement.annotations[0].bitShapeColor0to1) {
                       nodeElement.style.fill = nodeElement.annotations[0].bitShapeColor0to1;
+                    } else {
+                      nodeElement.style.fill = '#ffffff';
                     }
                   }
                 }
@@ -2977,21 +3011,37 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
                 if ((element.chData).toLowerCase() == "remote" || (element.chData).toLowerCase() == "normal" || (element.chData).toLowerCase() == "on") {
                   nodeElement.annotations[0].content = "1";
 
-                  if (nodeElement.annotations[0].bitImagefor1) {
+                  if (nodeElement.annotations[0].bitImageFor0to1) {
+                    nodeElement.shape.source = nodeElement.annotations[0].bitImageFor0to1;
+                  } else if (nodeElement.annotations[0].bitImagefor1) {
                     nodeElement.shape.source = nodeElement.annotations[0].bitImagefor1;
                   } else {
-                    nodeElement.shape.source = '';
+                    nodeElement.shape.source = nodeElement.annotations[0].bitTempSource;
+                  }
+
+
+                  if (nodeElement.annotations[0].bitAudio0to1) {
+                    this.AudioService.loadAudio(nodeElement.annotations[0].bitAudio0to1);
+                  } else {
+                    this.AudioService.stopAudio();
                   }
 
                 } else {
                   nodeElement.annotations[0].content = "0";
 
+                  if (nodeElement.annotations[0].bitAudio1to0) {
+                    this.AudioService.loadAudio(nodeElement.annotations[0].bitAudio1to0);
+                  } else {
+                    this.AudioService.stopAudio();
+                  }
 
 
-                  if (nodeElement.annotations[0].bitImagefor0) {
+                  if (nodeElement.annotations[0].bitImageFor1to0) {
+                    nodeElement.shape.source = nodeElement.annotations[0].bitImageFor1to0;
+                  } else if (nodeElement.annotations[0].bitImagefor0) {
                     nodeElement.shape.source = nodeElement.annotations[0].bitImagefor0;
                   } else {
-                    nodeElement.shape.source = '';
+                    nodeElement.shape.source = nodeElement.annotations[0].bitTempSource;
                   }
 
                 }
@@ -2999,21 +3049,36 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
                 if ((element.chData).toLowerCase() == "remote" || (element.chData).toLowerCase() == "normal" || (element.chData).toLowerCase() == "on") {
                   nodeElement.annotations[0].content = "0";
 
+                  if (nodeElement.annotations[0].bitAudio1to0) {
+                    this.AudioService.loadAudio(nodeElement.annotations[0].bitAudio1to0);
+                  } else {
+                    this.AudioService.stopAudio();
+                  }
 
-
-                  if (nodeElement.annotations[0].bitImagefor0) {
+                  if (nodeElement.annotations[0].bitImageFor1to0) {
+                    nodeElement.shape.source = nodeElement.annotations[0].bitImageFor1to0;
+                  } else if (nodeElement.annotations[0].bitImagefor0) {
                     nodeElement.shape.source = nodeElement.annotations[0].bitImagefor0;
                   } else {
-                    nodeElement.shape.source = '';
+                    nodeElement.shape.source = nodeElement.annotations[0].bitTempSource;
                   }
+
 
                 } else {
                   nodeElement.annotations[0].content = "1";
 
-                  if (nodeElement.annotations[0].bitImagefor1) {
+                  if (nodeElement.annotations[0].bitAudio0to1) {
+                    this.AudioService.loadAudio(nodeElement.annotations[0].bitAudio0to1);
+                  } else {
+                    this.AudioService.stopAudio();
+                  }
+
+                  if (nodeElement.annotations[0].bitImageFor0to1) {
+                    nodeElement.shape.source = nodeElement.annotations[0].bitImageFor0to1;
+                  } else if (nodeElement.annotations[0].bitImagefor1) {
                     nodeElement.shape.source = nodeElement.annotations[0].bitImagefor1;
                   } else {
-                    nodeElement.shape.source = '';
+                    nodeElement.shape.source = nodeElement.annotations[0].bitTempSource;
                   }
 
                 }
@@ -3043,15 +3108,16 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
         if (nodeElement.annotations[0].normalContinueBlink && this.blink) {
           if (this.bitContinousBlinkCheck) {
             nodeElement.annotations[0].style.opacity = 0;
-            if (nodeElement.id.includes("bitImage")) {
+            console.log("run");
+
+            if (nodeElement.id.includes("bitImage") || nodeElement.id.includes("Shape")) {
               nodeElement.style.opacity = 0;
             }
             this.bitContinousBlinkCheck = false;
-            console.log("blink");
 
           } else {
             nodeElement.annotations[0].style.opacity = 1;
-            if (nodeElement.id.includes("bitImage")) {
+            if (nodeElement.id.includes("bitImage") || nodeElement.id.includes("Shape")) {
               nodeElement.style.opacity = 1;
             }
             this.bitContinousBlinkCheck = true;
@@ -3064,13 +3130,13 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
             if (nodeElement.annotations[0].content == "0") {
               if (this.bitContinousBlinkCheck1to0) {
                 nodeElement.annotations[0].style.opacity = 0;
-                if (nodeElement.id.includes("bitImage")) {
+                if (nodeElement.id.includes("bitImage") || nodeElement.id.includes("Shape")) {
                   nodeElement.style.opacity = 0;
                 }
                 this.bitContinousBlinkCheck1to0 = false;
               } else {
                 nodeElement.annotations[0].style.opacity = 1;
-                if (nodeElement.id.includes("bitImage")) {
+                if (nodeElement.id.includes("bitImage") || nodeElement.id.includes("Shape")) {
                   nodeElement.style.opacity = 1;
                 }
                 this.bitContinousBlinkCheck1to0 = true;
@@ -3084,13 +3150,13 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
             if (nodeElement.annotations[0].content == "1") {
               if (this.bitContinousBlinkCheck0to1) {
                 nodeElement.annotations[0].style.opacity = 0;
-                if (nodeElement.id.includes("bitImage")) {
+                if (nodeElement.id.includes("bitImage") || nodeElement.id.includes("Shape")) {
                   nodeElement.style.opacity = 0;
                 }
                 this.bitContinousBlinkCheck0to1 = false;
               } else {
                 nodeElement.annotations[0].style.opacity = 1;
-                if (nodeElement.id.includes("bitImage")) {
+                if (nodeElement.id.includes("bitImage") || nodeElement.id.includes("Shape")) {
                   nodeElement.style.opacity = 1;
                 }
                 this.bitContinousBlinkCheck0to1 = true;
@@ -3113,13 +3179,13 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
         if (nodeElement.annotations[0].normalTimeBlink) {
           if (this.bitTimeBlinkCheck) {
             nodeElement.annotations[0].style.opacity = 0;
-            if (nodeElement.id.includes("bitImage")) {
+            if (nodeElement.id.includes("bitImage") || nodeElement.id.includes("Shape")) {
               nodeElement.style.opacity = 0;
             }
             this.bitTimeBlinkCheck = false;
           } else {
             nodeElement.annotations[0].style.opacity = 1;
-            if (nodeElement.id.includes("bitImage")) {
+            if (nodeElement.id.includes("bitImage") || nodeElement.id.includes("Shape")) {
               nodeElement.style.opacity = 1;
             }
             this.bitTimeBlinkCheck = true;
@@ -3128,6 +3194,7 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
             setTimeout(() => {
               clearInterval(blinkInterval);
               nodeElement.annotations[0].style.opacity = 1;
+              nodeElement.style.opacity = 1;
             }, (nodeElement.annotations[0].normalTimeBlinkValue * 1000));
           }
         }
@@ -3145,7 +3212,7 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
 
     let blinkInterval = setInterval(() => {
       diagram.nodes.forEach(nodeElement => {
-        if (nodeElement.id.includes("bitDisplay")) {
+        if (nodeElement.id.includes("bit")) {
           if (nodeElement.annotations[0].bitCondiTimeBlink1to0) {
             let currentContent = nodeElement.annotations[0].content;
 
@@ -3157,13 +3224,13 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
               if (this.intervalCheck1to0) {
                 if (this.bitTimeBlink1to0Check) {
                   nodeElement.annotations[0].style.opacity = 0;
-                  if (nodeElement.id.includes("bitImage")) {
+                  if (nodeElement.id.includes("bitImage") || nodeElement.id.includes("Shape")) {
                     nodeElement.style.opacity = 0;
                   }
                   this.bitTimeBlink1to0Check = false;
                 } else {
                   nodeElement.annotations[0].style.opacity = 1;
-                  if (nodeElement.id.includes("bitImage")) {
+                  if (nodeElement.id.includes("bitImage") || nodeElement.id.includes("Shape")) {
                     nodeElement.style.opacity = 1;
                   }
                   this.bitTimeBlink1to0Check = true;
@@ -3174,6 +3241,7 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
                 setTimeout(() => {
                   this.intervalCheck1to0 = false;
                   nodeElement.annotations[0].style.opacity = 1;
+                  nodeElement.style.opacity = 1;
                 }, (nodeElement.annotations[0].bitCondiBlinkTimeValue1to0 * 1000));
               }
             } else {
@@ -3195,7 +3263,7 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
 
     let blinkInterval = setInterval(() => {
       diagram.nodes.forEach(nodeElement => {
-        if (nodeElement.id.includes("bitDisplay")) {
+        if (nodeElement.id.includes("bit")) {
           if (nodeElement.annotations[0].bitCondiTimeBlink0to1) {
             let currentContent = nodeElement.annotations[0].content;
 
@@ -3207,13 +3275,13 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
               if (this.intervalCheck0to1) {
                 if (this.bitTimeBlink0to1Check) {
                   nodeElement.annotations[0].style.opacity = 0;
-                  if (nodeElement.id.includes("bitImage")) {
+                  if (nodeElement.id.includes("bitImage") || nodeElement.id.includes("Shape")) {
                     nodeElement.style.opacity = 0;
                   }
                   this.bitTimeBlink0to1Check = false;
                 } else {
                   nodeElement.annotations[0].style.opacity = 1;
-                  if (nodeElement.id.includes("bitImage")) {
+                  if (nodeElement.id.includes("bitImage") || nodeElement.id.includes("Shape")) {
                     nodeElement.style.opacity = 1;
                   }
                   this.bitTimeBlink0to1Check = true;
@@ -3224,6 +3292,7 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
                 setTimeout(() => {
                   this.intervalCheck0to1 = false;
                   nodeElement.annotations[0].style.opacity = 1;
+                  nodeElement.style.opacity = 1;
                 }, (nodeElement.annotations[0].bitCondiBlinkTimeValue0to1 * 1000));
               }
             } else {
@@ -3241,7 +3310,7 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
     const node = this.diagram.getObject(nodeId) as NodeModel;
     const connector = this.diagram.getObject(nodeId) as ConnectorModel;
 
-    if (nodeType === 'Basic' || nodeType === 'Image') {
+    if (node.id.includes("station") || node.id.includes("image")) {
 
       node.constraints = node.constraints &
         ~NodeConstraints.ReadOnly &
@@ -3253,13 +3322,15 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
       this.diagram.dataBind();
 
     }
-    if (nodeType === 'Flow' || nodeType === 'Text') {
+    if (node.id.includes("bitLable") || node.id.includes("bitShape") || node.id.includes("bitImage") || node.id.includes("numeric")) {
+
       node.constraints = node.constraints &
         ~NodeConstraints.Drag &
         ~NodeConstraints.Select &
         ~NodeConstraints.Resize &
         ~NodeConstraints.Delete &
-        ~NodeConstraints.Rotate;
+        ~NodeConstraints.Rotate &
+        ~NodeConstraints.ReadOnly;
 
       this.diagram.dataBind();
     }

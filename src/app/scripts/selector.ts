@@ -409,6 +409,35 @@ export class NodeProperties {
 
 
 
+  private m_annotationbitImageFor1to0: any = {
+    bitImageFor1to0: ''
+  }
+
+  public get bitImageFor1to0(): string {
+    return this.m_annotationbitImageFor1to0.bitImageFor1to0;
+  }
+
+  @Input() public set bitImageFor1to0(bitImageFor1to0: string) {
+    this.m_annotationbitImageFor1to0.bitImageFor1to0 = bitImageFor1to0;
+    this.triggerPropertyChange("bitImageFor1to0", this.m_annotationbitImageFor1to0.bitImageFor1to0);
+  }
+
+
+
+  private m_annotationbitImageFor0to1: any = {
+    bitImageFor0to1: ''
+  }
+
+  public get bitImageFor0to1(): string {
+    return this.m_annotationbitImageFor0to1.bitImageFor0to1;
+  }
+
+  @Input() public set bitImageFor0to1(bitImageFor0to1: string) {
+    this.m_annotationbitImageFor0to1.bitImageFor0to1 = bitImageFor0to1;
+    this.triggerPropertyChange("bitImageFor0to1", this.m_annotationbitImageFor0to1.bitImageFor0to1);
+  }
+
+
   private m_annotationTextChName: any = {
     textChName: ''
   }
