@@ -136,14 +136,10 @@ Diagram.Inject(
 SymbolPalette.Inject(BpmnDiagrams);
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-
+  selector: "main-section",
+  templateUrl: "home.component.html",
+  encapsulation: ViewEncapsulation.None,
 })
-
-
 export class HomeComponent implements AfterViewInit, OnInit {
   @ViewChild("diagram")
   public diagram: DiagramComponent;

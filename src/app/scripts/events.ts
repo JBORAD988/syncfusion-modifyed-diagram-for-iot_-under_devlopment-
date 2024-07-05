@@ -54,7 +54,7 @@ import {
   ViewChild,
   inject,
 } from "@angular/core";
-import { ConnectorConstraints, ConnectorModel, DiagramComponent, NodeConstraints } from "@syncfusion/ej2-angular-diagrams";
+import { ConnectorConstraints, ConnectorModel, DiagramComponent, IPropertyChangeEventArgs, NodeConstraints } from "@syncfusion/ej2-angular-diagrams";
 import { Observable, Subscription, subscribeOn, take } from "rxjs";
 import { PopupService } from "../service/popup.service";
 import { DataShareService } from "../service/data-share.service";
@@ -203,6 +203,7 @@ export class DiagramClientSideEvents {
         node.style.opacity = 0;
       }
 
+
     }
   }
 
@@ -282,34 +283,67 @@ export class DiagramClientSideEvents {
   private singleSelectionSettings(selectedObject: Object): void {
     let object: Node | Connector = null;
 
-
     if (selectedObject instanceof Node) {
       object = selectedObject as Node;
-      console.log("Single Selected Object", object.tooltip.content);
 
-      if (object.shape.type == 'Text' || object.shape.type == 'Flow') {
-        if (object.shape && (object.shape.type === "Text" || object.shape.type === "Flow")) {
+      if (object.shape.type == 'Text' || object.shape.type == 'Flow' || object.shape.type == 'Basic' || object.shape.type == 'Image') {
+        if (object.shape && (object.shape.type === "Text" || object.shape.type === "Flow" || object.shape.type == 'Basic' || object.shape.type == 'Image')) {
+          console.log(object);
+
           if (object.tooltip.content == "numeric1") {
-
             document.getElementById("numeric1PropertyDiv").style.display = "";
+            document.getElementById("numericPropertyDiv").style.display = "";
             document.getElementById("bitDisplayPropertyDiv").style.display = "none";
             document.getElementById("numeric2PropertyDiv").style.display = "none";
-            document.getElementById("numericPropertyDiv").style.display = "";
-
           } else if (object.tooltip.content == "numeric2") {
-
             document.getElementById("numeric1PropertyDiv").style.display = "none";
             document.getElementById("bitDisplayPropertyDiv").style.display = "none";
             document.getElementById("numeric2PropertyDiv").style.display = "";
             document.getElementById("numericPropertyDiv").style.display = "";
 
-          } else if (object.tooltip.content == "bitDisplay1") {
+          } else if (object.id.includes("bitLable")) {
             document.getElementById("bitDisplayPropertyDiv").style.display = "";
+            document.getElementById("bitLablePropertyDiv").style.display = "";
+            document.getElementById("bitLableOnePropertyDiv").style.display = "";
+            document.getElementById("bitLableTwoPropertyDiv").style.display = "";
+            document.getElementById("bitImagePropertyDiv").style.display = "none";
+            document.getElementById("bitShapeOnePropertyDiv").style.display = "none";
+            document.getElementById("bitShapePropertyDiv").style.display = "none";
             document.getElementById("numericPropertyDiv").style.display = "none";
             document.getElementById("numeric1PropertyDiv").style.display = "none";
             document.getElementById("numeric2PropertyDiv").style.display = "none";
 
+          } else if (object.id.includes("Shape")) {
+
+            document.getElementById("bitCommonConditionPropertyDiv").style.display = "";
+            document.getElementById("bitDisplayPropertyDiv").style.display = "";
+            document.getElementById("bitShapePropertyDiv").style.display = "";
+            document.getElementById("bitShapeOnePropertyDiv").style.display = "";
+            document.getElementById("bitImagePropertyDiv").style.display = "none";
+            document.getElementById("bitLableOnePropertyDiv").style.display = "none";
+            document.getElementById("bitLableTwoPropertyDiv").style.display = "none";
+            document.getElementById("bitLablePropertyDiv").style.display = "none";
+            document.getElementById("numericPropertyDiv").style.display = "none";
+            document.getElementById("numeric1PropertyDiv").style.display = "none";
+            document.getElementById("numeric2PropertyDiv").style.display = "none";
+
+          } else if (object.id.includes("bitImage")) {
+
+            document.getElementById("bitDisplayPropertyDiv").style.display = "";
+            document.getElementById("bitCommonConditionPropertyDiv").style.display = "";
+            document.getElementById("bitImagePropertyDiv").style.display = "";
+            document.getElementById("bitShapePropertyDiv").style.display = "none";
+            document.getElementById("bitShapeOnePropertyDiv").style.display = "none";
+            document.getElementById("bitLableOnePropertyDiv").style.display = "none";
+            document.getElementById("bitLableTwoPropertyDiv").style.display = "none";
+            document.getElementById("bitLablePropertyDiv").style.display = "none";
+            document.getElementById("numericPropertyDiv").style.display = "none";
+            document.getElementById("numeric1PropertyDiv").style.display = "none";
+            document.getElementById("numeric2PropertyDiv").style.display = "none";
+
+
           }
+
           document.getElementById("textPropertyContainer").style.display = "";
           document.getElementById("toolbarTextAlignmentDiv").style.display = "none";
           document.getElementById("textPositionDiv").style.display = "none";
@@ -360,7 +394,9 @@ export class DiagramClientSideEvents {
           }
         }
       }
-      if (object.shape.type == 'Basic' || object.shape.type == 'Image') {
+      if (object.id.includes("CustomImageShape") || object.id.includes("image")) {
+        console.log("start-end");
+
         this.selectedItem.utilityMethods.objectTypeChange("node");
         this.selectedItem.utilityMethods.bindNodeProperties(
           object,
@@ -380,6 +416,8 @@ export class DiagramClientSideEvents {
   }
 
   public nodePositionChange(args: IDraggingEventArgs): void {
+
+
     this.selectedItem.preventPropertyChange = true;
     this.selectedItem.nodeProperties.offsetX =
       Math.round(args.newValue.offsetX * 100) / 100;
@@ -392,6 +430,8 @@ export class DiagramClientSideEvents {
   }
 
   public nodeSizeChange(args: ISizeChangeEventArgs): void {
+
+
     this.selectedItem.preventPropertyChange = true;
     this.selectedItem.nodeProperties.width =
       Math.round(args.newValue.width * 100) / 100;
@@ -402,6 +442,17 @@ export class DiagramClientSideEvents {
       this.selectedItem.preventPropertyChange = false;
     }
   }
+
+
+  onConnectorPropertyChange(event: IPropertyChangeEventArgs) {
+    const connector = event.element as Connector;
+    if (connector && connector instanceof Connector) {
+      // if (connector.id.includes("Link1")) {
+      //   connector.targetPoint.y = connector.sourcePoint.y;
+      // }
+    }
+  }
+
 
   public textEdit(args: ITextEditEventArgs): void {
     if (this.selectedItem.diagramType === "MindMap") {
@@ -549,7 +600,6 @@ export class DiagramPropertyBinding {
   textTooltipChange(event: any) {
     let diagram: Diagram = this.selectedItem.selectedDiagram;
     let selectedNode = diagram.selectedItems.nodes[0];
-    // console.log("call");
 
     if (selectedNode) {
       selectedNode.annotations[0].textTooltip = event.target.value;
@@ -592,6 +642,8 @@ export class DiagramPropertyBinding {
       selectedNode.annotations[0].textCheckAudio = event.checked;
     }
 
+    diagram.dataBind();
+
   }
 
 
@@ -601,6 +653,8 @@ export class DiagramPropertyBinding {
     let selectedNode = diagram.selectedItems.nodes[0];
 
     selectedNode.annotations[0].colorCheck = event.checked;
+
+    diagram.dataBind();
 
   }
 
@@ -636,6 +690,8 @@ export class DiagramPropertyBinding {
     let selectedNode = diagram.selectedItems.nodes[0];
 
     selectedNode.annotations[0].blinkTime = event.target.value;
+
+    diagram.dataBind();
 
   }
 
@@ -724,6 +780,40 @@ export class DiagramPropertyBinding {
         selectedNode.annotations[0].tagName = newContent;
       }
 
+      diagram.dataBind();
+    }
+
+  }
+
+  bitImageChangeFor1(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+
+    if (selectedNode) {
+      const file = event.target.files[0];
+      const fileName = event.target.files[0].name
+
+      this.convertToBase64(file).then(base64 => {
+        selectedNode.annotations[0].bitImagefor1 = base64;
+      });
+
+      diagram.dataBind();
+    }
+
+  }
+
+
+  bitImageChangeFor0(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+
+    if (selectedNode) {
+      const file = event.target.files[0];
+      const fileName = event.target.files[0].name
+
+      this.convertToBase64(file).then(base64 => {
+        selectedNode.annotations[0].bitImagefor0 = base64;
+      });
 
       diagram.dataBind();
     }
@@ -748,7 +838,79 @@ export class DiagramPropertyBinding {
 
   }
 
+  bitTextChange1to0(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
 
+    if (selectedNode) {
+      selectedNode.annotations[0].bitTextFor1to0 = event.target.value;
+    }
+
+    diagram.dataBind();
+  }
+
+  bitTextChange0to1(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+
+    if (selectedNode) {
+      selectedNode.annotations[0].bitTextFor0to1 = event.target.value;
+    }
+
+    diagram.dataBind();
+  }
+
+  bitTextColorFor0(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+
+    if (selectedNode) {
+      selectedNode.annotations[0].bitTextColorFor0 = event.value;
+    }
+
+    diagram.dataBind();
+  }
+
+  bitTextColorFor1(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+
+    if (selectedNode) {
+      selectedNode.annotations[0].bitTextColorFor1 = event.value as string;
+    }
+    diagram.dataBind();
+  }
+
+
+  bitCondition1to0Change(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+
+    if (selectedNode) {
+      selectedNode.annotations[0].bitCheck1to0 = event.checked;
+      if (selectedNode.annotations[0].bitCheck1to0) {
+        selectedNode.annotations[0].bitCheck0to1 = false;
+      }
+    }
+
+    diagram.dataBind();
+  }
+
+  bitCondition0to1Change(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+
+    if (selectedNode) {
+      selectedNode.annotations[0].bitCheck0to1 = event.checked;
+
+      if (selectedNode.annotations[0].bitCheck0to1) {
+        selectedNode.annotations[0].bitCheck1to0 = false;
+      }
+
+    }
+
+    diagram.dataBind();
+  }
 
 
   textOperationChange(event: any) {
@@ -777,6 +939,59 @@ export class DiagramPropertyBinding {
   }
 
 
+
+  bitShapeColor1to0Change(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+
+    if (selectedNode) {
+      selectedNode.annotations[0].bitShapeColor1to0 = event.value;
+    }
+
+    diagram.dataBind();
+  }
+
+  bitShapeColor0to1Change(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+
+    if (selectedNode) {
+      selectedNode.annotations[0].bitShapeColor0to1 = event.value;
+    }
+
+    diagram.dataBind();
+  }
+
+  bitAudio1to0Change(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+    if (selectedNode) {
+      const file = event.target.files[0];
+      const fileName = event.target.files[0].name
+
+      this.convertToBase64(file).then(base64 => {
+        selectedNode.annotations[0].bitAudio1to0 = base64;
+      });
+
+      diagram.dataBind();
+    }
+  }
+
+  bitAudio0to1Change(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+    if (selectedNode) {
+      const file = event.target.files[0];
+      const fileName = event.target.files[0].name
+
+      this.convertToBase64(file).then(base64 => {
+        selectedNode.annotations[0].bitAudio0to1 = base64;
+      });
+
+      diagram.dataBind();
+    }
+  }
+
   textOperationColorChange(event: any) {
     let diagram: Diagram = this.selectedItem.selectedDiagram;
     let selectedNode = diagram.selectedItems.nodes[0];
@@ -800,16 +1015,9 @@ export class DiagramPropertyBinding {
       selectedNode.annotations[0].textContinueBlink = event.checked;
 
       if (selectedNode.annotations[0].textContinueBlink) {
-        this.blinkTextIntervalId = setInterval(() => {
-          if (selectedNode.annotations[0].style.opacity === 100) {
-            selectedNode.annotations[0].style.opacity = 0;
-          } else {
-            selectedNode.annotations[0].style.opacity = 100;
-          }
-        }, 600);
-      } else {
-        clearInterval(this.blinkTextIntervalId);
-        selectedNode.annotations[0].style.opacity = 100;
+        selectedNode.annotations[0].textIsChecked = false;
+        selectedNode.annotations[0].normalContinueBlink = false;
+        selectedNode.annotations[0].normalTimeBlink = false;
       }
       diagram.dataBind();
     }
@@ -826,17 +1034,12 @@ export class DiagramPropertyBinding {
       selectedNode.annotations[0].textLowLimitBlinkContCheck = event.checked;
 
       if (selectedNode.annotations[0].textLowLimitBlinkContCheck) {
-        this.blinkLowTextIntervalId = setInterval(() => {
-          if (selectedNode.annotations[0].style.opacity === 100) {
-            selectedNode.annotations[0].style.opacity = 0;
-          } else {
-            selectedNode.annotations[0].style.opacity = 100;
-          }
-        }, 600);
-      } else {
-        clearInterval(this.blinkLowTextIntervalId);
-        selectedNode.annotations[0].style.opacity = 100;
+        selectedNode.annotations[0].textLowLimitBlinkTimeCheck = false;
+
+        selectedNode.annotations[0].normalContinueBlink = false;
+        selectedNode.annotations[0].normalTimeBlink = false;
       }
+
       diagram.dataBind();
     }
 
@@ -849,6 +1052,12 @@ export class DiagramPropertyBinding {
 
     if (selectedNode) {
       selectedNode.annotations[0].textHighLimitBlinkContCheck = event.checked;
+
+      if (selectedNode.annotations[0].textHighLimitBlinkContCheck) {
+        selectedNode.annotations[0].textHighLimitBlinkTimeCheck = false;
+        selectedNode.annotations[0].normalContinueBlink = false;
+        selectedNode.annotations[0].normalTimeBlink = false;
+      }
 
       diagram.dataBind();
     }
@@ -1097,22 +1306,26 @@ export class DiagramPropertyBinding {
 
   }
 
-  textHideOn1Change(event: any) {
+  texthideOnNormalChange(event: any) {
     let diagram: Diagram = this.selectedItem.selectedDiagram;
     let selectedNode = diagram.selectedItems.nodes[0];
 
     if (selectedNode) {
-      selectedNode.annotations[0].hideOn1 = event.checked;
+      selectedNode.annotations[0].hideOnNormal = event.checked;
     }
+
+    diagram.dataBind();
   }
 
-  textHideOn0Change(event: any) {
+  texthideOnAbNormalChange(event: any) {
     let diagram: Diagram = this.selectedItem.selectedDiagram;
     let selectedNode = diagram.selectedItems.nodes[0];
 
     if (selectedNode) {
-      selectedNode.annotations[0].hideOn0 = event.checked;
+      selectedNode.annotations[0].hideOnAbNormal = event.checked;
     }
+
+    diagram.dataBind();
   }
 
   public changeTextDigital(event: any) {
@@ -1132,6 +1345,234 @@ export class DiagramPropertyBinding {
   }
 
 
+
+  normalBlinkTimeValueChange(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+
+    if (selectedNode) {
+      selectedNode.annotations[0].normalTimeBlinkValue = event.target.value;
+    }
+
+    diagram.dataBind();
+  }
+
+  normalTimeBlinkChange(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+
+    if (selectedNode) {
+      selectedNode.annotations[0].normalTimeBlink = event.checked;
+
+      if (selectedNode.annotations[0].normalTimeBlink) {
+        selectedNode.annotations[0].normalContinueBlink = false;
+
+        selectedNode.annotations[0].textIsChecked = false;
+        selectedNode.annotations[0].textContinueBlink = false;
+
+        selectedNode.annotations[0].textLowLimitBlinkContCheck = false;
+        selectedNode.annotations[0].textLowLimitBlinkTimeCheck = false;
+
+        selectedNode.annotations[0].textHighLimitBlinkContCheck = false;
+        selectedNode.annotations[0].textHighLimitBlinkTimeCheck = false;
+
+        selectedNode.annotations[0].bitCondiConBlink1to0 = false;
+        selectedNode.annotations[0].bitCondiTimeBlink1to0 = false;
+
+        selectedNode.annotations[0].bitCondiConBlink0to1 = false;
+        selectedNode.annotations[0].bitCondiTimeBlink0to1 = false;
+
+      }
+
+    }
+
+    diagram.dataBind();
+  }
+
+  normalCountBlinkChange(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+
+    if (selectedNode) {
+      selectedNode.annotations[0].normalContinueBlink = event.checked;
+
+      if (selectedNode.annotations[0].normalContinueBlink) {
+        selectedNode.annotations[0].normalTimeBlink = false;
+
+        selectedNode.annotations[0].textIsChecked = false;
+        selectedNode.annotations[0].textContinueBlink = false;
+
+        selectedNode.annotations[0].textLowLimitBlinkContCheck = false;
+        selectedNode.annotations[0].textLowLimitBlinkTimeCheck = false;
+
+        selectedNode.annotations[0].textHighLimitBlinkContCheck = false;
+        selectedNode.annotations[0].textHighLimitBlinkTimeCheck = false;
+
+        selectedNode.annotations[0].bitCondiConBlink1to0 = false;
+        selectedNode.annotations[0].bitCondiTimeBlink1to0 = false;
+
+        selectedNode.annotations[0].bitCondiConBlink0to1 = false;
+        selectedNode.annotations[0].bitCondiTimeBlink0to1 = false;
+
+      }
+
+    }
+
+    diagram.dataBind();
+
+  }
+
+
+
+  bitCondiCountBlink1to0(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+
+    if (selectedNode) {
+
+      selectedNode.annotations[0].bitCondiConBlink1to0 = event.checked;
+
+      if (selectedNode.annotations[0].bitCondiConBlink1to0) {
+        selectedNode.annotations[0].bitCondiTimeBlink1to0 = false;
+        selectedNode.annotations[0].normalContinueBlink = false;
+        selectedNode.annotations[0].normalTimeBlink = false;
+      }
+    }
+    diagram.dataBind();
+  }
+
+  bitCondiCountBlink0to1(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+
+    if (selectedNode) {
+
+      selectedNode.annotations[0].bitCondiConBlink0to1 = event.checked;
+
+      if (selectedNode.annotations[0].bitCondiConBlink0to1) {
+        selectedNode.annotations[0].bitCondiTimeBlink0to1 = false;
+        selectedNode.annotations[0].normalContinueBlink = false;
+        selectedNode.annotations[0].normalTimeBlink = false;
+      }
+    }
+
+    diagram.dataBind();
+  }
+
+  bitCondiTimeBlink1to0(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+
+    if (selectedNode) {
+      selectedNode.annotations[0].bitCondiTimeBlink1to0 = event.checked;
+
+      if (selectedNode.annotations[0].bitCondiTimeBlink1to0) {
+        selectedNode.annotations[0].bitCondiConBlink1to0 = false;
+
+        selectedNode.annotations[0].normalContinueBlink = false;
+        selectedNode.annotations[0].normalTimeBlink = false;
+      }
+    }
+
+    diagram.dataBind();
+  }
+
+  bitCondiTimeBlink0to1(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+
+    if (selectedNode) {
+      selectedNode.annotations[0].bitCondiTimeBlink0to1 = event.checked;
+
+      if (selectedNode.annotations[0].bitCondiTimeBlink0to1) {
+        selectedNode.annotations[0].bitCondiConBlink0to1 = false;
+        selectedNode.annotations[0].normalContinueBlink = false;
+        selectedNode.annotations[0].normalTimeBlink = false;
+      }
+    }
+
+    diagram.dataBind();
+  }
+
+  bitCondiBlinkTimeChange1to0(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+
+    if (selectedNode) {
+      selectedNode.annotations[0].bitCondiBlinkTimeValue1to0 = event.target.value;
+    }
+
+    diagram.dataBind();
+  }
+
+  bitCondiBlinkTimeChange0to1(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+
+    if (selectedNode) {
+      selectedNode.annotations[0].bitCondiBlinkTimeValue0to1 = event.target.value;
+    }
+
+    diagram.dataBind();
+  }
+
+
+  bitText1Change(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+
+    console.log(event.target.value);
+
+    if (selectedNode) {
+      selectedNode.annotations[0].bitTextFor1 = event.target.value;
+    }
+
+    diagram.dataBind();
+  }
+
+
+  bitText0Change(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+
+    if (selectedNode) {
+      selectedNode.annotations[0].bitTextFor0 = event.target.value;
+    }
+
+    diagram.dataBind();
+  }
+
+  bitSetValue1asNormal(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+
+    if (selectedNode) {
+      selectedNode.annotations[0].bitSet1asNormal = event.checked;
+
+      if (selectedNode.annotations[0].bitSet1asNormal) {
+        selectedNode.annotations[0].bitSet1asAbnormal = false;
+      }
+
+    }
+
+    diagram.dataBind();
+  }
+
+  bitSetValue1asAbnormal(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+
+    if (selectedNode) {
+      selectedNode.annotations[0].bitSet1asAbnormal = event.checked;
+
+      if (selectedNode.annotations[0].bitSet1asAbnormal) {
+        selectedNode.annotations[0].bitSet1asNormal = false;
+      }
+    }
+
+    diagram.dataBind();
+  }
+
   textSetTimeBlinkChange(event: any) {
 
     let diagram: Diagram = this.selectedItem.selectedDiagram;
@@ -1139,9 +1580,21 @@ export class DiagramPropertyBinding {
 
     if (selectedNode) {
       selectedNode.annotations[0].textIsChecked = event.checked;
+
+      if (selectedNode.annotations[0].textIsChecked) {
+        selectedNode.annotations[0].textContinueBlink = false;
+        selectedNode.annotations[0].normalContinueBlink = false;
+        selectedNode.annotations[0].normalTimeBlink = false;
+
+      }
     }
 
+    diagram.dataBind();
+
   }
+
+
+
 
 
   textLowSetTimeBlinkChange(event: any) {
@@ -1151,7 +1604,15 @@ export class DiagramPropertyBinding {
 
     if (selectedNode) {
       selectedNode.annotations[0].textLowLimitBlinkTimeCheck = event.checked;
+
+      if (selectedNode.annotations[0].textLowLimitBlinkTimeCheck) {
+        selectedNode.annotations[0].textLowLimitBlinkContCheck = false;
+        selectedNode.annotations[0].normalContinueBlink = false;
+        selectedNode.annotations[0].normalTimeBlink = false;
+      }
     }
+
+    diagram.dataBind();
 
   }
 
@@ -1162,7 +1623,15 @@ export class DiagramPropertyBinding {
 
     if (selectedNode) {
       selectedNode.annotations[0].textHighLimitBlinkTimeCheck = event.checked;
+
+      if (selectedNode.annotations[0].textHighLimitBlinkTimeCheck) {
+        selectedNode.annotations[0].textHighLimitBlinkContCheck = false;
+        selectedNode.annotations[0].normalContinueBlink = false;
+        selectedNode.annotations[0].normalTimeBlink = false;
+      }
     }
+
+    diagram.dataBind();
 
   }
 
@@ -1233,6 +1702,8 @@ export class DiagramPropertyBinding {
     if (selectedNode) {
       selectedNode.annotations[0].analogUnit = event.value;
     }
+
+    diagram.dataBind();
   }
 
   textCheckColorChange(event: any) {
@@ -1242,6 +1713,8 @@ export class DiagramPropertyBinding {
     if (selectedNode) {
       selectedNode.annotations[0].textCheckColor = event.checked;
     }
+
+    diagram.dataBind();
   }
 
   textCheckStrChange(event: any) {
@@ -1251,6 +1724,8 @@ export class DiagramPropertyBinding {
     if (selectedNode) {
       selectedNode.annotations[0].textCheckStr = event.checked;
     }
+
+    diagram.dataBind();
   }
 
   textStrChange(event: any) {
@@ -1260,6 +1735,8 @@ export class DiagramPropertyBinding {
     if (selectedNode) {
       selectedNode.annotations[0].textSetStr = event.target.value;
     }
+
+    diagram.dataBind();
   }
 
   textDecimalValueChange(event: any) {
@@ -1271,6 +1748,8 @@ export class DiagramPropertyBinding {
     if (selectedNode) {
       selectedNode.annotations[0].textDecimal = event?.target.value;
     }
+
+    diagram.dataBind();
 
   }
 

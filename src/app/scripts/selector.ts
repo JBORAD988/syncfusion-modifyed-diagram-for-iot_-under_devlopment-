@@ -63,6 +63,352 @@ export class NodeProperties {
     this.triggerPropertyChange("bitTagName", this.m_annotationBitText.bitTagName);
   }
 
+
+  private m_annotationnormalContinueBlink: any = {
+    normalContinueBlink: false
+  }
+
+  public get normalContinueBlink(): boolean {
+    return this.m_annotationnormalContinueBlink.normalContinueBlink;
+  }
+
+  @Input() public set normalContinueBlink(normalContinueBlink: boolean) {
+    this.m_annotationnormalContinueBlink.normalContinueBlink = normalContinueBlink;
+    this.triggerPropertyChange("normalContinueBlink", this.m_annotationnormalContinueBlink.normalContinueBlink);
+  }
+
+
+
+  private m_annotationnormalTimeBlink: any = {
+    normalTimeBlink: false
+  }
+
+  public get normalTimeBlink(): boolean {
+    return this.m_annotationnormalTimeBlink.normalTimeBlink;
+  }
+
+  @Input() public set normalTimeBlink(normalTimeBlink: boolean) {
+    this.m_annotationnormalTimeBlink.normalTimeBlink = normalTimeBlink;
+    this.triggerPropertyChange("normalTimeBlink", this.m_annotationnormalTimeBlink.normalTimeBlink);
+  }
+
+
+  private m_annotationnormalTimeBlinkValue: any = {
+    normalTimeBlinkValue: 0
+  }
+
+  public get normalTimeBlinkValue(): number {
+    return this.m_annotationnormalTimeBlinkValue.normalTimeBlinkValue;
+  }
+
+  @Input() public set normalTimeBlinkValue(normalTimeBlinkValue: number) {
+    this.m_annotationnormalTimeBlinkValue.normalTimeBlinkValue = normalTimeBlinkValue;
+    this.triggerPropertyChange("normalTimeBlinkValue", this.m_annotationnormalTimeBlinkValue.normalTimeBlinkValue);
+  }
+
+
+
+
+  private m_annotationbitCondiConBlink1to0: any = {
+    bitCondiConBlink1to0: false
+  }
+
+  public get bitCondiConBlink1to0(): boolean {
+    return this.m_annotationbitCondiConBlink1to0.bitCondiConBlink1to0;
+  }
+
+  @Input() public set bitCondiConBlink1to0(bitCondiConBlink1to0: boolean) {
+    this.m_annotationbitCondiConBlink1to0.bitCondiConBlink1to0 = bitCondiConBlink1to0;
+    this.triggerPropertyChange("bitCondiConBlink1to0", this.m_annotationbitCondiConBlink1to0.bitCondiConBlink1to0);
+  }
+
+  private m_annotationbitCondiConBlink0to1: any = {
+    bitCondiConBlink0to1: false
+  }
+
+  public get bitCondiConBlink0to1(): boolean {
+    return this.m_annotationbitCondiConBlink0to1.bitCondiConBlink0to1;
+  }
+
+  @Input() public set bitCondiConBlink0to1(bitCondiConBlink0to1: boolean) {
+    this.m_annotationbitCondiConBlink0to1.bitCondiConBlink0to1 = bitCondiConBlink0to1;
+    this.triggerPropertyChange("bitCondiConBlink0to1", this.m_annotationbitCondiConBlink0to1.bitCondiConBlink0to1);
+  }
+
+
+  private m_annotationbitCondiTimeBlink1to0: any = {
+    bitCondiTimeBlink1to0: false
+  }
+
+  public get bitCondiTimeBlink1to0(): boolean {
+    return this.m_annotationbitCondiTimeBlink1to0.bitCondiTimeBlink1to0;
+  }
+
+  @Input() public set bitCondiTimeBlink1to0(bitCondiTimeBlink1to0: boolean) {
+    this.m_annotationbitCondiTimeBlink1to0.bitCondiTimeBlink1to0 = bitCondiTimeBlink1to0;
+    this.triggerPropertyChange("bitCondiTimeBlink1to0", this.m_annotationbitCondiTimeBlink1to0.bitCondiTimeBlink1to0);
+  }
+
+
+  private m_annotationbitCondiTimeBlink0to1: any = {
+    bitCondiTimeBlink0to1: false
+  }
+
+  public get bitCondiTimeBlink0to1(): boolean {
+    return this.m_annotationbitCondiTimeBlink0to1.bitCondiTimeBlink0to1;
+  }
+
+  @Input() public set bitCondiTimeBlink0to1(bitCondiTimeBlink0to1: boolean) {
+    this.m_annotationbitCondiTimeBlink0to1.bitCondiTimeBlink0to1 = bitCondiTimeBlink0to1;
+    this.triggerPropertyChange("bitCondiTimeBlink0to1", this.m_annotationbitCondiTimeBlink0to1.bitCondiTimeBlink0to1);
+  }
+
+
+  private m_annotationbitCondiBlinkTimeValue1to0: any = {
+    bitCondiBlinkTimeValue1to0: 0
+  }
+
+  public get bitCondiBlinkTimeValue1to0(): number {
+    return this.m_annotationbitCondiBlinkTimeValue1to0.bitCondiBlinkTimeValue1to0;
+  }
+
+  @Input() public set bitCondiBlinkTimeValue1to0(bitCondiBlinkTimeValue1to0: number) {
+    this.m_annotationbitCondiBlinkTimeValue1to0.bitCondiBlinkTimeValue1to0 = bitCondiBlinkTimeValue1to0;
+    this.triggerPropertyChange("bitCondiBlinkTimeValue1to0", this.m_annotationbitCondiBlinkTimeValue1to0.bitCondiBlinkTimeValue1to0);
+  }
+
+
+
+  private m_annotationbitCondiBlinkTimeValue0to1: any = {
+    bitCondiBlinkTimeValue0to1: 0
+  }
+
+  public get bitCondiBlinkTimeValue0to1(): number {
+    return this.m_annotationbitCondiBlinkTimeValue0to1.bitCondiBlinkTimeValue0to1;
+  }
+
+  @Input() public set bitCondiBlinkTimeValue0to1(bitCondiBlinkTimeValue0to1: number) {
+    this.m_annotationbitCondiBlinkTimeValue0to1.bitCondiBlinkTimeValue0to1 = bitCondiBlinkTimeValue0to1;
+    this.triggerPropertyChange("bitCondiBlinkTimeValue0to1", this.m_annotationbitCondiBlinkTimeValue0to1.bitCondiBlinkTimeValue0to1);
+  }
+
+  private m_annotationbitSet1asNormal: any = {
+    bitSet1asNormal: false
+  }
+
+  public get bitSet1asNormal(): boolean {
+    return this.m_annotationbitSet1asNormal.bitSet1asNormal;
+  }
+
+  @Input() public set bitSet1asNormal(bitSet1asNormal: boolean) {
+    this.m_annotationbitSet1asNormal.bitSet1asNormal = bitSet1asNormal;
+    this.triggerPropertyChange("bitSet1asNormal", this.m_annotationbitSet1asNormal.bitSet1asNormal);
+  }
+
+  private m_annotationbitSet1asAbnormal: any = {
+    bitSet1asAbnormal: false
+  }
+
+  public get bitSet1asAbnormal(): boolean {
+    return this.m_annotationbitSet1asAbnormal.bitSet1asAbnormal;
+  }
+
+  @Input() public set bitSet1asAbnormal(bitSet1asAbnormal: boolean) {
+    this.m_annotationbitSet1asAbnormal.bitSet1asAbnormal = bitSet1asAbnormal;
+    this.triggerPropertyChange("bitSet1asAbnormal", this.m_annotationbitSet1asAbnormal.bitSet1asAbnormal);
+  }
+
+
+  private m_annotationbitCheck1to0: any = {
+    bitCheck1to0: false
+  }
+
+  public get bitCheck1to0(): boolean {
+    return this.m_annotationbitCheck1to0.bitCheck1to0;
+  }
+
+  @Input() public set bitCheck1to0(bitCheck1to0: boolean) {
+    this.m_annotationbitCheck1to0.bitCheck1to0 = bitCheck1to0;
+    this.triggerPropertyChange("bitCheck1to0", this.m_annotationbitCheck1to0.bitCheck1to0);
+  }
+
+  private m_annotationbitCheck0to1: any = {
+    bitCheck0to1: false
+  }
+
+  public get bitCheck0to1(): boolean {
+    return this.m_annotationbitCheck0to1.bitCheck0to1;
+  }
+
+  @Input() public set bitCheck0to1(bitCheck0to1: boolean) {
+    this.m_annotationbitCheck0to1.bitCheck0to1 = bitCheck0to1;
+    this.triggerPropertyChange("bitCheck0to1", this.m_annotationbitCheck0to1.bitCheck0to1);
+  }
+
+  private m_annotationBitTextColorFor0: any = {
+    bitTextColorFor0: ''
+  }
+
+  public get bitTextColorFor0(): string {
+    return this.m_annotationBitTextColorFor0.bitTextColorFor0;
+  }
+
+  @Input() public set bitTextColorFor0(bitTextColorFor0: string) {
+    this.m_annotationBitTextColorFor0.bitTextColorFor0 = bitTextColorFor0;
+    this.triggerPropertyChange("bitTextColorFor0", this.m_annotationBitTextColorFor0.bitTextColorFor0);
+  }
+
+  private m_annotationBitTextColorFor1: any = {
+    bitTextColorFor1: ''
+  }
+
+  public get bitTextColorFor1(): string {
+    return this.m_annotationBitTextColorFor1.bitTextColorFor1;
+  }
+
+  @Input() public set bitTextColorFor1(bitTextColorFor1: string) {
+    this.m_annotationBitTextColorFor1.bitTextColorFor1 = bitTextColorFor1;
+    this.triggerPropertyChange("bitTextColorFor1", this.m_annotationBitTextColorFor1.bitTextColorFor1);
+  }
+
+  private m_annotationbitTextFor1to0: any = {
+    bitTextFor1to0: ''
+  }
+
+  public get bitTextFor1to0(): string {
+    return this.m_annotationbitTextFor1to0.bitTextFor1to0;
+  }
+
+  @Input() public set bitTextFor1to0(bitTextFor1to0: string) {
+    this.m_annotationbitTextFor1to0.bitTextFor1to0 = bitTextFor1to0;
+    this.triggerPropertyChange("bitTextFor1to0", this.m_annotationbitTextFor1to0.bitTextFor1to0);
+  }
+
+  private m_annotationbitTextFor0to1: any = {
+    bitTextFor0to1: ''
+  }
+
+  public get bitTextFor0to1(): string {
+    return this.m_annotationbitTextFor0to1.bitTextFor0to1;
+  }
+
+  @Input() public set bitTextFor0to1(bitTextFor0to1: string) {
+    this.m_annotationbitTextFor0to1.bitTextFor0to1 = bitTextFor0to1;
+    this.triggerPropertyChange("bitTextFor0to1", this.m_annotationbitTextFor0to1.bitTextFor0to1);
+  }
+
+
+  private m_annotationbitTextFor1: any = {
+    bitTextFor1: ''
+  }
+
+  public get bitTextFor1(): string {
+    return this.m_annotationbitTextFor1.bitTextFor1;
+  }
+
+  @Input() public set bitTextFor1(bitTextFor1: string) {
+    this.m_annotationbitTextFor1.bitTextFor1 = bitTextFor1;
+    this.triggerPropertyChange("bitTextFor1", this.m_annotationbitTextFor1.bitTextFor1);
+  }
+
+
+  private m_annotationbitTextFor0: any = {
+    bitTextFor0: ''
+  }
+
+  public get bitTextFor0(): string {
+    return this.m_annotationbitTextFor0.bitTextFor0;
+  }
+
+  @Input() public set bitTextFor0(bitTextFor0: string) {
+    this.m_annotationbitTextFor0.bitTextFor0 = bitTextFor0;
+    this.triggerPropertyChange("bitTextFor0", this.m_annotationbitTextFor0.bitTextFor1);
+  }
+
+
+
+  private m_annotationbitShapeColor1to0: any = {
+    bitShapeColor1to0: ''
+  }
+
+  public get bitShapeColor1to0(): string {
+    return this.m_annotationbitShapeColor1to0.bitShapeColor1to0;
+  }
+
+  @Input() public set bitShapeColor1to0(bitShapeColor1to0: string) {
+    this.m_annotationbitShapeColor1to0.bitShapeColor1to0 = bitShapeColor1to0;
+    this.triggerPropertyChange("bitShapeColor1to0", this.m_annotationbitShapeColor1to0.bitShapeColor1to0);
+  }
+
+
+  private m_annotationbitShapeColor0to1: any = {
+    bitShapeColor0to1: ''
+  }
+
+  public get bitShapeColor0to1(): string {
+    return this.m_annotationbitShapeColor0to1.bitShapeColor0to1;
+  }
+
+  @Input() public set bitShapeColor0to1(bitShapeColor0to1: string) {
+    this.m_annotationbitShapeColor0to1.bitShapeColor0to1 = bitShapeColor0to1;
+    this.triggerPropertyChange("bitShapeColor0to1", this.m_annotationbitShapeColor0to1.bitShapeColor0to1);
+  }
+
+  private m_annotationbitAudio1to0: any = {
+    bitAudio1to0: ''
+  }
+
+  public get bitAudio1to0(): string {
+    return this.m_annotationbitAudio1to0.bitAudio1to0;
+  }
+
+  @Input() public set bitAudio1to0(bitAudio1to0: string) {
+    this.m_annotationbitAudio1to0.bitAudio1to0 = bitAudio1to0;
+    this.triggerPropertyChange("bitAudio1to0", this.m_annotationbitAudio1to0.bitAudio1to0);
+  }
+
+  private m_annotationbitAudio0to1: any = {
+    bitAudio0to1: ''
+  }
+
+  public get bitAudio0to1(): string {
+    return this.m_annotationbitAudio0to1.bitAudio0to1;
+  }
+
+  @Input() public set bitAudio0to1(bitAudio0to1: string) {
+    this.m_annotationbitAudio0to1.bitAudio0to1 = bitAudio0to1;
+    this.triggerPropertyChange("bitAudio0to1", this.m_annotationbitAudio0to1.bitAudio0to1);
+  }
+
+  private m_annotationbitImagefor1: any = {
+    bitImagefor1: ''
+  }
+
+  public get bitImagefor1(): string {
+    return this.m_annotationbitImagefor1.bitImagefor1;
+  }
+
+  @Input() public set bitImagefor1(bitImagefor1: string) {
+    this.m_annotationbitImagefor1.bitImagefor1 = bitImagefor1;
+    this.triggerPropertyChange("bitImagefor1", this.m_annotationbitImagefor1.bitImagefor1);
+  }
+
+
+  private m_annotationbitImagefor0: any = {
+    bitImagefor0: ''
+  }
+
+  public get bitImagefor0(): string {
+    return this.m_annotationbitImagefor0.bitImagefor0;
+  }
+
+  @Input() public set bitImagefor0(bitImagefor0: string) {
+    this.m_annotationbitImagefor0.bitImagefor0 = bitImagefor0;
+    this.triggerPropertyChange("bitImagefor0", this.m_annotationbitImagefor0.bitImagefor0);
+  }
+
+
+
   private m_annotationTextChName: any = {
     textChName: ''
   }
@@ -105,31 +451,31 @@ export class NodeProperties {
 
 
 
-  private m_annotationTexthideOn1: any = {
-    hideOn1: false
+  private m_annotationTexthideOnNormal: any = {
+    hideOnNormal: false
   }
 
-  public get hideOn1(): boolean {
-    return this.m_annotationTexthideOn1.hideOn1;
+  public get hideOnNormal(): boolean {
+    return this.m_annotationTexthideOnNormal.hideOnNormal;
   }
 
-  @Input() public set hideOn1(hideOn1: boolean) {
-    this.m_annotationTexthideOn1.hideOn1 = hideOn1;
-    this.triggerPropertyChange("hideOn1", this.m_annotationTexthideOn1.hideOn1);
+  @Input() public set hideOnNormal(hideOnNormal: boolean) {
+    this.m_annotationTexthideOnNormal.hideOnNormal = hideOnNormal;
+    this.triggerPropertyChange("hideOnNormal", this.m_annotationTexthideOnNormal.hideOnNormal);
   }
 
 
-  private m_annotationTexthideOn0: any = {
-    hideOn0: false
+  private m_annotationTexthideOnAbNormal: any = {
+    hideOnAbNormal: false
   }
 
-  public get hideOn0(): boolean {
-    return this.m_annotationTexthideOn0.hideOn0;
+  public get hideOnAbNormal(): boolean {
+    return this.m_annotationTexthideOnAbNormal.hideOnAbNormal;
   }
 
-  @Input() public set hideOn0(hideOn0: boolean) {
-    this.m_annotationTexthideOn0.hideOn0 = hideOn0;
-    this.triggerPropertyChange("hideOn0", this.m_annotationTexthideOn0.hideOn0);
+  @Input() public set hideOnAbNormal(hideOnAbNormal: boolean) {
+    this.m_annotationTexthideOnAbNormal.hideOnAbNormal = hideOnAbNormal;
+    this.triggerPropertyChange("hideOnAbNormal", this.m_annotationTexthideOnAbNormal.hideOnAbNormal);
   }
 
 

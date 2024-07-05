@@ -1,17 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Directive, OnInit } from '@angular/core';
 import { CommonKeyboardCommands } from './scripts/commoncommands';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  /* tslint:disable */
+  template: `
+    <div class="db-container">
+      <router-outlet></router-outlet>
+    </div>
+  `,
+  /* tslint:enable */
 })
-export class AppComponent implements OnInit{
-  title = 'migration-demo';
+
+export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     CommonKeyboardCommands.initialize();
   }
-
 
 }

@@ -134,12 +134,12 @@ Diagram.Inject(
   LayoutAnimation
 );
 SymbolPalette.Inject(BpmnDiagrams);
-@Component({
-  selector: 'app-edit',
-  templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.scss'],
-  encapsulation: ViewEncapsulation.None,
 
+@Component({
+  selector: "app-edit",
+  templateUrl: './edit.component.html',
+  styleUrls: ['./edit.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class EditComponent implements AfterViewInit, OnInit {
   @ViewChild("diagram")
@@ -2202,4 +2202,3 @@ export class EditComponent implements AfterViewInit, OnInit {
 
 
 }
-

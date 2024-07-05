@@ -1,0 +1,45 @@
+<div id="popup" class="glass" style="position: absolute; width: auto; min-height: 5rem; padding: 10px;"
+    [style.top.px]="selectedItem.nodeProperties.offsetY - 440"
+    [style.left.px]="selectedItem.nodeProperties.offsetX - 170">
+    <div>
+        <div class="popup-container">
+            <div class="popup-header-text">Tag Data</div>
+            <div class="popup-close" (click)="popupService.hidePopup()">
+                Close
+            </div>
+        </div>
+
+        <div>
+            <div>
+                <div style="margin-bottom: 10px;" *ngIf="selectedItem.nodeProperties.analogData">
+                    <h4 style="margin-bottom: 10px;">Analog:</h4>
+                    <div style="display: flex; flex-direction: row; font-weight: bold; margin-bottom: 5px;">
+                        <h5 style="margin-right: 20px; width: 200px;">Field</h5>
+                        <h5>Data</h5>
+                    </div>
+                    <div style="border: 1px solid #dddddd; padding: 5px; margin-bottom: 5px; display: flex; flex-direction: row;"
+                        *ngFor="let analog of selectedItem.nodeProperties.analogData">
+                        <p style="margin-right: 20px; width: 200px; margin-bottom: 0;">{{ analog.chName
+                            }}</p>
+                        <p style="margin-bottom: 0;">{{ analog.chData }}</p>
+                    </div>
+                </div>
+
+                <div *ngIf="selectedItem.nodeProperties.digitalData">
+                    <h4 style="margin-bottom: 10px;">Digital:</h4>
+                    <div style="display: flex; flex-direction: row; font-weight: bold; margin-bottom: 5px;">
+                        <h5 style="margin-right: 20px; width: 200px;">Field</h5>
+                        <h5>Data</h5>
+                    </div>
+                    <div style="border: 1px solid #dddddd; padding: 5px; margin-bottom: 5px; display: flex; flex-direction: row;"
+                        *ngFor="let digital of selectedItem.nodeProperties.digitalData">
+                        <p style="margin-right: 20px; width: 200px; margin-bottom: 0;">{{ digital.chName
+                            }}</p>
+                        <p style="margin-bottom: 0;">{{ digital.chData }}</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

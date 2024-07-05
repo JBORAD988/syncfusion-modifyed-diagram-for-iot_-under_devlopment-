@@ -128,6 +128,7 @@ import { Router } from "@angular/router";
 import { ApiService } from "../service/api.service";
 import { OGCMapTile } from "ol/source";
 import { AudioService } from "../service/audio.service";
+import { interval } from "rxjs";
 
 Diagram.Inject(UndoRedo, DiagramContextMenu, Snapping, DataBinding);
 Diagram.Inject(
@@ -139,12 +140,12 @@ Diagram.Inject(
   LayoutAnimation
 );
 SymbolPalette.Inject(BpmnDiagrams);
+
 @Component({
   selector: 'app-canvas',
   templateUrl: './canvas.component.html',
-  styleUrls: ['./canvas.component.scss'],
+  styleUrls: ['./canvas.component.css'],
   encapsulation: ViewEncapsulation.None,
-
 })
 export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
   @ViewChild("diagram")
@@ -283,6 +284,9 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
   private initLayerPanel: boolean = false;
   // public pasteData: boolean = false;
   public overview: Overview;
+  blinkInterval: any;
+  lowLimitTimeout: any;
+  highLimitTimeout: any;
 
   hideAll() {
     this.selectedItem.utilityMethods.hideAllElements("hide-toolbar", this.selectedItem.selectedDiagram);
@@ -1962,7 +1966,12 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
       this.textLimitProperties();
       this.textLimitContinueBlink();
       this.textLimitTimeBlink();
-      this.bitTextDataProperties();
+      this.bitTextLableProperties();
+      this.bitContinousBlink();
+      this.bitTimeBlink();
+      this.bitTimeBlink1to0();
+      this.bitTimeBlink0to1();
+      this.bitTextImageProperties();
     }, 1000);
 
 
@@ -2009,6 +2018,9 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
 
   }
 
+  // complete --
+  textDataBlink: boolean = true;
+  textDataTimeout: boolean = true;
   textDataTimeBlinking() {
     let diagram: Diagram = this.selectedItem.selectedDiagram;
     let blinkInterval = setInterval(() => {
@@ -2016,34 +2028,12 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
 
         if (nodeElement.id.includes("numeric1")) {
 
-          nodeElement.tooltip = {
-            content: nodeElement.annotations[0].textTooltip,
-            position: 'TopCenter',
-            relativeMode: 'Object'
-          }
-          nodeElement.constraints = (NodeConstraints.Default & ~NodeConstraints.InheritTooltip) | NodeConstraints.Tooltip;
 
 
           this.analogData.forEach(element => {
 
             if (nodeElement.annotations[0].textAnalogChName === element.chName) {
               let content = parseFloat(element.chData);
-
-              if (content < nodeElement.annotations[0].textLowLimitValue) {
-                if (nodeElement.annotations[0].textLowLimitBlinkTimeCheck) {
-                  if (nodeElement.annotations[0].style.opacity === 0) {
-                    nodeElement.annotations[0].style.opacity = 100;
-                  } else {
-                    nodeElement.annotations[0].style.opacity = 0;
-                  }
-                  if (nodeElement.annotations[0].textLowLimitBlinkTime) {
-                    setTimeout(() => {
-                      clearInterval(blinkInterval)
-                      nodeElement.annotations[0].style.opacity = 100;
-                    }, (nodeElement.annotations[0].textLowLimitBlinkTime * 1000));
-                  }
-                }
-              }
 
 
               switch (true) {
@@ -2052,19 +2042,28 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
                   if (nodeElement.annotations[0].textSetValue == content) {
 
                     if (nodeElement.annotations[0].textIsChecked) {
-                      if (nodeElement.annotations[0].style.opacity === 0) {
-                        nodeElement.annotations[0].style.opacity = 100;
-                      } else {
-                        nodeElement.annotations[0].style.opacity = 0;
-                      }
-                      if (nodeElement.annotations[0].textBlinkTime) {
-                        setTimeout(() => {
-                          clearInterval(blinkInterval)
+
+                      if (this.textDataBlink) {
+                        if (nodeElement.annotations[0].style.opacity === 0) {
                           nodeElement.annotations[0].style.opacity = 100;
-                        }, (nodeElement.annotations[0].textBlinkTime * 1000));
+                        } else {
+                          nodeElement.annotations[0].style.opacity = 0;
+                        }
+                      }
+
+                      if (this.textDataTimeout) {
+                        if (nodeElement.annotations[0].textBlinkTime) {
+                          setTimeout(() => {
+                            this.textDataBlink = false;
+                            this.textDataTimeout = false;
+                            nodeElement.annotations[0].style.opacity = 100;
+                          }, (nodeElement.annotations[0].textBlinkTime * 1000));
+                        }
                       }
                     }
                   } else {
+                    this.textDataBlink = true;
+                    this.textDataTimeout = true;
                     nodeElement.annotations[0].style.opacity = 100;
                   }
                   break;
@@ -2073,99 +2072,148 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
                   if (content > nodeElement.annotations[0].textSetValue) {
 
                     if (nodeElement.annotations[0].textIsChecked) {
-                      if (nodeElement.annotations[0].style.opacity === 0) {
-                        nodeElement.annotations[0].style.opacity = 100;
-                      } else {
-                        nodeElement.annotations[0].style.opacity = 0;
-                      }
-                      if (nodeElement.annotations[0].textBlinkTime) {
-                        setTimeout(() => {
-                          clearInterval(blinkInterval)
+
+                      if (this.textDataBlink) {
+                        if (nodeElement.annotations[0].style.opacity === 0) {
                           nodeElement.annotations[0].style.opacity = 100;
-                        }, (nodeElement.annotations[0].textBlinkTime * 1000));
+                        } else {
+                          nodeElement.annotations[0].style.opacity = 0;
+                        }
+                      }
+
+                      if (this.textDataTimeout) {
+                        if (nodeElement.annotations[0].textBlinkTime) {
+                          setTimeout(() => {
+                            this.textDataBlink = false;
+                            this.textDataTimeout = false;
+                            nodeElement.annotations[0].style.opacity = 100;
+                          }, (nodeElement.annotations[0].textBlinkTime * 1000));
+                        }
                       }
                     }
                   } else {
+                    this.textDataBlink = true;
+                    this.textDataTimeout = true;
                     nodeElement.annotations[0].style.opacity = 100;
                   }
                   break;
                 case (nodeElement.annotations[0].textOperation == '<'):
 
                   if (content < nodeElement.annotations[0].textSetValue) {
+
                     if (nodeElement.annotations[0].textIsChecked) {
-                      if (nodeElement.annotations[0].style.opacity === 0) {
-                        nodeElement.annotations[0].style.opacity = 100;
-                      } else {
-                        nodeElement.annotations[0].style.opacity = 0;
-                      }
-                      if (nodeElement.annotations[0].textBlinkTime) {
-                        setTimeout(() => {
-                          clearInterval(blinkInterval)
+
+                      if (this.textDataBlink) {
+                        if (nodeElement.annotations[0].style.opacity === 0) {
                           nodeElement.annotations[0].style.opacity = 100;
-                        }, (nodeElement.annotations[0].textBlinkTime * 1000));
+                        } else {
+                          nodeElement.annotations[0].style.opacity = 0;
+                        }
+                      }
+
+                      if (this.textDataTimeout) {
+                        if (nodeElement.annotations[0].textBlinkTime) {
+                          setTimeout(() => {
+                            this.textDataBlink = false;
+                            this.textDataTimeout = false;
+                            nodeElement.annotations[0].style.opacity = 100;
+                          }, (nodeElement.annotations[0].textBlinkTime * 1000));
+                        }
                       }
                     }
                   } else {
+                    this.textDataBlink = true;
+                    this.textDataTimeout = true;
                     nodeElement.annotations[0].style.opacity = 100;
                   }
                   break;
                 case (nodeElement.annotations[0].textOperation == '>='):
 
                   if (content >= nodeElement.annotations[0].textSetValue) {
+
                     if (nodeElement.annotations[0].textIsChecked) {
-                      if (nodeElement.annotations[0].style.opacity === 0) {
-                        nodeElement.annotations[0].style.opacity = 100;
-                      } else {
-                        nodeElement.annotations[0].style.opacity = 0;
-                      }
-                      if (nodeElement.annotations[0].textBlinkTime) {
-                        setTimeout(() => {
-                          clearInterval(blinkInterval)
+
+                      if (this.textDataBlink) {
+                        if (nodeElement.annotations[0].style.opacity === 0) {
                           nodeElement.annotations[0].style.opacity = 100;
-                        }, (nodeElement.annotations[0].textBlinkTime * 1000));
+                        } else {
+                          nodeElement.annotations[0].style.opacity = 0;
+                        }
+                      }
+
+                      if (this.textDataTimeout) {
+                        if (nodeElement.annotations[0].textBlinkTime) {
+                          setTimeout(() => {
+                            this.textDataBlink = false;
+                            this.textDataTimeout = false;
+                            nodeElement.annotations[0].style.opacity = 100;
+                          }, (nodeElement.annotations[0].textBlinkTime * 1000));
+                        }
                       }
                     }
                   } else {
+                    this.textDataBlink = true;
+                    this.textDataTimeout = true;
                     nodeElement.annotations[0].style.opacity = 100;
                   }
                   break;
                 case (nodeElement.annotations[0].textOperation == '<='):
 
                   if (content <= nodeElement.annotations[0].textSetValue) {
+
                     if (nodeElement.annotations[0].textIsChecked) {
-                      if (nodeElement.annotations[0].style.opacity === 0) {
-                        nodeElement.annotations[0].style.opacity = 100;
-                      } else {
-                        nodeElement.annotations[0].style.opacity = 0;
-                      }
-                      if (nodeElement.annotations[0].textBlinkTime) {
-                        setTimeout(() => {
-                          clearInterval(blinkInterval)
+
+                      if (this.textDataBlink) {
+                        if (nodeElement.annotations[0].style.opacity === 0) {
                           nodeElement.annotations[0].style.opacity = 100;
-                        }, (nodeElement.annotations[0].textBlinkTime * 1000));
+                        } else {
+                          nodeElement.annotations[0].style.opacity = 0;
+                        }
+                      }
+
+                      if (this.textDataTimeout) {
+                        if (nodeElement.annotations[0].textBlinkTime) {
+                          setTimeout(() => {
+                            this.textDataBlink = false;
+                            this.textDataTimeout = false;
+                            nodeElement.annotations[0].style.opacity = 100;
+                          }, (nodeElement.annotations[0].textBlinkTime * 1000));
+                        }
                       }
                     }
                   } else {
+                    this.textDataBlink = true;
+                    this.textDataTimeout = true;
                     nodeElement.annotations[0].style.opacity = 100;
                   }
                   break;
                 case (nodeElement.annotations[0].textOperation == '!='):
 
                   if (content != nodeElement.annotations[0].textSetValue) {
+
                     if (nodeElement.annotations[0].textIsChecked) {
-                      if (nodeElement.annotations[0].style.opacity === 0) {
-                        nodeElement.annotations[0].style.opacity = 100;
-                      } else {
-                        nodeElement.annotations[0].style.opacity = 0;
-                      }
-                      if (nodeElement.annotations[0].textBlinkTime) {
-                        setTimeout(() => {
-                          clearInterval(blinkInterval)
+
+                      if (this.textDataBlink) {
+                        if (nodeElement.annotations[0].style.opacity === 0) {
                           nodeElement.annotations[0].style.opacity = 100;
-                        }, (nodeElement.annotations[0].textBlinkTime * 1000));
+                        } else {
+                          nodeElement.annotations[0].style.opacity = 0;
+                        }
+                      }
+
+                      if (this.textDataTimeout) {
+                        if (nodeElement.annotations[0].textBlinkTime) {
+                          setTimeout(() => {
+                            this.textDataBlink = false;
+                            this.textDataTimeout = false;
+                            nodeElement.annotations[0].style.opacity = 100;
+                          }, (nodeElement.annotations[0].textBlinkTime * 1000));
+                        }
                       }
                     }
                   } else {
+                    this.textDataBlink = true;
+                    this.textDataTimeout = true;
                     nodeElement.annotations[0].style.opacity = 100;
                   }
                   break;
@@ -2185,9 +2233,12 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
       });
     }, 500);
   }
-  opacityCheck = false;
 
 
+
+
+
+  // complete --
   textDataContinueBlinking() {
     let diagram: Diagram = this.selectedItem.selectedDiagram;
     let blinkInterval = setInterval(() => {
@@ -2315,6 +2366,19 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
       diagram.nodes.forEach(nodeElement => {
         if (nodeElement.shape.type === "Text" || nodeElement.shape.type === "Flow") {
           if (nodeElement.id.includes("numeric1")) {
+
+            console.log("run");
+
+            if (nodeElement.shape.type == "Flow") {
+              nodeElement.tooltip = {
+                content: nodeElement.annotations[0].textTooltip,
+                position: 'TopCenter',
+                relativeMode: 'Object'
+              }
+              nodeElement.constraints = (NodeConstraints.Default & ~NodeConstraints.InheritTooltip) | NodeConstraints.Tooltip;
+
+            }
+
             this.analogData.forEach(element => {
 
               if (nodeElement.annotations[0].textAnalogChName === element.chName) {
@@ -2472,18 +2536,17 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
     }, 100);
   }
 
+  opacityCheckLow = false;
+  opacityCheckHigh = false;
+
+  // complete
   textLimitContinueBlink() {
     let diagram: Diagram = this.selectedItem.selectedDiagram;
 
     setInterval(() => {
       diagram.nodes.forEach(nodeElement => {
 
-        nodeElement.tooltip = {
-          content: nodeElement.annotations[0].textTooltip,
-          position: 'TopCenter',
-          relativeMode: 'Object'
-        }
-        nodeElement.constraints = (NodeConstraints.Default & ~NodeConstraints.InheritTooltip) | NodeConstraints.Tooltip;
+
 
 
         this.analogData.forEach(element => {
@@ -2493,13 +2556,29 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
 
             if (nodeElement.id.includes("numeric2")) {
               if (content < nodeElement.annotations[0].textLowLimitValue) {
-                if (this.opacityCheck) {
-                  nodeElement.annotations[0].style.opacity = 0;
-                  this.opacityCheck = false;
-                } else {
-                  nodeElement.annotations[0].style.opacity = 100;
-                  this.opacityCheck = true;
+
+                if (nodeElement.annotations[0].textLowLimitBlinkContCheck) {
+                  if (this.opacityCheckLow) {
+                    nodeElement.annotations[0].style.opacity = 0;
+                    this.opacityCheckLow = false;
+                  } else {
+                    nodeElement.annotations[0].style.opacity = 100;
+                    this.opacityCheckLow = true;
+                  }
                 }
+
+              } else if (content > nodeElement.annotations[0].textHighLimitValue) {
+
+                if (nodeElement.annotations[0].textHighLimitBlinkContCheck) {
+                  if (this.opacityCheckHigh) {
+                    nodeElement.annotations[0].style.opacity = 0;
+                    this.opacityCheckHigh = false;
+                  } else {
+                    nodeElement.annotations[0].style.opacity = 100;
+                    this.opacityCheckHigh = true;
+                  }
+                }
+
               } else {
                 nodeElement.annotations[0].style.opacity = 100;
               }
@@ -2511,6 +2590,12 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
     }, 500)
   }
 
+  intervalCheckLowLimit: boolean = true;
+  intervalCheckHighLimit: boolean = true;
+  textLowLimit: boolean = true;
+  textHighLimit: boolean = true;
+
+  // complete
   textLimitTimeBlink() {
 
     let diagram: Diagram = this.selectedItem.selectedDiagram;
@@ -2525,42 +2610,57 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
 
               if (content < nodeElement.annotations[0].textLowLimitValue) {
                 if (nodeElement.annotations[0].textLowLimitBlinkTimeCheck) {
-                  if (nodeElement.annotations[0].style.opacity === 0) {
-                    nodeElement.annotations[0].style.opacity = 100;
-                  } else {
-                    nodeElement.annotations[0].style.opacity = 0;
-                  }
-                  if (nodeElement.annotations[0].textLowLimitBlinkTime) {
-                    setTimeout(() => {
-                      clearInterval(blinkInterval)
+
+                  if (this.intervalCheckLowLimit) {
+                    if (nodeElement.annotations[0].style.opacity === 0) {
                       nodeElement.annotations[0].style.opacity = 100;
-                    }, (nodeElement.annotations[0].textLowLimitBlinkTime * 1000));
+                    } else {
+                      nodeElement.annotations[0].style.opacity = 0;
+                    }
+                  }
+
+                  if (this.textLowLimit) {
+                    if (nodeElement.annotations[0].textLowLimitBlinkTime) {
+                      setTimeout(() => {
+                        this.intervalCheckLowLimit = false;
+                        this.textLowLimit = false;
+                        nodeElement.annotations[0].style.opacity = 100;
+                      }, (nodeElement.annotations[0].textLowLimitBlinkTime * 1000));
+                    }
                   }
                 }
+              } else {
+                this.intervalCheckLowLimit = true;
+                this.textLowLimit = true;
               }
 
               if (content > nodeElement.annotations[0].textHighLimitValue) {
                 if (nodeElement.annotations[0].textHighLimitBlinkTimeCheck) {
-                  if (nodeElement.annotations[0].style.opacity === 0) {
-                    nodeElement.annotations[0].style.opacity = 100;
-                  } else {
-                    nodeElement.annotations[0].style.opacity = 0;
-                  }
-                  if (nodeElement.annotations[0].textHighLimitBlinkTime) {
-                    setTimeout(() => {
-                      clearInterval(blinkInterval)
+
+                  if (this.intervalCheckHighLimit) {
+                    if (nodeElement.annotations[0].style.opacity === 0) {
                       nodeElement.annotations[0].style.opacity = 100;
-                    }, (nodeElement.annotations[0].textHighLimitBlinkTime * 1000));
+                    } else {
+                      nodeElement.annotations[0].style.opacity = 0;
+                    }
+                  }
+
+                  if (this.textHighLimit) {
+                    if (nodeElement.annotations[0].textHighLimitBlinkTime) {
+                      setTimeout(() => {
+                        this.intervalCheckHighLimit = false;
+                        this.textHighLimit = false;
+                        nodeElement.annotations[0].style.opacity = 100;
+                      }, (nodeElement.annotations[0].textHighLimitBlinkTime * 1000));
+                    }
                   }
                 }
+              } else {
+                this.intervalCheckHighLimit = true;
+                this.textHighLimit = true;
               }
 
-              nodeElement.tooltip = {
-                content: nodeElement.annotations[0].textTooltip,
-                position: 'TopCenter',
-                relativeMode: 'Object'
-              }
-              nodeElement.constraints = (NodeConstraints.Default & ~NodeConstraints.InheritTooltip) | NodeConstraints.Tooltip;
+
 
             }
 
@@ -2572,6 +2672,8 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
     }, 500);
 
   }
+
+
 
   textLimitProperties() {
     let diagram: Diagram = this.selectedItem.selectedDiagram;
@@ -2643,7 +2745,9 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
 
   }
 
-  blinkTime: number;
+  // blinkTime: number;
+  intervalCheckNodeBlinking: boolean = true;
+  previousContentNodeBlinking: { [key: string]: string } = {};
 
   nodeBlinking() {
 
@@ -2653,18 +2757,23 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
       diagram.nodes.forEach(nodeElement => {
         if (nodeElement.shape.type == 'Basic' || nodeElement.shape.type == 'Image') {
           if (nodeElement.annotations[0].blinkCheck.isChecked) {
-            if (nodeElement.style.opacity === 0) {
-              nodeElement.style.opacity = 100;
-            } else {
-              nodeElement.style.opacity = 0;
+
+            if (this.intervalCheckNodeBlinking) {
+              if (nodeElement.style.opacity === 0) {
+                nodeElement.style.opacity = 100;
+              } else {
+                nodeElement.style.opacity = 0;
+              }
             }
 
             if (nodeElement.annotations[0].blinkCheck.blinkTime) {
               setTimeout(() => {
-                clearInterval(blinkInterval)
+                this.intervalCheckNodeBlinking = false;
                 nodeElement.style.opacity = 100;
               }, (nodeElement.annotations[0].blinkCheck.blinkTime * 1000));
             }
+          } else {
+            this.intervalCheckNodeBlinking = true;
           }
         }
 
@@ -2675,43 +2784,170 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
 
   }
 
-  bitTextDataProperties() {
+  visible: boolean = true;
+  visible2: boolean = true;
+  visible3: boolean = true;
+  visible4: boolean = true;
+  blink: boolean = true;
+  bitTextLableProperties() {
 
     let diagram: Diagram = this.selectedItem.selectedDiagram;
 
+
     setInterval(() => {
       diagram.nodes.forEach(nodeElement => {
-        if (nodeElement.shape.type == "Flow") {
-          if (nodeElement.id.includes("bitDisplay1")) {
+        if (nodeElement.shape.type == "Flow" || nodeElement.shape.type == "Basic") {
+
+
+          nodeElement.tooltip = {
+            content: nodeElement.annotations[0].textTooltip,
+            position: 'TopCenter',
+            relativeMode: 'Object'
+          }
+          nodeElement.constraints = (NodeConstraints.Default & ~NodeConstraints.InheritTooltip) | NodeConstraints.Tooltip;
+
+
+
+          if (nodeElement.id.includes("bitLable") || nodeElement.id.includes("Shape")) {
             this.digitalData.forEach(element => {
+
               if (element.chName == nodeElement.annotations[0].bitTextChName) {
+                nodeElement.annotations[0].style.fontSize = 28;
+                if (nodeElement.annotations[0].bitSet1asNormal) {
+                  if ((element.chData).toLowerCase() == "remote" || (element.chData).toLowerCase() == "normal" || (element.chData).toLowerCase() == "on") {
+                    nodeElement.annotations[0].content = "1";
 
-                if ((element.chData).toLowerCase() == "remote" || (element.chData).toLowerCase() == "normal" || (element.chData).toLowerCase() == "on") {
-                  nodeElement.annotations[0].content = "1";
-                  if (nodeElement.annotations[0].bit1Color) {
-                    nodeElement.annotations[0].style.color = nodeElement.annotations[0].bit1Color;
+                    if (nodeElement.annotations[0].bitTextFor1) {
+                      nodeElement.annotations[0].content = nodeElement.annotations[0].bitTextFor1;
+
+                    }
+
+                    if (nodeElement.annotations[0].bitTextColorFor1) {
+                      nodeElement.annotations[0].style.color = nodeElement.annotations[0].bitTextColorFor1;
+                    }
+
+                    if (nodeElement.annotations[0].bit1Color) {
+                      nodeElement.annotations[0].style.color = nodeElement.annotations[0].bit1Color;
+                    }
+
+                    if (nodeElement.annotations[0].hideOnNormal) {
+                      nodeElement.annotations[0].style.opacity = 0;
+                      this.visible2 = true;
+                      this.blink = false;
+                    } else {
+                      if (this.visible) {
+                        nodeElement.annotations[0].style.opacity = 100;
+                        this.visible = false;
+                        this.blink = true;
+                      }
+                    }
+
+                    if (nodeElement.annotations[0].bitShapeColor0to1) {
+                      nodeElement.style.fill = nodeElement.annotations[0].bitShapeColor0to1;
+                    }
+
+
                   } else {
-                    nodeElement.annotations[0].style.color = "#000000";
+                    nodeElement.annotations[0].content = "0";
+
+                    if (nodeElement.annotations[0].bitTextFor0) {
+                      nodeElement.annotations[0].content = nodeElement.annotations[0].bitTextFor0;
+                    }
+
+                    if (nodeElement.annotations[0].bitTextColorFor0) {
+                      nodeElement.annotations[0].style.color = nodeElement.annotations[0].bitTextColorFor0;
+                    }
+
+                    if (nodeElement.annotations[0].bit0Color) {
+                      nodeElement.annotations[0].style.color = nodeElement.annotations[0].bit0Color;
+                    }
+
+
+                    if (nodeElement.annotations[0].hideOnAbNormal) {
+                      nodeElement.annotations[0].style.opacity = 0;
+                      this.visible = true;
+                      this.blink = false;
+                    } else {
+                      if (this.visible2) {
+                        nodeElement.annotations[0].style.opacity = 100;
+                        this.blink = true;
+                        this.visible2 = false;
+                      }
+                    }
+
+                    if (nodeElement.annotations[0].bitShapeColor1to0) {
+                      nodeElement.style.fill = nodeElement.annotations[0].bitShapeColor1to0;
+                    }
+
                   }
-                } else {
-                  nodeElement.annotations[0].content = "0";
-                  if (nodeElement.annotations[0].bit0Color) {
-                    nodeElement.annotations[0].style.color = nodeElement.annotations[0].bit0Color;
+                } else if (nodeElement.annotations[0].bitSet1asAbnormal) {
+                  if ((element.chData).toLowerCase() == "remote" || (element.chData).toLowerCase() == "normal" || (element.chData).toLowerCase() == "on") {
+                    nodeElement.annotations[0].content = "0";
+                    if (nodeElement.annotations[0].bitTextFor0) {
+                      nodeElement.annotations[0].content = nodeElement.annotations[0].bitTextFor0;
+                    }
+
+                    if (nodeElement.annotations[0].bitTextColorFor0) {
+                      nodeElement.annotations[0].style.color = nodeElement.annotations[0].bitTextColorFor0;
+                    }
+
+                    if (nodeElement.annotations[0].bit0Color) {
+                      nodeElement.annotations[0].style.color = nodeElement.annotations[0].bit0Color;
+                    }
+
+
+                    if (nodeElement.annotations[0].hideOnNormal) {
+                      nodeElement.annotations[0].style.opacity = 0;
+                      this.visible2 = true;
+                      this.blink = false;
+                    } else {
+                      if (this.visible) {
+                        nodeElement.annotations[0].style.opacity = 100;
+                        this.visible = false;
+                        this.blink = true;
+                      }
+                    }
+
+                    if (nodeElement.annotations[0].bitShapeColor1to0) {
+                      nodeElement.style.fill = nodeElement.annotations[0].bitShapeColor1to0;
+                    }
+
                   } else {
-                    nodeElement.annotations[0].style.color = "#000000";
+                    nodeElement.annotations[0].content = "1";
+                    if (nodeElement.annotations[0].bitTextFor1) {
+                      nodeElement.annotations[0].content = nodeElement.annotations[0].bitTextFor1;
+                    }
+
+                    if (nodeElement.annotations[0].bitTextColorFor1) {
+                      nodeElement.annotations[0].style.color = nodeElement.annotations[0].bitTextColorFor1;
+                    }
+
+                    if (nodeElement.annotations[0].bit1Color) {
+                      nodeElement.annotations[0].style.color = nodeElement.annotations[0].bit1Color;
+                    }
+
+
+                    if (nodeElement.annotations[0].hideOnNormal) {
+                      nodeElement.annotations[0].style.opacity = 0;
+                      this.visible2 = true;
+                      this.blink = false;
+                    } else {
+                      if (this.visible) {
+                        nodeElement.annotations[0].style.opacity = 100;
+                        this.visible = false;
+                        this.blink = true;
+                      }
+                    }
+
+                    if (nodeElement.annotations[0].bitShapeColor0to1) {
+                      nodeElement.style.fill = nodeElement.annotations[0].bitShapeColor0to1;
+                    }
                   }
                 }
-
-                if (nodeElement.annotations[0].hideOn1 && nodeElement.annotations[0].content == "1") {
-                  nodeElement.annotations[0].style.opacity = 0;
-                } else if (nodeElement.annotations[0].hideOn0 && nodeElement.annotations[0].content == "0") {
-                  nodeElement.annotations[0].style.opacity = 0;
-                } else {
-                  nodeElement.annotations[0].style.opacity = 1;
-                }
-
-
               }
+
+
+
             });
           }
         }
@@ -2720,18 +2956,300 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
 
   }
 
+  bitTextImageProperties() {
+
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+
+    setInterval(() => {
+
+      diagram.nodes.forEach(nodeElement => {
+
+        if (nodeElement.id.includes("bitImage")) {
+
+
+          this.digitalData.forEach(element => {
+
+            if (nodeElement.annotations[0].bitTextChName == element.chName) {
+
+              nodeElement.annotations[0].style.fontSize = 28;
+
+              if (nodeElement.annotations[0].bitSet1asNormal) {
+                if ((element.chData).toLowerCase() == "remote" || (element.chData).toLowerCase() == "normal" || (element.chData).toLowerCase() == "on") {
+                  nodeElement.annotations[0].content = "1";
+
+                  if (nodeElement.annotations[0].bitImagefor1) {
+                    nodeElement.shape.source = nodeElement.annotations[0].bitImagefor1;
+                  } else {
+                    nodeElement.shape.source = '';
+                  }
+
+                } else {
+                  nodeElement.annotations[0].content = "0";
+
+
+
+                  if (nodeElement.annotations[0].bitImagefor0) {
+                    nodeElement.shape.source = nodeElement.annotations[0].bitImagefor0;
+                  } else {
+                    nodeElement.shape.source = '';
+                  }
+
+                }
+              } else if (nodeElement.annotations[0].bitSet1asAbnormal) {
+                if ((element.chData).toLowerCase() == "remote" || (element.chData).toLowerCase() == "normal" || (element.chData).toLowerCase() == "on") {
+                  nodeElement.annotations[0].content = "0";
+
+
+
+                  if (nodeElement.annotations[0].bitImagefor0) {
+                    nodeElement.shape.source = nodeElement.annotations[0].bitImagefor0;
+                  } else {
+                    nodeElement.shape.source = '';
+                  }
+
+                } else {
+                  nodeElement.annotations[0].content = "1";
+
+                  if (nodeElement.annotations[0].bitImagefor1) {
+                    nodeElement.shape.source = nodeElement.annotations[0].bitImagefor1;
+                  } else {
+                    nodeElement.shape.source = '';
+                  }
+
+                }
+              }
+
+            }
+
+          });
+
+        }
+
+      });
+
+    }, 100)
+
+  }
+
+  bitContinousBlinkCheck: boolean = true;
+  bitContinousBlinkCheck1to0: boolean = true;
+  bitContinousBlinkCheck0to1: boolean = true;
+  bitContinousBlink() {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+
+    setInterval(() => {
+      diagram.nodes.forEach(nodeElement => {
+
+        if (nodeElement.annotations[0].normalContinueBlink && this.blink) {
+          if (this.bitContinousBlinkCheck) {
+            nodeElement.annotations[0].style.opacity = 0;
+            if (nodeElement.id.includes("bitImage")) {
+              nodeElement.style.opacity = 0;
+            }
+            this.bitContinousBlinkCheck = false;
+            console.log("blink");
+
+          } else {
+            nodeElement.annotations[0].style.opacity = 1;
+            if (nodeElement.id.includes("bitImage")) {
+              nodeElement.style.opacity = 1;
+            }
+            this.bitContinousBlinkCheck = true;
+          }
+        }
+
+
+        if (nodeElement.annotations[0].bitCheck1to0) {
+          if (nodeElement.annotations[0].bitCondiConBlink1to0) {
+            if (nodeElement.annotations[0].content == "0") {
+              if (this.bitContinousBlinkCheck1to0) {
+                nodeElement.annotations[0].style.opacity = 0;
+                if (nodeElement.id.includes("bitImage")) {
+                  nodeElement.style.opacity = 0;
+                }
+                this.bitContinousBlinkCheck1to0 = false;
+              } else {
+                nodeElement.annotations[0].style.opacity = 1;
+                if (nodeElement.id.includes("bitImage")) {
+                  nodeElement.style.opacity = 1;
+                }
+                this.bitContinousBlinkCheck1to0 = true;
+              }
+            }
+          }
+        }
+
+        if (nodeElement.annotations[0].bitCheck0to1) {
+          if (nodeElement.annotations[0].bitCondiConBlink0to1) {
+            if (nodeElement.annotations[0].content == "1") {
+              if (this.bitContinousBlinkCheck0to1) {
+                nodeElement.annotations[0].style.opacity = 0;
+                if (nodeElement.id.includes("bitImage")) {
+                  nodeElement.style.opacity = 0;
+                }
+                this.bitContinousBlinkCheck0to1 = false;
+              } else {
+                nodeElement.annotations[0].style.opacity = 1;
+                if (nodeElement.id.includes("bitImage")) {
+                  nodeElement.style.opacity = 1;
+                }
+                this.bitContinousBlinkCheck0to1 = true;
+              }
+            }
+          }
+        }
+
+      });
+
+    }, 500);
+  }
+
+  bitTimeBlinkCheck?: boolean = true;
+  bitTimeBlink() {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+
+    let blinkInterval = setInterval(() => {
+      diagram.nodes.forEach(nodeElement => {
+        if (nodeElement.annotations[0].normalTimeBlink) {
+          if (this.bitTimeBlinkCheck) {
+            nodeElement.annotations[0].style.opacity = 0;
+            if (nodeElement.id.includes("bitImage")) {
+              nodeElement.style.opacity = 0;
+            }
+            this.bitTimeBlinkCheck = false;
+          } else {
+            nodeElement.annotations[0].style.opacity = 1;
+            if (nodeElement.id.includes("bitImage")) {
+              nodeElement.style.opacity = 1;
+            }
+            this.bitTimeBlinkCheck = true;
+          }
+          if (nodeElement.annotations[0].normalTimeBlinkValue) {
+            setTimeout(() => {
+              clearInterval(blinkInterval);
+              nodeElement.annotations[0].style.opacity = 1;
+            }, (nodeElement.annotations[0].normalTimeBlinkValue * 1000));
+          }
+        }
+      });
+
+    }, 500);
+  }
+
+  bitTimeBlink1to0Check: boolean = true;
+  intervalCheck1to0: boolean = true;
+  previousContent1to0: { [key: string]: string } = {};
+
+  bitTimeBlink1to0() {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+
+    let blinkInterval = setInterval(() => {
+      diagram.nodes.forEach(nodeElement => {
+        if (nodeElement.id.includes("bitDisplay")) {
+          if (nodeElement.annotations[0].bitCondiTimeBlink1to0) {
+            let currentContent = nodeElement.annotations[0].content;
+
+            if (!this.previousContent1to0[nodeElement.id] || this.previousContent1to0[nodeElement.id] !== currentContent) {
+              this.previousContent1to0[nodeElement.id] = currentContent;
+            }
+
+            if (currentContent == "0") {
+              if (this.intervalCheck1to0) {
+                if (this.bitTimeBlink1to0Check) {
+                  nodeElement.annotations[0].style.opacity = 0;
+                  if (nodeElement.id.includes("bitImage")) {
+                    nodeElement.style.opacity = 0;
+                  }
+                  this.bitTimeBlink1to0Check = false;
+                } else {
+                  nodeElement.annotations[0].style.opacity = 1;
+                  if (nodeElement.id.includes("bitImage")) {
+                    nodeElement.style.opacity = 1;
+                  }
+                  this.bitTimeBlink1to0Check = true;
+                }
+              }
+
+              if (nodeElement.annotations[0].bitCondiBlinkTimeValue1to0) {
+                setTimeout(() => {
+                  this.intervalCheck1to0 = false;
+                  nodeElement.annotations[0].style.opacity = 1;
+                }, (nodeElement.annotations[0].bitCondiBlinkTimeValue1to0 * 1000));
+              }
+            } else {
+              this.intervalCheck1to0 = true;
+            }
+          }
+        }
+      });
+    }, 500);
+  }
+
+
+  bitTimeBlink0to1Check: boolean = true;
+  intervalCheck0to1: boolean = true;
+  previousContent0to1: { [key: string]: string } = {};
+
+  bitTimeBlink0to1() {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+
+    let blinkInterval = setInterval(() => {
+      diagram.nodes.forEach(nodeElement => {
+        if (nodeElement.id.includes("bitDisplay")) {
+          if (nodeElement.annotations[0].bitCondiTimeBlink0to1) {
+            let currentContent = nodeElement.annotations[0].content;
+
+            if (!this.previousContent0to1[nodeElement.id] || this.previousContent0to1[nodeElement.id] !== currentContent) {
+              this.previousContent0to1[nodeElement.id] = currentContent;
+            }
+
+            if (currentContent == "1") {
+              if (this.intervalCheck0to1) {
+                if (this.bitTimeBlink0to1Check) {
+                  nodeElement.annotations[0].style.opacity = 0;
+                  if (nodeElement.id.includes("bitImage")) {
+                    nodeElement.style.opacity = 0;
+                  }
+                  this.bitTimeBlink0to1Check = false;
+                } else {
+                  nodeElement.annotations[0].style.opacity = 1;
+                  if (nodeElement.id.includes("bitImage")) {
+                    nodeElement.style.opacity = 1;
+                  }
+                  this.bitTimeBlink0to1Check = true;
+                }
+              }
+
+              if (nodeElement.annotations[0].bitCondiBlinkTimeValue0to1) {
+                setTimeout(() => {
+                  this.intervalCheck0to1 = false;
+                  nodeElement.annotations[0].style.opacity = 1;
+                }, (nodeElement.annotations[0].bitCondiBlinkTimeValue0to1 * 1000));
+              }
+            } else {
+              this.intervalCheck0to1 = true;
+            }
+          }
+        }
+      });
+    }, 500);
+  }
+
+
+
   disableNodeDragging(nodeId: string, nodeType: string): void {
     const node = this.diagram.getObject(nodeId) as NodeModel;
     const connector = this.diagram.getObject(nodeId) as ConnectorModel;
 
     if (nodeType === 'Basic' || nodeType === 'Image') {
-      console.log("ReadOnly");
 
       node.constraints = node.constraints &
-          ~NodeConstraints.Drag &
+        ~NodeConstraints.ReadOnly &
+        ~NodeConstraints.Drag &
         ~NodeConstraints.Resize &
         ~NodeConstraints.Delete &
         ~NodeConstraints.Rotate;
+
       this.diagram.dataBind();
 
     }

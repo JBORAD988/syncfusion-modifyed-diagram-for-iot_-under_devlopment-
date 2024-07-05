@@ -200,6 +200,7 @@
             (selectionChange)="diagramEvents.selectionChange($event, $event)"
             (positionChange)="diagramEvents.nodePositionChange($event)"
             (sizeChange)="diagramEvents.nodeSizeChange($event)"
+            (propertyChange)="diagramEvents.onConnectorPropertyChange($event)"
             (rotateChange)="diagramEvents.nodeRotationChange($event)"
             (contextMenuOpen)="diagramEvents.diagramContextMenuOpen($event)"
             (contextMenuClick)="diagramEvents.diagramContextMenuClick($event)"
@@ -988,6 +989,27 @@
                 </div>
               </div>
 
+              <div>
+                <p style="margin-bottom: 0;margin-top: 10px;">Normal Blinking:</p>
+                <div style="display: flex;flex-direction: row;justify-content: space-between;">
+                  <div>
+                    <ejs-checkbox id="printMultiplePage" label="continuous"
+                      (change)="diagramPropertyBinding.normalCountBlinkChange($event)"
+                      [(checked)]="selectedItem.nodeProperties.normalContinueBlink"></ejs-checkbox>
+                  </div>
+                  <div>
+                    <ejs-checkbox id="printMultiplePage" label="Time Duration"
+                      (change)="diagramPropertyBinding.normalTimeBlinkChange($event)"
+                      [(checked)]="selectedItem.nodeProperties.normalTimeBlink"></ejs-checkbox>
+                  </div>
+                </div>
+                <div style="margin-top: 10px;" *ngIf="selectedItem.nodeProperties.normalTimeBlink">
+                  <input class="e-input" type="text" placeholder="Set Time Duration"
+                    [value]="selectedItem.nodeProperties.normalTimeBlinkValue ? selectedItem.nodeProperties.normalTimeBlinkValue : null"
+                    style="background: #FFFFFF;" (change)="diagramPropertyBinding.normalBlinkTimeValueChange($event)" />
+                </div>
+              </div>
+
               <div class="db-prop-separator"></div>
             </div>
 
@@ -1022,85 +1044,89 @@
               </div>
 
 
-              <div class="text-condition-checkbox" style="margin-top: 10px;">
-                <div style="display: flex; flex-direction: row; justify-content: space-around; margin-top: 10px;">
-                  <div>
-                    <ejs-checkbox label="Color" [(checked)]="selectedItem.nodeProperties.textCheckColor"
-                      (change)="diagramPropertyBinding.textCheckColorChange($event)"></ejs-checkbox>
+              <div *ngIf="selectedItem.nodeProperties.textOperation && selectedItem.nodeProperties.textSetValue">
+                <div class="text-condition-checkbox" style="margin-top: 10px;">
+                  <div style="display: flex; flex-direction: row; justify-content: space-around; margin-top: 10px;">
+                    <div>
+                      <ejs-checkbox label="Color" [(checked)]="selectedItem.nodeProperties.textCheckColor"
+                        (change)="diagramPropertyBinding.textCheckColorChange($event)"></ejs-checkbox>
+                    </div>
+                    <div>
+                      <ejs-checkbox label="Text" [(checked)]="selectedItem.nodeProperties.textCheckStr"
+                        (change)="diagramPropertyBinding.textCheckStrChange($event)"></ejs-checkbox>
+                    </div>
+                    <div>
+                      <ejs-checkbox label="Audio File" [(checked)]="selectedItem.nodeProperties.textCheckAudio"
+                        (change)="diagramPropertyBinding.textCheckWaveChange($event)"></ejs-checkbox>
+                    </div>
                   </div>
-                  <div>
-                    <ejs-checkbox label="Text" [(checked)]="selectedItem.nodeProperties.textCheckStr"
-                      (change)="diagramPropertyBinding.textCheckStrChange($event)"></ejs-checkbox>
-                  </div>
-                  <div>
-                    <ejs-checkbox label="Audio File" [(checked)]="selectedItem.nodeProperties.textCheckAudio"
-                      (change)="diagramPropertyBinding.textCheckWaveChange($event)"></ejs-checkbox>
-                  </div>
+
                 </div>
 
-              </div>
+                <div class="Color-text-audio-Selector"
+                  style="margin-bottom: 10px; display: flex; flex-direction: column;">
 
-              <div class="Color-text-audio-Selector"
-                style="margin-bottom: 10px; display: flex; flex-direction: column;">
-
-                <div style="margin-top: 10px; margin-bottom: 10px;" *ngIf="selectedItem.nodeProperties.textCheckColor">
-                  <div class="col-xs-12 db-col-left">
-                    <div class="db-color-container">
-                      <div class="db-color-input">
-                        <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
-                          (change)="diagramPropertyBinding.textOperationColorChange($event)" />
-                      </div>
-                      <div class="db-color-btn">
-                        <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
+                  <div style="margin-top: 10px; margin-bottom: 10px;"
+                    *ngIf="selectedItem.nodeProperties.textCheckColor">
+                    <div class="col-xs-12 db-col-left">
+                      <div class="db-color-container">
+                        <div class="db-color-input">
+                          <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
+                            [value]="selectedItem.nodeProperties.textSetColor"
+                            (change)="diagramPropertyBinding.textOperationColorChange($event)" />
+                        </div>
+                        <div class="db-color-btn">
+                          <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                <div style="margin-top: 10px;" *ngIf="selectedItem.nodeProperties.textCheckStr">
-                  <input class="e-input" type="text" placeholder="Set Text" style="background: #FFFFFF;"
-                    [value]="selectedItem.nodeProperties.textSetStr"
-                    (change)="diagramPropertyBinding.textStrChange($event)" />
-                </div>
-
-                <div class="file-text-container" style="margin-top: 10px"
-                  *ngIf="selectedItem.nodeProperties.textCheckAudio">
-                  <p>Audio: {{selectedItem.nodeProperties.textAudioFileName}} </p>
-                  <input id="textAudioFile" class="e-input" style="background: #FFFFFF;" type="file"
-                    placeholder="Set Audio" accept="audio/*"
-                    (change)="diagramPropertyBinding.onTextAudioFileSelected($event)" />
-                </div>
-
-              </div>
-
-
-              <div class="Numeric-Blink-Selector" style="margin-top: 10px;">
-                <div>
-                  <p>Blinking:</p>
-                </div>
-                <div style="display: flex; flex-direction: row; justify-content: space-between; margin-top: 10px;">
-                  <div>
-                    <ejs-checkbox label="Continous" [(checked)]="selectedItem.nodeProperties.textContinueBlink"
-                      (change)="diagramPropertyBinding.textContinueBlinkChange($event)"></ejs-checkbox>
+                  <div style="margin-top: 10px;" *ngIf="selectedItem.nodeProperties.textCheckStr">
+                    <input class="e-input" type="text" placeholder="Set Text" style="background: #FFFFFF;"
+                      [value]="selectedItem.nodeProperties.textSetStr"
+                      (change)="diagramPropertyBinding.textStrChange($event)" />
                   </div>
-                  <div>
-                    <ejs-checkbox label="Time Duration" [(checked)]="selectedItem.nodeProperties.textIsChecked"
-                      (change)="diagramPropertyBinding.textSetTimeBlinkChange($event)"></ejs-checkbox>
+
+                  <div class="file-text-container" style="margin-top: 10px"
+                    *ngIf="selectedItem.nodeProperties.textCheckAudio">
+                    <p>Audio: {{selectedItem.nodeProperties.textAudioFileName}} </p>
+                    <input id="textAudioFile" class="e-input" style="background: #FFFFFF;" type="file"
+                      placeholder="Set Audio" accept="audio/*"
+                      (change)="diagramPropertyBinding.onTextAudioFileSelected($event)" />
                   </div>
-                </div>
-                <div *ngIf="selectedItem.nodeProperties.textIsChecked" style="margin-top: 10px;">
-                  <input class="e-input" type="number" placeholder="Enter Blink Duration In Sec."
-                    [value]="selectedItem.nodeProperties.textBlinkTime" style="background: #FFFFFF;"
-                    (change)="diagramPropertyBinding.onTextBlinkTimeChange($event)" />
+
                 </div>
 
-              </div>
+
+                <div class="Numeric-Blink-Selector" style="margin-top: 10px;">
+                  <div>
+                    <p>Blinking:</p>
+                  </div>
+                  <div style="display: flex; flex-direction: row; justify-content: space-between; margin-top: 10px;">
+                    <div>
+                      <ejs-checkbox label="Continous" [(checked)]="selectedItem.nodeProperties.textContinueBlink"
+                        (change)="diagramPropertyBinding.textContinueBlinkChange($event)"></ejs-checkbox>
+                    </div>
+                    <div>
+                      <ejs-checkbox label="Time Duration" [(checked)]="selectedItem.nodeProperties.textIsChecked"
+                        (change)="diagramPropertyBinding.textSetTimeBlinkChange($event)"></ejs-checkbox>
+                    </div>
+                  </div>
+                  <div *ngIf="selectedItem.nodeProperties.textIsChecked" style="margin-top: 10px;">
+                    <input class="e-input" type="number" placeholder="Enter Blink Duration In Sec. ll"
+                      [value]="selectedItem.nodeProperties.textBlinkTime" style="background: #FFFFFF;"
+                      (change)="diagramPropertyBinding.onTextBlinkTimeChange($event)" />
+                  </div>
+
+                </div>
 
 
 
-              <div style="margin-top: 10px;">
-                <ejs-checkbox label="Invincible" [(checked)]="selectedItem.nodeProperties.isTextInvincible"
-                  (change)="diagramPropertyBinding.isTextInvincible($event)"></ejs-checkbox>
+                <div style="margin-top: 10px;">
+                  <ejs-checkbox label="Invincible" [(checked)]="selectedItem.nodeProperties.isTextInvincible"
+                    (change)="diagramPropertyBinding.isTextInvincible($event)"></ejs-checkbox>
+                </div>
               </div>
 
               <div class="db-prop-separator"></div>
@@ -1120,57 +1146,60 @@
                 </div>
               </div>
 
-              <div class="Numeric-Blink-Selector" style="margin-top: 10px;">
+              <div *ngIf="selectedItem.nodeProperties.textLowLimitValue">
+                <div class="Numeric-Blink-Selector" style="margin-top: 10px;">
+                  <div>
+                    <p>Blinking:</p>
+                  </div>
+                  <div style="display: flex; flex-direction: row; justify-content: space-between; margin-top: 10px;">
+                    <div>
+                      <ejs-checkbox label="Continous"
+                        [(checked)]="selectedItem.nodeProperties.textLowLimitBlinkContCheck"
+                        (change)="diagramPropertyBinding.textLowContinueBlinkChange($event)"></ejs-checkbox>
+                    </div>
+                    <div>
+                      <ejs-checkbox label="Time Duration"
+                        [(checked)]="selectedItem.nodeProperties.textLowLimitBlinkTimeCheck"
+                        (change)="diagramPropertyBinding.textLowSetTimeBlinkChange($event)"></ejs-checkbox>
+                    </div>
+                  </div>
+                  <div *ngIf="selectedItem.nodeProperties.textLowLimitBlinkTimeCheck" style="margin-top: 10px;">
+                    <input class="e-input" type="number" placeholder="Enter Blink Duration In Sec."
+                      [value]="selectedItem.nodeProperties.textLowLimitBlinkTime" style="background: #FFFFFF;"
+                      (change)="diagramPropertyBinding.onTextLowBlinkTimeChange($event)" />
+                  </div>
+
+                </div>
+
                 <div>
-                  <p>Blinking:</p>
-                </div>
-                <div style="display: flex; flex-direction: row; justify-content: space-between; margin-top: 10px;">
-                  <div>
-                    <ejs-checkbox label="Continous" [(checked)]="selectedItem.nodeProperties.textLowLimitBlinkContCheck"
-                      (change)="diagramPropertyBinding.textLowContinueBlinkChange($event)"></ejs-checkbox>
+                  <div style="display: flex; flex-direction: row; justify-content: space-between; margin-top: 10px;">
+                    <div>
+                      <ejs-checkbox label="Color" [(checked)]="selectedItem.nodeProperties.textLowLimitCheckColor"
+                        (change)="diagramPropertyBinding.textLowLimitCheckColorChange($event)"></ejs-checkbox>
+                    </div>
+                    <div>
+                      <ejs-checkbox label="Text" style="margin-right: 12px;"
+                        [(checked)]="selectedItem.nodeProperties.textLowLimitCheckText"
+                        (change)="diagramPropertyBinding.textLowLimitCheckTextChange($event)"></ejs-checkbox>
+                    </div>
                   </div>
-                  <div>
-                    <ejs-checkbox label="Time Duration"
-                      [(checked)]="selectedItem.nodeProperties.textLowLimitBlinkTimeCheck"
-                      (change)="diagramPropertyBinding.textLowSetTimeBlinkChange($event)"></ejs-checkbox>
+                  <div style="display: flex; flex-direction: row; justify-content: space-between; margin-top: 10px;">
+                    <div>
+                      <ejs-checkbox label="Audio FIle" [(checked)]="selectedItem.nodeProperties.textLowLimitCheckAudio"
+                        (change)="diagramPropertyBinding.textLowLimitCheckAudioChange($event)"></ejs-checkbox>
+                    </div>
+                    <div>
+                      <ejs-checkbox label="Shape" [(checked)]="selectedItem.nodeProperties.textLowLimitCheckShape"
+                        (change)="diagramPropertyBinding.textLowLimitCheckShapeChange($event)"></ejs-checkbox>
+                    </div>
                   </div>
-                </div>
-                <div *ngIf="selectedItem.nodeProperties.textLowLimitBlinkTimeCheck" style="margin-top: 10px;">
-                  <input class="e-input" type="number" placeholder="Enter Blink Duration In Sec."
-                    [value]="selectedItem.nodeProperties.textLowLimitBlinkTime" style="background: #FFFFFF;"
-                    (change)="diagramPropertyBinding.onTextLowBlinkTimeChange($event)" />
                 </div>
 
-              </div>
+                <div>
 
-              <div>
-                <div style="display: flex; flex-direction: row; justify-content: space-between; margin-top: 10px;">
-                  <div>
-                    <ejs-checkbox label="Color" [(checked)]="selectedItem.nodeProperties.textLowLimitCheckColor"
-                      (change)="diagramPropertyBinding.textLowLimitCheckColorChange($event)"></ejs-checkbox>
-                  </div>
-                  <div>
-                    <ejs-checkbox label="Text" style="margin-right: 12px;"
-                      [(checked)]="selectedItem.nodeProperties.textLowLimitCheckText"
-                      (change)="diagramPropertyBinding.textLowLimitCheckTextChange($event)"></ejs-checkbox>
-                  </div>
-                </div>
-                <div style="display: flex; flex-direction: row; justify-content: space-between; margin-top: 10px;">
-                  <div>
-                    <ejs-checkbox label="Audio FIle" [(checked)]="selectedItem.nodeProperties.textLowLimitCheckAudio"
-                      (change)="diagramPropertyBinding.textLowLimitCheckAudioChange($event)"></ejs-checkbox>
-                  </div>
-                  <div>
-                    <ejs-checkbox label="Shape" [(checked)]="selectedItem.nodeProperties.textLowLimitCheckShape"
-                      (change)="diagramPropertyBinding.textLowLimitCheckShapeChange($event)"></ejs-checkbox>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-
-                <div *ngIf="selectedItem.nodeProperties.textLowLimitCheckColor" style="margin-top: 10px; width: 100%;">
-                  <div class="db-color-container">
+                  <div *ngIf="selectedItem.nodeProperties.textLowLimitCheckColor"
+                    style="margin-top: 10px; width: 100%;">
+                    <!-- <div class="db-color-container">
                     <div class="db-color-input">
                       <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
                         (change)="diagramPropertyBinding.textLowLimitColorChange($event)" />
@@ -1178,33 +1207,47 @@
                     <div class="db-color-btn">
                       <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
                     </div>
+                  </div> -->
+
+                    <div class="col-xs-12 db-col-left">
+                      <div class="db-color-container">
+                        <div class="db-color-input">
+                          <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
+                            [value]="selectedItem.nodeProperties.textLowLimitColorValue"
+                            (change)="diagramPropertyBinding.textLowLimitColorChange($event)" />
+                        </div>
+                        <div class="db-color-btn">
+                          <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
+                        </div>
+                      </div>
+                    </div>
                   </div>
+
+                  <div *ngIf="selectedItem.nodeProperties.textLowLimitCheckText" style="margin-top: 10px;">
+                    <input class="e-input" type="text" placeholder="Set Low Limit Text"
+                      [value]="selectedItem.nodeProperties.textLowLimitTextValue" style="background: #FFFFFF;"
+                      (change)="diagramPropertyBinding.textLowLimitTextChange($event)" />
+                  </div>
+
+                  <div *ngIf="selectedItem.nodeProperties.textLowLimitCheckShape" style="margin-top: 10px;">
+                    <ejs-dropdownlist id="mindMapLevels" [(value)]="selectedItem.nodeProperties.textLowLimitShapeValue"
+                      placeholder="Set Shape" [dataSource]="textShape" [fields]="{ text: 'text', value: 'value' }"
+                      (change)="diagramPropertyBinding.textLowLimitShapeChange($event)">
+                    </ejs-dropdownlist>
+                  </div>
+
+                  <div *ngIf="selectedItem.nodeProperties.textLowLimitCheckAudio" style="margin-top: 10px;">
+                    <p>Audio: {{selectedItem.nodeProperties.textLowLimitAudioValue}} </p>
+
+                    <input id="textAudioFile" class="e-input" style="background: #FFFFFF;" type="file"
+                      placeholder="Set Audio" accept="audio/*"
+                      (change)="diagramPropertyBinding.textLowLimitAudio($event)" />
+                  </div>
+
                 </div>
-
-                <div *ngIf="selectedItem.nodeProperties.textLowLimitCheckText" style="margin-top: 10px;">
-                  <input class="e-input" type="text" placeholder="Set Low Limit Text"
-                    [value]="selectedItem.nodeProperties.textLowLimitTextValue" style="background: #FFFFFF;"
-                    (change)="diagramPropertyBinding.textLowLimitTextChange($event)" />
-                </div>
-
-                <div *ngIf="selectedItem.nodeProperties.textLowLimitCheckShape" style="margin-top: 10px;">
-                  <ejs-dropdownlist id="mindMapLevels" [(value)]="selectedItem.nodeProperties.textLowLimitShapeValue"
-                    placeholder="Set Shape" [dataSource]="textShape"
-                    (change)="diagramPropertyBinding.textLowLimitShapeChange($event)">
-                  </ejs-dropdownlist>
-                </div>
-
-                <div *ngIf="selectedItem.nodeProperties.textLowLimitCheckAudio" style="margin-top: 10px;">
-                  <p>Audio: {{selectedItem.nodeProperties.textLowLimitAudioValue}} </p>
-
-                  <input id="textAudioFile" class="e-input" style="background: #FFFFFF;" type="file"
-                    placeholder="Set Audio" accept="audio/*"
-                    (change)="diagramPropertyBinding.textLowLimitAudio($event)" />
-                </div>
-
               </div>
 
-              <div>
+              <div style="margin-top: 10px;">
                 <div>
                   <p style="font-size: 12px; margin-bottom: 0; margin-top: 10px;">Set High Limit:</p>
                 </div>
@@ -1215,154 +1258,256 @@
                 </div>
               </div>
 
-              <div class="Numeric-Blink-Selector" style="margin-top: 10px;">
+              <div *ngIf="selectedItem.nodeProperties.textHighLimitValue">
+                <div class="Numeric-Blink-Selector" style="margin-top: 10px;">
+                  <div>
+                    <p>Blinking:</p>
+                  </div>
+                  <div style="display: flex; flex-direction: row; justify-content: space-between; margin-top: 10px;">
+                    <div>
+                      <ejs-checkbox label="Continous"
+                        [(checked)]="selectedItem.nodeProperties.textHighLimitBlinkContCheck"
+                        (change)="diagramPropertyBinding.textHighContinueBlinkChange($event)"></ejs-checkbox>
+                    </div>
+                    <div>
+                      <ejs-checkbox label="Time Duration"
+                        [(checked)]="selectedItem.nodeProperties.textHighLimitBlinkTimeCheck"
+                        (change)="diagramPropertyBinding.textHighSetTimeBlinkChange($event)"></ejs-checkbox>
+                    </div>
+                  </div>
+                  <div *ngIf="selectedItem.nodeProperties.textHighLimitBlinkTimeCheck" style="margin-top: 10px;">
+                    <input class="e-input" type="number" placeholder="Enter Blink Duration In Sec."
+                      [value]="selectedItem.nodeProperties.textHighLimitBlinkTime" style="background: #FFFFFF;"
+                      (change)="diagramPropertyBinding.onTextHighBlinkTimeChange($event)" />
+                  </div>
+
+                </div>
+
                 <div>
-                  <p>Blinking:</p>
-                </div>
-                <div style="display: flex; flex-direction: row; justify-content: space-between; margin-top: 10px;">
-                  <div>
-                    <ejs-checkbox label="Continous"
-                      [(checked)]="selectedItem.nodeProperties.textHighLimitBlinkContCheck"
-                      (change)="diagramPropertyBinding.textHighContinueBlinkChange($event)"></ejs-checkbox>
-                  </div>
-                  <div>
-                    <ejs-checkbox label="Time Duration"
-                      [(checked)]="selectedItem.nodeProperties.textHighLimitBlinkTimeCheck"
-                      (change)="diagramPropertyBinding.textHighSetTimeBlinkChange($event)"></ejs-checkbox>
-                  </div>
-                </div>
-                <div *ngIf="selectedItem.nodeProperties.textHighLimitBlinkTimeCheck" style="margin-top: 10px;">
-                  <input class="e-input" type="number" placeholder="Enter Blink Duration In Sec."
-                    [value]="selectedItem.nodeProperties.textHighLimitBlinkTime" style="background: #FFFFFF;"
-                    (change)="diagramPropertyBinding.onTextHighBlinkTimeChange($event)" />
-                </div>
-
-              </div>
-
-              <div>
-                <div style="display: flex; flex-direction: row; justify-content: space-between; margin-top: 10px;">
-                  <div>
-                    <ejs-checkbox label="Color" [(checked)]="selectedItem.nodeProperties.textHighLimitCheckColor"
-                      (change)="diagramPropertyBinding.textHighLimitCheckColorChange($event)"></ejs-checkbox>
-                  </div>
-                  <div>
-                    <ejs-checkbox label="Text" style="margin-right: 12px;"
-                      [(checked)]="selectedItem.nodeProperties.textHighLimitCheckText"
-                      (change)="diagramPropertyBinding.textHighLimitCheckTextChange($event)"></ejs-checkbox>
-                  </div>
-                </div>
-                <div style="display: flex; flex-direction: row; justify-content: space-between; margin-top: 10px;">
-                  <div>
-                    <ejs-checkbox label="Audio FIle" [(checked)]="selectedItem.nodeProperties.textHighLimitCheckAudio"
-                      (change)="diagramPropertyBinding.textHighLimitCheckAudioChange($event)"></ejs-checkbox>
-                  </div>
-                  <div>
-                    <ejs-checkbox label="Shape" [(checked)]="selectedItem.nodeProperties.textHighLimitCheckShape"
-                      (change)="diagramPropertyBinding.textHighLimitCheckShapeChange($event)"></ejs-checkbox>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-
-                <div *ngIf="selectedItem.nodeProperties.textHighLimitCheckColor" style="margin-top: 10px; width: 100%;">
-                  <div class="db-color-container">
-                    <div class="db-color-input">
-                      <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
-                        (change)="diagramPropertyBinding.textHighLimitColorChange($event)" />
+                  <div style="display: flex; flex-direction: row; justify-content: space-between; margin-top: 10px;">
+                    <div>
+                      <ejs-checkbox label="Color" [(checked)]="selectedItem.nodeProperties.textHighLimitCheckColor"
+                        (change)="diagramPropertyBinding.textHighLimitCheckColorChange($event)"></ejs-checkbox>
                     </div>
-                    <div class="db-color-btn">
-                      <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
+                    <div>
+                      <ejs-checkbox label="Text" style="margin-right: 12px;"
+                        [(checked)]="selectedItem.nodeProperties.textHighLimitCheckText"
+                        (change)="diagramPropertyBinding.textHighLimitCheckTextChange($event)"></ejs-checkbox>
+                    </div>
+                  </div>
+                  <div style="display: flex; flex-direction: row; justify-content: space-between; margin-top: 10px;">
+                    <div>
+                      <ejs-checkbox label="Audio FIle" [(checked)]="selectedItem.nodeProperties.textHighLimitCheckAudio"
+                        (change)="diagramPropertyBinding.textHighLimitCheckAudioChange($event)"></ejs-checkbox>
+                    </div>
+                    <div>
+                      <ejs-checkbox label="Shape" [(checked)]="selectedItem.nodeProperties.textHighLimitCheckShape"
+                        (change)="diagramPropertyBinding.textHighLimitCheckShapeChange($event)"></ejs-checkbox>
                     </div>
                   </div>
                 </div>
 
-                <div *ngIf="selectedItem.nodeProperties.textHighLimitCheckText" style="margin-top: 10px;">
-                  <input class="e-input" type="text" placeholder="Set Low Limit Text"
-                    [value]="selectedItem.nodeProperties.textHighLimitTextValue" style="background: #FFFFFF;"
-                    (change)="diagramPropertyBinding.textHighLimitTextChange($event)" />
+                <div>
+
+                  <div *ngIf="selectedItem.nodeProperties.textHighLimitCheckColor"
+                    style="margin-top: 10px; width: 100%;">
+                    <!-- <div class="db-color-container">
+                      <div class="db-color-input">
+                        <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
+                          (change)="diagramPropertyBinding.textHighLimitColorChange($event)" />
+                      </div>
+                      <div class="db-color-btn">
+                        <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
+                      </div>
+                    </div> -->
+
+                    <div class="col-xs-12 db-col-left">
+                      <div class="db-color-container">
+                        <div class="db-color-input">
+                          <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
+                            [value]="selectedItem.nodeProperties.textHighLimitColorValue"
+                            (change)="diagramPropertyBinding.textHighLimitColorChange($event)" />
+                        </div>
+                        <div class="db-color-btn">
+                          <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div *ngIf="selectedItem.nodeProperties.textHighLimitCheckText" style="margin-top: 10px;">
+                    <input class="e-input" type="text" placeholder="Set Low Limit Text"
+                      [value]="selectedItem.nodeProperties.textHighLimitTextValue" style="background: #FFFFFF;"
+                      (change)="diagramPropertyBinding.textHighLimitTextChange($event)" />
+                  </div>
+
+                  <div *ngIf="selectedItem.nodeProperties.textHighLimitCheckShape" style="margin-top: 10px;">
+                    <ejs-dropdownlist id="mindMapLevels" [(value)]="selectedItem.nodeProperties.textHighLimitShapeValue"
+                      placeholder="Set Shape" [dataSource]="textShape" [fields]="{ text: 'text', value: 'value' }"
+                      (change)="diagramPropertyBinding.textHighLimitShapeChange($event)">
+                    </ejs-dropdownlist>
+                  </div>
+
+                  <div *ngIf="selectedItem.nodeProperties.textHighLimitCheckAudio" style="margin-top: 10px;">
+                    <p>Audio: {{selectedItem.nodeProperties.textHighLimitAudioValue}} </p>
+
+                    <input id="textAudioFile" class="e-input" style="background: #FFFFFF;" type="file"
+                      placeholder="Set Audio" accept="audio/*"
+                      (change)="diagramPropertyBinding.textHighLimitAudio($event)" />
+                  </div>
+
                 </div>
-
-                <div *ngIf="selectedItem.nodeProperties.textHighLimitCheckShape" style="margin-top: 10px;">
-                  <ejs-dropdownlist id="mindMapLevels" [(value)]="selectedItem.nodeProperties.textHighLimitShapeValue"
-                    placeholder="Set Shape" [dataSource]="textShape"
-                    (change)="diagramPropertyBinding.textHighLimitShapeChange($event)">
-                  </ejs-dropdownlist>
-                </div>
-
-                <div *ngIf="selectedItem.nodeProperties.textHighLimitCheckAudio" style="margin-top: 10px;">
-                  <p>Audio: {{selectedItem.nodeProperties.textHighLimitAudioValue}} </p>
-
-                  <input id="textAudioFile" class="e-input" style="background: #FFFFFF;" type="file"
-                    placeholder="Set Audio" accept="audio/*"
-                    (change)="diagramPropertyBinding.textHighLimitAudio($event)" />
-                </div>
-
               </div>
+
             </div>
 
             <div id="bitDisplayPropertyDiv">
 
-              <div id="bitDisplay1PropertyDiv">
-
-
+              <div>
+                <p>Select Tag:</p>
                 <div>
-                  <p>Select Tag:</p>
+                  <ejs-dropdownlist #dropdown [dataSource]="stationData" placeholder="select Tag"
+                    [value]="selectedItem.nodeProperties.bitTagName ? selectedItem.nodeProperties.bitTagName : null"
+                    (change)="diagramPropertyBinding.changeBitTextStation($event)"
+                    (change)="tagChangeBitTextName($event)"></ejs-dropdownlist>
+                </div>
+              </div>
+
+              <div>
+                <div style="margin-top: 10px">
+                  <p style="margin-bottom: 0">Select Digital Channel:</p>
                   <div>
-                    <ejs-dropdownlist #dropdown [dataSource]="stationData" placeholder="select Tag"
-                      [value]="selectedItem.nodeProperties.bitTagName ? selectedItem.nodeProperties.bitTagName : null"
-                      (change)="diagramPropertyBinding.changeBitTextStation($event)"
-                      (change)="tagChangeBitTextName($event)"></ejs-dropdownlist>
+                    <ejs-dropdownlist id="multiselect-checkbox" #checkbox [dataSource]="digitalTextChName"
+                      [value]="selectedItem.nodeProperties.annotationContent ? selectedItem.nodeProperties.annotationContent : null"
+                      placeholder="select analog channel"
+                      (change)="diagramPropertyBinding.changeTextDigital($event)"></ejs-dropdownlist>
+                  </div>
+                </div>
+              </div>
+
+              <div style="margin-top: 10px;">
+                <p style="margin-bottom: 0;">Set ToolTip:</p>
+                <div>
+                  <input class="e-input" type="text" placeholder="ToolTip"
+                    [value]="selectedItem.nodeProperties.textTooltip ? selectedItem.nodeProperties.textTooltip : null"
+                    style="background: #FFFFFF;" (change)="diagramPropertyBinding.textTooltipChange($event)" />
+                </div>
+              </div>
+
+              <div style="margin-top: 10px;">
+
+                <p style="margin-bottom: 0;">Set Value:</p>
+
+                <div style="display: flex;flex-direction: row;justify-content: space-between;">
+                  <div>
+                    <ejs-checkbox id="printMultiplePage" label="1 as Normal"
+                      (change)="diagramPropertyBinding.bitSetValue1asNormal($event)"
+                      [(checked)]="selectedItem.nodeProperties.bitSet1asNormal"></ejs-checkbox>
+                  </div>
+                  <div>
+                    <ejs-checkbox id="printMultiplePage" label="1 as Abnormal"
+                      (change)="diagramPropertyBinding.bitSetValue1asAbnormal($event)"
+                      [(checked)]="selectedItem.nodeProperties.bitSet1asAbnormal"></ejs-checkbox>
                   </div>
                 </div>
 
+              </div>
+
+
+              <div>
+                <p style="margin-bottom: 0;margin-top: 10px;">Normal Blinking:</p>
+                <div style="display: flex;flex-direction: row;justify-content: space-between;">
+                  <div>
+                    <ejs-checkbox id="printMultiplePage" label="continuous"
+                      (change)="diagramPropertyBinding.normalCountBlinkChange($event)"
+                      [(checked)]="selectedItem.nodeProperties.normalContinueBlink"></ejs-checkbox>
+                  </div>
+                  <div>
+                    <ejs-checkbox id="printMultiplePage" label="Time Duration"
+                      (change)="diagramPropertyBinding.normalTimeBlinkChange($event)"
+                      [(checked)]="selectedItem.nodeProperties.normalTimeBlink"></ejs-checkbox>
+                  </div>
+                </div>
+                <div style="margin-top: 10px;" *ngIf="selectedItem.nodeProperties.normalTimeBlink">
+                  <input class="e-input" type="text" placeholder="Set Time Duration"
+                    [value]="selectedItem.nodeProperties.normalTimeBlinkValue ? selectedItem.nodeProperties.normalTimeBlinkValue : null"
+                    style="background: #FFFFFF;" (change)="diagramPropertyBinding.normalBlinkTimeValueChange($event)" />
+                </div>
+              </div>
+
+
+              <div class="db-prop-separator"></div>
+
+              <div id="bitLablePropertyDiv">
+
                 <div>
-                  <div style="margin-top: 10px">
-                    <p style="margin-bottom: 0">Select Digital Channel:</p>
+                  <div>
+                    <p style="margin-bottom: 0;">Set Text for Value 1:</p>
                     <div>
-                      <ejs-dropdownlist id="multiselect-checkbox" #checkbox [dataSource]="digitalTextChName"
-                        [value]="selectedItem.nodeProperties.annotationContent ? selectedItem.nodeProperties.annotationContent : null"
-                        placeholder="select analog channel"
-                        (change)="diagramPropertyBinding.changeTextDigital($event)"></ejs-dropdownlist>
+                      <input class="e-input" type="text" placeholder="Set Text For Value 1" style="background: #FFFFFF;"
+                        [value]="selectedItem.nodeProperties.bitTextFor1"
+                        (change)="diagramPropertyBinding.bitText1Change($event)" />
                     </div>
                   </div>
+
+                  <div style="margin-top: 6px; margin-bottom: 10px;">
+                    <div class="col-xs-12 db-col-left">
+                      <div class="db-color-container">
+                        <div class="db-color-input">
+                          <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
+                            [value]="selectedItem.nodeProperties.bitTextColorFor1 ? selectedItem.nodeProperties.bitTextColorFor1 : 'transparent'"
+                            (change)="diagramPropertyBinding.bitTextColorFor1($event)" />
+                        </div>
+                        <div class="db-color-btn">
+                          <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style="margin-top: 40px;">
+                    <p style="margin-bottom: 0;">Set Text for Value 0:</p>
+                    <div>
+                      <input class="e-input" type="text" placeholder="Set Text For Value 0" style="background: #FFFFFF;"
+                        [value]="selectedItem.nodeProperties.bitTextFor0"
+                        (change)="diagramPropertyBinding.bitText0Change($event)" />
+                    </div>
+                  </div>
+
+                  <div style="margin-top: 6px;">
+                    <div class="col-xs-12 db-col-left">
+                      <div class="db-color-container">
+                        <div class="db-color-input">
+                          <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
+                            [value]="selectedItem.nodeProperties.bitTextColorFor0 ? selectedItem.nodeProperties.bitTextColorFor0 : 'transparent'"
+                            (change)="diagramPropertyBinding.bitTextColorFor0($event)" />
+                        </div>
+                        <div class="db-color-btn">
+                          <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
 
-                <div style="margin-top: 10px;">
-                  <p>Set ToolTip:</p>
-                  <div>
-                    <input class="e-input" type="text" placeholder="ToolTip"
-                      [value]="selectedItem.nodeProperties.textTooltip ? selectedItem.nodeProperties.textTooltip : null"
-                      style="background: #FFFFFF;" (change)="diagramPropertyBinding.textTooltipChange($event)" />
-                  </div>
-                </div>
 
+              </div>
 
-                <div class="db-prop-separator"></div>
-
-
-                <div style="display: flex; flex-direction: row; justify-content: space-between;">
-                  <div>
-                    <ejs-checkbox id="printMultiplePage" label="Hide On 1"
-                      (change)="diagramPropertyBinding.textHideOn1Change($event)"
-                      [(checked)]="selectedItem.nodeProperties.hideOn1"></ejs-checkbox>
-                  </div>
-                  <div>
-                    <ejs-checkbox id="printMultiplePage" label="Hide On 0"
-                      (change)="diagramPropertyBinding.textHideOn0Change($event)"
-                      [(checked)]="selectedItem.nodeProperties.hideOn0"></ejs-checkbox>
-                  </div>
-                </div>
+              <div id="bitShapePropertyDiv">
 
                 <div>
-                  <div>
-                    <p>Set Color for Bit 1:</p>
+
+                  <div style="margin-top: 10px;">
+                    <p style="margin-bottom: 0;">Set Color for Bit 1:</p>
 
                     <div>
                       <div class="col-xs-12 db-col-left">
                         <div class="db-color-container">
                           <div class="db-color-input">
                             <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
+                              [value]="selectedItem.nodeProperties.bit1Color ? selectedItem.nodeProperties.bit1Color : 'transparent'"
                               (change)="diagramPropertyBinding.textOnBit1ColorChange($event)" />
                           </div>
                           <div class="db-color-btn">
@@ -1371,15 +1516,16 @@
                         </div>
                       </div>
                     </div>
-
                   </div>
-                  <div style="width: 100%;">
-                    <p>Set Color for Bit 0:</p>
+
+                  <div style="margin-top: 40px;">
+                    <p style="margin-bottom: 0;">Set Color for Bit 0:</p>
                     <div>
                       <div class="col-xs-12 db-col-left">
                         <div class="db-color-container">
                           <div class="db-color-input">
                             <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
+                              [value]="selectedItem.nodeProperties.bit0Color ? selectedItem.nodeProperties.bit0Color : 'transparent'"
                               (change)="diagramPropertyBinding.textOnBit0ColorChange($event)" />
                           </div>
                           <div class="db-color-btn">
@@ -1389,29 +1535,238 @@
                       </div>
                     </div>
                   </div>
+
+
                 </div>
+
+
+
+              </div>
+
+              <div id="bitImagePropertyDiv">
+
+                <div>
+                  <p style="margin-bottom: 0;">Set Image:</p>
+                  <div class="col-xs-6 db-col-left">
+                    <ejs-toolbar id="toolbarNodeInsert" (clicked)="toolbarInsertClick($event)" overflowMode="Scrollable"
+                      #toolbarEditor>
+                      <e-items>
+                        <e-item prefixIcon="sf-icon-InsertImage tb-icons" tooltipText="Insert Image"
+                          cssClass="tb-item-end">
+                        </e-item>
+                      </e-items>
+                    </ejs-toolbar>
+                  </div>
+                </div>
+
+                <div style="margin-top: 40px;">
+                  <div>
+                    <p style="margin-bottom: 0;">Set Image for Bit 1:</p>
+                    <div>
+                      <input id="textAudioFile" class="e-input" style="background: #FFFFFF;" type="file"
+                        placeholder="Set Audio" accept="Image/*"
+                        (change)="diagramPropertyBinding.bitImageChangeFor1($event)" />
+                    </div>
+                  </div>
+                </div>
+
+
+                <div style="margin-top: 10px;">
+                  <div>
+                    <p style="margin-bottom: 0;">Set Image for Bit 0:</p>
+                    <div>
+                      <input id="textAudioFile" class="e-input" style="background: #FFFFFF;" type="file"
+                        placeholder="Set Audio" accept="Image/*"
+                        (change)="diagramPropertyBinding.bitImageChangeFor0($event)" />
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div id="bitCommonConditionPropertyDiv" style="margin-top: 45px;">
+
+                <div class="db-prop-separator"></div>
+
+
+                <p style="margin-bottom: 0;">Hide On:</p>
+
+                <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                  <div>
+                    <ejs-checkbox id="printMultiplePage" label="Normal"
+                      (change)="diagramPropertyBinding.texthideOnNormalChange($event)"
+                      [(checked)]="selectedItem.nodeProperties.hideOnNormal"></ejs-checkbox>
+                  </div>
+                  <div>
+                    <ejs-checkbox id="printMultiplePage" label="AbNormal"
+                      (change)="diagramPropertyBinding.texthideOnAbNormalChange($event)"
+                      [(checked)]="selectedItem.nodeProperties.hideOnAbNormal"></ejs-checkbox>
+                  </div>
+                </div>
+
+
+                <div>
+                  <p style="margin-bottom: 0;">Choose Condition:</p>
+                  <div style="display: flex;flex-direction: row;justify-content: space-between;">
+                    <div>
+                      <ejs-checkbox id="printMultiplePage" label="For 1 to 0"
+                        (change)="diagramPropertyBinding.bitCondition1to0Change($event)"
+                        [(checked)]="selectedItem.nodeProperties.bitCheck1to0"></ejs-checkbox>
+                    </div>
+                    <div>
+                      <ejs-checkbox id="printMultiplePage" label="For 0 to 1"
+                        (change)="diagramPropertyBinding.bitCondition0to1Change($event)"
+                        [(checked)]="selectedItem.nodeProperties.bitCheck0to1"></ejs-checkbox>
+                    </div>
+                  </div>
+                </div>
+
+                <div [ngStyle]="{'display': selectedItem.nodeProperties.bitCheck1to0 ? 'block' : 'none'}">
+
+                  <div>
+                    <p style="margin-bottom: 0;margin-top: 10px;">Conditional Blink For 1 to 0:</p>
+                    <div style="display: flex;flex-direction: row;justify-content: space-between;">
+                      <div>
+                        <ejs-checkbox id="printMultiplePage" label="continuous"
+                          (change)="diagramPropertyBinding.bitCondiCountBlink1to0($event)"
+                          [(checked)]="selectedItem.nodeProperties.bitCondiConBlink1to0"></ejs-checkbox>
+                      </div>
+                      <div>
+                        <ejs-checkbox id="printMultiplePage" label="Time Duration"
+                          (change)="diagramPropertyBinding.bitCondiTimeBlink1to0($event)"
+                          [(checked)]="selectedItem.nodeProperties.bitCondiTimeBlink1to0"></ejs-checkbox>
+                      </div>
+                    </div>
+                    <div style="margin-top: 10px;" *ngIf="selectedItem.nodeProperties.bitCondiTimeBlink1to0">
+                      <input class="e-input" type="number" placeholder="Set Time Duration"
+                        [value]="selectedItem.nodeProperties.bitCondiBlinkTImeValue1to0 ? selectedItem.nodeProperties.bitCondiBlinkTImeValue1to0 : null"
+                        style="background: #FFFFFF;"
+                        (change)="diagramPropertyBinding.bitCondiBlinkTimeChange1to0($event)" />
+                    </div>
+                  </div>
+
+                  <div id="bitLableOnePropertyDiv" style="margin-top: 10px;">
+                    <p style="margin-bottom: 0;">Set Text For 1 to 0:</p>
+                    <div>
+                      <input class="e-input" type="text" placeholder="Set Text For 1 to 0"
+                        [value]="selectedItem.nodeProperties.bitTextFor1to0 ? selectedItem.nodeProperties.bitTextFor1to0 : null"
+                        style="background: #FFFFFF;" (change)="diagramPropertyBinding.bitTextChange1to0($event)" />
+                    </div>
+                  </div>
+
+
+
+                  <div id="bitShapeOnePropertyDiv">
+
+                    <p style="margin-bottom: 0;margin-top: 10px;">Set Shape Color For 1 to 0:</p>
+
+                    <div class="col-xs-12 db-col-left">
+                      <div class="db-color-container">
+                        <div class="db-color-input">
+                          <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
+                            [value]="selectedItem.nodeProperties.bitShapeColor1to0 ? selectedItem.nodeProperties.bitShapeColor1to0 : 'transparent'"
+                            (change)="diagramPropertyBinding.bitShapeColor1to0Change($event)" />
+                        </div>
+                        <div class="db-color-btn">
+                          <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style="margin-top: 10px;">
+                    <p style="margin-bottom: 0;">Set Audio File For 1 to 0:</p>
+                    <div>
+                      <input id="textAudioFile" class="e-input" style="background: #FFFFFF;" type="file"
+                        placeholder="Set Audio" accept="audio/*"
+                        (change)="diagramPropertyBinding.bitAudio1to0Change($event)" />
+                    </div>
+                  </div>
+
+                </div>
+
+
+                <div [ngStyle]="{'display': selectedItem.nodeProperties.bitCheck0to1 ? 'block' : 'none'}">
+
+                  <div>
+                    <p style="margin-bottom: 0;margin-top: 10px;">Conditional Blink For 0 to 1:</p>
+                    <div style="display: flex;flex-direction: row;justify-content: space-between;">
+                      <div>
+                        <ejs-checkbox id="printMultiplePage" label="continuous"
+                          (change)="diagramPropertyBinding.bitCondiCountBlink0to1($event)"
+                          [(checked)]="selectedItem.nodeProperties.bitCondiConBlink0to1"></ejs-checkbox>
+                      </div>
+                      <div>
+                        <ejs-checkbox id="printMultiplePage" label="Time Duration"
+                          (change)="diagramPropertyBinding.bitCondiTimeBlink0to1($event)"
+                          [(checked)]="selectedItem.nodeProperties.bitCondiTimeBlink0to1"></ejs-checkbox>
+                      </div>
+                    </div>
+                    <div style="margin-top: 10px;" *ngIf="selectedItem.nodeProperties.bitCondiTimeBlink0to1">
+                      <input class="e-input" type="number" placeholder="Set Time Duration"
+                        [value]="selectedItem.nodeProperties.bitCondiBlinkTImeValue0to1 ? selectedItem.nodeProperties.bitCondiBlinkTImeValue0to1 : null"
+                        style="background: #FFFFFF;"
+                        (change)="diagramPropertyBinding.bitCondiBlinkTimeChange0to1($event)" />
+                    </div>
+                  </div>
+
+
+                  <div style="margin-top: 10px;" id="bitLableTwoPropertyDiv">
+                    <p style="margin-bottom: 0;">Set Text For 0 to 1:</p>
+                    <div>
+                      <input class="e-input" type="text" placeholder="Set Text For 0 to 1"
+                        [value]="selectedItem.nodeProperties.bitTextFor0to1 ? selectedItem.nodeProperties.bitTextFor0to1 : null"
+                        style="background: #FFFFFF;" (change)="diagramPropertyBinding.bitTextChange0to1($event)" />
+                    </div>
+                  </div>
+
+                  <div id="bitShapeTwoPropertyDiv">
+
+                    <p style="margin-bottom: 0;margin-top: 10px;">Set Shape Color For 0 to 1:</p>
+
+                    <div class="col-xs-12 db-col-left">
+                      <div class="db-color-container">
+                        <div class="db-color-input">
+                          <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
+                            [value]="selectedItem.nodeProperties.bitShapeColor0to1 ? selectedItem.nodeProperties.bitShapeColor0to1 : 'transparent'"
+                            (change)="diagramPropertyBinding.bitShapeColor0to1Change($event)" />
+                        </div>
+                        <div class="db-color-btn">
+                          <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div>
+                    <p>Set Audio File For 0 to 1:</p>
+                    <div style="margin-top: 10px;">
+
+                      <input id="textAudioFile" class="e-input" style="background: #FFFFFF;" type="file"
+                        placeholder="Set Audio" accept="audio/*"
+                        (change)="diagramPropertyBinding.bitAudio0to1Change($event)" />
+                    </div>
+                  </div>
+
+
+                </div>
+
+
+
+
+
 
 
               </div>
 
             </div>
 
+
+
+
+
           </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1667,21 +2022,25 @@
           <div class="row db-prop-row">
             <div class="col-xs-6 org-pattern-parent">
               <div id="orgPattern1" (click)="orgChartPropertyBinding.layoutPatternChange($event)"
-                class="org-pattern-style"></div>
+                class="org-pattern-style">
+              </div>
             </div>
             <div class="col-xs-6 org-pattern-parent">
               <div id="orgPattern2" (click)="orgChartPropertyBinding.layoutPatternChange($event)"
-                class="org-pattern-style"></div>
+                class="org-pattern-style">
+              </div>
             </div>
           </div>
           <div class="row db-prop-row">
             <div class="col-xs-6 org-pattern-parent">
               <div id="orgPattern3" (click)="orgChartPropertyBinding.layoutPatternChange($event)"
-                class="org-pattern-style"></div>
+                class="org-pattern-style">
+              </div>
             </div>
             <div class="col-xs-6 org-pattern-parent">
               <div id="orgPattern4" (click)="orgChartPropertyBinding.layoutPatternChange($event)"
-                class="org-pattern-style"></div>
+                class="org-pattern-style">
+              </div>
             </div>
           </div>
         </div>

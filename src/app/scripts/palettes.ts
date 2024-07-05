@@ -26,7 +26,7 @@ export class Palettes {
   private getImageShapes(): NodeModel[] {
     let imageShapes: NodeModel[] = [
       {
-        id: "Rectangle",
+        id: "image",
         shape: { type: "Basic", shape: "Rectangle" },
         style: { strokeWidth: 2 },
         annotations: [
@@ -45,7 +45,7 @@ export class Palettes {
   private getAddStation(): NodeModel[] {
     let AddStation: NodeModel[] = [
       {
-        id: 'CustomImageShape',
+        id: 'CustomImageShape1',
         shape: { type: 'Image', source: 'https://img.icons8.com/?size=100&id=60983&format=png&color=000000' },
         style: { strokeWidth: 2 },
         annotations: [
@@ -57,7 +57,7 @@ export class Palettes {
         ]
       },
       {
-        id: 'cust2',
+        id: 'CustomImageShape2',
         shape: { type: 'Image', source: '../assets/station.webp' },
         style: { strokeWidth: 2 },
         annotations: [
@@ -114,10 +114,10 @@ export class Palettes {
     return numeric2Shapes;
   }
 
-  private getBitDisplay1Shape(): NodeModel[] {
-    let bitDisplay1Shape: NodeModel[] = [
+  private getbitLableShape(): NodeModel[] {
+    let bitLableShape: NodeModel[] = [
       {
-        id: 'bitDisplay1',
+        id: 'bitLable',
         shape: { type: 'Flow', shape: 'Process' },
         style: { strokeWidth: 2 },
         annotations: [
@@ -130,97 +130,230 @@ export class Palettes {
         ]
       }
     ]
-    return bitDisplay1Shape;
+    return bitLableShape;
+  }
+
+  private getBitDisplay2Shape(): NodeModel[] {
+    let bitDisplay2Shape: NodeModel[] = [
+      {
+        id: 'bitDisplay2',
+        shape: { type: 'Flow', shape: 'Process' },
+        style: { strokeWidth: 2 },
+        annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      }
+    ]
+    return bitDisplay2Shape;
   }
 
   private getConnectors(): ConnectorModel[] {
     let connectorSymbols: ConnectorModel[] = [
       {
         id: "Link1",
-        type: "Orthogonal",
-        sourcePoint: { x: 0, y: 0 },
-        targetPoint: { x: 40, y: 40 },
-        targetDecorator: { shape: "Arrow", style: { strokeWidth: 2 } },
-        style: { strokeWidth: 2 },
+        type: "Straight",
+        sourcePoint: { x: 200, y: 100 },
+        targetPoint: { x: 400, y: 100 },
+        targetDecorator: { shape: "None", style: { strokeWidth: 2 } },
+        style: { strokeWidth: 2 }
       },
       {
         id: "Link2",
-        type: "Orthogonal",
-        sourcePoint: { x: 0, y: 0 },
-        targetPoint: { x: 40, y: 40 },
-        targetDecorator: { shape: "Arrow", style: { strokeWidth: 2 } },
-        style: { strokeWidth: 2, strokeDashArray: "3,3" },
-      },
-      {
-        id: "link3",
-        type: "Orthogonal",
-        sourcePoint: { x: 0, y: 0 },
-        targetPoint: { x: 40, y: 40 },
-        style: { strokeWidth: 2 },
-        targetDecorator: { shape: "None" },
-      },
-      {
-        id: "Link4",
-        type: "Orthogonal",
-        sourcePoint: { x: 0, y: 0 },
-        targetPoint: { x: 40, y: 40 },
-        style: { strokeWidth: 2, strokeDashArray: "3,3" },
-        targetDecorator: { shape: "None" },
-      },
-      {
-        id: "Link21",
         type: "Straight",
         sourcePoint: { x: 0, y: 0 },
-        targetPoint: { x: 40, y: 40 },
-        targetDecorator: { shape: "Arrow", style: { strokeWidth: 2 } },
+        targetPoint: { x: 0, y: 400 },
+        targetDecorator: { shape: "None", style: { strokeWidth: 2 } },
         style: { strokeWidth: 2 },
-      },
-      {
-        id: "Link22",
-        type: "Straight",
-        sourcePoint: { x: 0, y: 0 },
-        targetPoint: { x: 40, y: 40 },
-        targetDecorator: { shape: "Arrow", style: { strokeWidth: 2 } },
-        style: { strokeWidth: 2, strokeDashArray: "3,3" },
-      },
-      {
-        id: "link23",
-        type: "Straight",
-        sourcePoint: { x: 0, y: 0 },
-        targetPoint: { x: 40, y: 40 },
-        style: { strokeWidth: 2 },
-        targetDecorator: { shape: "None" },
-      },
-      {
-        id: "Link24",
-        type: "Straight",
-        sourcePoint: { x: 0, y: 0 },
-        targetPoint: { x: 40, y: 40 },
-        style: { strokeWidth: 2, strokeDashArray: "3,3" },
-        targetDecorator: { shape: "None" },
-      },
-      {
-        id: "link33",
-        type: "Bezier",
-        sourcePoint: { x: 0, y: 0 },
-        targetPoint: { x: 40, y: 40 },
-        style: { strokeWidth: 2 },
-        targetDecorator: { shape: "None" },
-      },
-      {
-        id: "Link34",
-        type: "Bezier",
-        sourcePoint: { x: 0, y: 0 },
-        targetPoint: { x: 40, y: 40 },
-        style: { strokeWidth: 2, strokeDashArray: "3,3" },
-        targetDecorator: { shape: "None" },
       },
     ];
 
     return connectorSymbols;
   }
 
+  private getBitShapes(): NodeModel[] {
+    let getSelectionShapes: NodeModel[] = [
+
+      {
+        id: 'Shape1', shape: { type: 'Basic', shape: 'Rectangle' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Shape2', shape: { type: 'Basic', shape: 'Ellipse' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Shape3', shape: { type: 'Basic', shape: 'Hexagon' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Shape4', shape: { type: 'Basic', shape: 'Parallelogram' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Shape5', shape: { type: 'Basic', shape: 'Triangle' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Shape6', shape: { type: 'Basic', shape: 'Plus' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Shape7', shape: { type: 'Basic', shape: 'Star' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Shape8', shape: { type: 'Basic', shape: 'Pentagon' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Shape9', shape: { type: 'Basic', shape: 'Heptagon' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Shape10', shape: { type: 'Basic', shape: 'Octagon' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Shape11', shape: { type: 'Basic', shape: 'Trapezoid' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Shape12', shape: { type: 'Basic', shape: 'Decagon' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Shape13', shape: { type: 'Basic', shape: 'RightTriangle' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Shape14', shape: { type: 'Basic', shape: 'Cylinder' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Shape15', shape: { type: 'Basic', shape: 'Diamond' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+    ];
+    return getSelectionShapes;
+  }
+
+  private getBitImage(): NodeModel[] {
+    let imageShapes: NodeModel[] = [
+      {
+        id: "bitImage",
+        shape: { type: "Image", source: "" },
+        style: { strokeWidth: 2 },
+        annotations: [
+          {
+            content: "Enter Text Here",
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          },
+        ],
+      }
+    ];
+
+    return imageShapes;
+  }
+
   public palettes: PaletteModel[] = [
+
     {
       id: "station",
       expanded: true,
@@ -246,17 +379,35 @@ export class Palettes {
       title: "Numeric2",
     },
     {
-      id: "bitDisplay1",
+      id: "bitLable",
       expanded: false,
-      symbols: this.getBitDisplay1Shape(),
-      title: "Bit Display1",
+      symbols: this.getbitLableShape(),
+      title: "Bit Lable",
+    },
+    {
+      id: "bitShape",
+      expanded: false,
+      symbols: this.getBitShapes(),
+      title: "Bit Shapes"
+    },
+    {
+      id: "bitImage",
+      expanded: false,
+      symbols: this.getBitImage(),
+      title: "Bit Image"
     },
     // {
-    //   id: "connectors",
+    //   id: "bitDisplay2",
     //   expanded: false,
-    //   symbols: this.getConnectors(),
-    //   title: "Connectors",
+    //   symbols: this.getBitDisplay2Shape(),
+    //   title: "Bit Display2",
     // },
+    {
+      id: "connectors",
+      expanded: false,
+      symbols: this.getConnectors(),
+      title: "Connectors",
+    },
   ];
   public expandMode: ExpandMode = "Multiple";
   public symbolPreview: SymbolPreviewModel = { height: 100, width: 100 };
@@ -351,12 +502,36 @@ export class Palettes {
         title: "Numeric2",
       });
     }
-    if (text.indexOf("bitDisplay1") !== -1) {
+    if (text.indexOf("bitLable") !== -1) {
       palettes.push({
-        id: "bitDisplay1",
+        id: "bitLable",
         expanded: false,
         symbols: this.getNumeric2Shapes(),
         title: "Bit Display1",
+      });
+    }
+    // if (text.indexOf("bitDisplay2") !== -1) {
+    //   palettes.push({
+    //     id: "bitDisplay2",
+    //     expanded: false,
+    //     symbols: this.getNumeric2Shapes(),
+    //     title: "Bit Display2",
+    //   });
+    // }
+    if (text.indexOf("bitShape") !== -1) {
+      palettes.push({
+        id: "bitShape",
+        expanded: false,
+        symbols: this.getBitShapes(),
+        title: "Bit Shapes",
+      });
+    }
+    if (text.indexOf("bitImage") !== -1) {
+      palettes.push({
+        id: "bitImage",
+        expanded: false,
+        symbols: this.getBitImage(),
+        title: "Bit Image",
       });
     }
     if (text.indexOf("Connectors") !== -1) {

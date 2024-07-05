@@ -118,7 +118,6 @@ export class UtilityMethods {
 
 
 
-    console.log("node", node);
 
 
     if (this.annotationIntervalId) {
@@ -473,7 +472,7 @@ export class UtilityMethods {
           if (!selectedNode.annotations[0].textSetStr) {
             selectedNode.annotations[0].textSetStr = selectedItem.nodeProperties.textSetStr;
           }
-          selectedItem.nodeProperties.textDecimal = selectedNode.annotations[0].textDecimal ? selectedNode.annotations[0].textDecimal : copyNode[0].annotations[0].textDecimal;
+          selectedItem.nodeProperties.textDecimal = selectedNode.annotations[0].textDecimal ? selectedNode.annotations[0].textDecimal : 2;
           if (!selectedNode.annotations[0].textDecimal) {
             selectedNode.annotations[0].textDecimal = selectedItem.nodeProperties.textDecimal;
           }
@@ -588,6 +587,8 @@ export class UtilityMethods {
 
 
 
+
+
           // bit-display
 
           selectedItem.nodeProperties.bitTagName = selectedNode.annotations[0].bitTagName ? selectedNode.annotations[0].bitTagName : copyNode[0].annotations[0].bitTagName;
@@ -598,13 +599,13 @@ export class UtilityMethods {
           if (!selectedNode.annotations[0].bitTextChName) {
             selectedNode.annotations[0].bitTextChName = selectedItem.nodeProperties.bitTextChName;
           }
-          selectedItem.nodeProperties.hideOn1 = selectedNode.annotations[0].hideOn1 ? selectedNode.annotations[0].hideOn1 : copyNode[0].annotations[0].hideOn1;
-          if (!selectedNode.annotations[0].hideOn1) {
-            selectedNode.annotations[0].hideOn1 = selectedItem.nodeProperties.hideOn1;
+          selectedItem.nodeProperties.hideOnNormal = selectedNode.annotations[0].hideOnNormal ? selectedNode.annotations[0].hideOnNormal : copyNode[0].annotations[0].hideOnNormal;
+          if (!selectedNode.annotations[0].hideOnNormal) {
+            selectedNode.annotations[0].hideOnNormal = selectedItem.nodeProperties.hideOnNormal;
           }
-          selectedItem.nodeProperties.hideOn0 = selectedNode.annotations[0].hideOn0 ? selectedNode.annotations[0].hideOn0 : copyNode[0].annotations[0].hideOn0;
-          if (!selectedNode.annotations[0].hideOn0) {
-            selectedNode.annotations[0].hideOn0 = selectedItem.nodeProperties.hideOn0;
+          selectedItem.nodeProperties.hideOnAbNormal = selectedNode.annotations[0].hideOnAbNormal ? selectedNode.annotations[0].hideOnAbNormal : copyNode[0].annotations[0].hideOnAbNormal;
+          if (!selectedNode.annotations[0].hideOnAbNormal) {
+            selectedNode.annotations[0].hideOnAbNormal = selectedItem.nodeProperties.hideOnAbNormal;
           }
           selectedItem.nodeProperties.bit1Color = selectedNode.annotations[0].bit1Color ? selectedNode.annotations[0].bit1Color : copyNode[0].annotations[0].bit1Color;
           if (!selectedNode.annotations[0].bit1Color) {
@@ -614,6 +615,111 @@ export class UtilityMethods {
           if (!selectedNode.annotations[0].bit0Color) {
             selectedNode.annotations[0].bit0Color = selectedItem.nodeProperties.bit0Color;
           }
+          selectedItem.nodeProperties.normalContinueBlink = selectedNode.annotations[0].normalContinueBlink ? selectedNode.annotations[0].normalContinueBlink : copyNode[0].annotations[0].normalContinueBlink;
+          if (!selectedNode.annotations[0].normalContinueBlink) {
+            selectedNode.annotations[0].normalContinueBlink = selectedItem.nodeProperties.normalContinueBlink;
+          }
+          selectedItem.nodeProperties.normalTimeBlink = selectedNode.annotations[0].normalTimeBlink ? selectedNode.annotations[0].normalTimeBlink : copyNode[0].annotations[0].normalTimeBlink;
+          if (!selectedNode.annotations[0].normalTimeBlink) {
+            selectedNode.annotations[0].normalTimeBlink = selectedItem.nodeProperties.normalTimeBlink;
+          }
+          selectedItem.nodeProperties.normalTimeBlinkValue = selectedNode.annotations[0].normalTimeBlinkValue ? selectedNode.annotations[0].normalTimeBlinkValue : copyNode[0].annotations[0].normalTimeBlinkValue;
+          if (!selectedNode.annotations[0].normalTimeBlinkValue) {
+            selectedNode.annotations[0].normalTimeBlinkValue = selectedItem.nodeProperties.normalTimeBlinkValue;
+          }
+          selectedItem.nodeProperties.bitSet1asNormal = selectedNode.annotations[0].bitSet1asNormal ? selectedNode.annotations[0].bitSet1asNormal : copyNode[0].annotations[0].bitSet1asNormal;
+          if (!selectedNode.annotations[0].bitSet1asNormal) {
+            selectedNode.annotations[0].bitSet1asNormal = selectedItem.nodeProperties.bitSet1asNormal;
+          }
+          selectedItem.nodeProperties.bitSet1asAbnormal = selectedNode.annotations[0].bitSet1asAbnormal ? selectedNode.annotations[0].bitSet1asAbnormal : copyNode[0].annotations[0].bitSet1asAbnormal;
+          if (!selectedNode.annotations[0].bitSet1asAbnormal) {
+            selectedNode.annotations[0].bitSet1asAbnormal = selectedItem.nodeProperties.bitSet1asAbnormal;
+          }
+          selectedItem.nodeProperties.bitCheck1to0 = selectedNode.annotations[0].bitCheck1to0 ? selectedNode.annotations[0].bitCheck1to0 : copyNode[0].annotations[0].bitCheck1to0;
+          if (!selectedNode.annotations[0].bitCheck1to0) {
+            selectedNode.annotations[0].bitCheck1to0 = selectedItem.nodeProperties.bitCheck1to0;
+          }
+          selectedItem.nodeProperties.bitCheck0to1 = selectedNode.annotations[0].bitCheck0to1 ? selectedNode.annotations[0].bitCheck0to1 : copyNode[0].annotations[0].bitCheck0to1;
+          if (!selectedNode.annotations[0].bitCheck0to1) {
+            selectedNode.annotations[0].bitCheck0to1 = selectedItem.nodeProperties.bitCheck0to1;
+          }
+          selectedItem.nodeProperties.bitCondiConBlink1to0 = selectedNode.annotations[0].bitCondiConBlink1to0 ? selectedNode.annotations[0].bitCondiConBlink1to0 : copyNode[0].annotations[0].bitCondiConBlink1to0;
+          if (!selectedNode.annotations[0].bitCondiConBlink1to0) {
+            selectedNode.annotations[0].bitCondiConBlink1to0 = selectedItem.nodeProperties.bitCondiConBlink1to0;
+          }
+          selectedItem.nodeProperties.bitCondiTimeBlink1to0 = selectedNode.annotations[0].bitCondiTimeBlink1to0 ? selectedNode.annotations[0].bitCondiTimeBlink1to0 : copyNode[0].annotations[0].bitCondiTimeBlink1to0;
+          if (!selectedNode.annotations[0].bitCondiTimeBlink1to0) {
+            selectedNode.annotations[0].bitCondiTimeBlink1to0 = selectedItem.nodeProperties.bitCondiTimeBlink1to0;
+          }
+          selectedItem.nodeProperties.bitCondiBlinkTimeValue1to0 = selectedNode.annotations[0].bitCondiBlinkTimeValue1to0 ? selectedNode.annotations[0].bitCondiBlinkTimeValue1to0 : copyNode[0].annotations[0].bitCondiBlinkTimeValue1to0;
+          if (!selectedNode.annotations[0].bitCondiBlinkTimeValue1to0) {
+            selectedNode.annotations[0].bitCondiBlinkTimeValue1to0 = selectedItem.nodeProperties.bitCondiBlinkTimeValue1to0;
+          }
+
+          selectedItem.nodeProperties.bitCondiConBlink0to1 = selectedNode.annotations[0].bitCondiConBlink0to1 ? selectedNode.annotations[0].bitCondiConBlink0to1 : copyNode[0].annotations[0].bitCondiConBlink0to1;
+          if (!selectedNode.annotations[0].bitCondiConBlink0to1) {
+            selectedNode.annotations[0].bitCondiConBlink0to1 = selectedItem.nodeProperties.bitCondiConBlink0to1;
+          }
+          selectedItem.nodeProperties.bitCondiTimeBlink0to1 = selectedNode.annotations[0].bitCondiTimeBlink0to1 ? selectedNode.annotations[0].bitCondiTimeBlink0to1 : copyNode[0].annotations[0].bitCondiTimeBlink0to1;
+          if (!selectedNode.annotations[0].bitCondiTimeBlink0to1) {
+            selectedNode.annotations[0].bitCondiTimeBlink0to1 = selectedItem.nodeProperties.bitCondiTimeBlink0to1;
+          }
+          selectedItem.nodeProperties.bitCondiBlinkTimeValue0to1 = selectedNode.annotations[0].bitCondiBlinkTimeValue0to1 ? selectedNode.annotations[0].bitCondiBlinkTimeValue0to1 : copyNode[0].annotations[0].bitCondiBlinkTimeValue0to1;
+          if (!selectedNode.annotations[0].bitCondiBlinkTimeValue0to1) {
+            selectedNode.annotations[0].bitCondiBlinkTimeValue0to1 = selectedItem.nodeProperties.bitCondiBlinkTimeValue0to1;
+          }
+          selectedItem.nodeProperties.bitShapeColor1to0 = selectedNode.annotations[0].bitShapeColor1to0 ? selectedNode.annotations[0].bitShapeColor1to0 : copyNode[0].annotations[0].bitShapeColor1to0
+          if (!selectedNode.annotations[0].bitShapeColor1to0) {
+            selectedNode.annotations[0].bitShapeColor1to0 = selectedItem.nodeProperties.bitShapeColor1to0;
+          }
+          selectedItem.nodeProperties.bitShapeColor0to1 = selectedNode.annotations[0].bitShapeColor0to1 ? selectedNode.annotations[0].bitShapeColor0to1 : copyNode[0].annotations[0].bitShapeColor0to1
+          if (!selectedNode.annotations[0].bitShapeColor0to1) {
+            selectedNode.annotations[0].bitShapeColor0to1 = selectedItem.nodeProperties.bitShapeColor0to1;
+          }
+          selectedItem.nodeProperties.bitAudio1to0 = selectedNode.annotations[0].bitAudio1to0 ? selectedNode.annotations[0].bitAudio1to0 : copyNode[0].annotations[0].bitAudio1to0;
+          if (!selectedNode.annotations[0].bitAudio1to0) {
+            selectedNode.annotations[0].bitAudio1to0 = selectedItem.nodeProperties.bitAudio1to0;
+          }
+          selectedItem.nodeProperties.bitAudio0to1 = selectedNode.annotations[0].bitAudio0to1 ? selectedNode.annotations[0].bitAudio0to1 : copyNode[0].annotations[0].bitAudio0to1;
+          if (!selectedNode.annotations[0].bitAudio0to1) {
+            selectedNode.annotations[0].bitAudio0to1 = selectedItem.nodeProperties.bitAudio0to1;
+          }
+          selectedItem.nodeProperties.bitTextFor1 = selectedNode.annotations[0].bitTextFor1 ? selectedNode.annotations[0].bitTextFor1 : copyNode[0].annotations[0].bitTextFor1;
+          if (!selectedNode.annotations[0].bitTextFor1) {
+            selectedNode.annotations[0].bitTextFor1 = selectedItem.nodeProperties.bitTextFor1;
+          }
+          selectedItem.nodeProperties.bitTextFor0 = selectedNode.annotations[0].bitTextFor0 ? selectedNode.annotations[0].bitTextFor0 : copyNode[0].annotations[0].bitTextFor0;
+          if (!selectedNode.annotations[0].bitTextFor0) {
+            selectedNode.annotations[0].bitTextFor0 = selectedItem.nodeProperties.bitTextFor0;
+          }
+          selectedItem.nodeProperties.bitTextColorFor0 = selectedNode.annotations[0].bitTextColorFor0 ? selectedNode.annotations[0].bitTextColorFor0 : copyNode[0].annotations[0].bitTextColorFor0;
+          if (!selectedNode.annotations[0].bitTextColorFor0) {
+            selectedNode.annotations[0].bitTextColorFor0 = selectedItem.nodeProperties.bitTextColorFor0;
+          }
+
+          selectedItem.nodeProperties.bitTextColorFor1 = selectedNode.annotations[0].bitTextColorFor1 ? selectedNode.annotations[0].bitTextColorFor1 : copyNode[0].annotations[0].bitTextColorFor1;
+          if (!selectedNode.annotations[0].bitTextColorFor1) {
+            selectedNode.annotations[0].bitTextColorFor1 = selectedItem.nodeProperties.bitTextColorFor1;
+          }
+          selectedItem.nodeProperties.bitTextFor1to0 = selectedNode.annotations[0].bitTextFor1to0 ? selectedNode.annotations[0].bitTextFor1to0 : copyNode[0].annotations[0].bitTextFor1to0;
+          if (!selectedNode.annotations[0].bitTextFor1to0) {
+            selectedNode.annotations[0].bitTextFor1to0 = selectedItem.nodeProperties.bitTextFor1to0;
+          }
+          selectedItem.nodeProperties.bitTextFor0to1 = selectedNode.annotations[0].bitTextFor0to1 ? selectedNode.annotations[0].bitTextFor0to1 : copyNode[0].annotations[0].bitTextFor0to1;
+          if (!selectedNode.annotations[0].bitTextFor0to1) {
+            selectedNode.annotations[0].bitTextFor0to1 = selectedItem.nodeProperties.bitTextFor0to1;
+          }
+
+          selectedItem.nodeProperties.bitImagefor1 = selectedNode.annotations[0].bitImagefor1 ? selectedNode.annotations[0].bitImagefor1 : copyNode[0].annotations[0].bitImagefor1;
+          if (!selectedNode.annotations[0].bitImagefor1) {
+            selectedNode.annotations[0].bitImagefor1 = selectedItem.nodeProperties.bitImagefor1;
+          }
+
+          selectedItem.nodeProperties.bitImagefor0 = selectedNode.annotations[0].bitImagefor0 ? selectedNode.annotations[0].bitImagefor0 : copyNode[0].annotations[0].bitImagefor0;
+          if (!selectedNode.annotations[0].bitImagefor0) {
+            selectedNode.annotations[0].bitImagefor0 = selectedItem.nodeProperties.bitImagefor0;
+          }
+
 
 
         } else {
@@ -631,7 +737,7 @@ export class UtilityMethods {
           selectedItem.nodeProperties.textAnalogChName = selectedNode.annotations[0].textAnalogChName ? selectedNode.annotations[0].textAnalogChName : null;
           selectedItem.nodeProperties.textOperation = selectedNode.annotations[0].textOperation ? selectedNode.annotations[0].textOperation : null;
           selectedItem.nodeProperties.textSetValue = selectedNode.annotations[0].textSetValue ? selectedNode.annotations[0].textSetValue : null;
-          selectedItem.nodeProperties.textSetColor = selectedNode.annotations[0].textSetColor ? selectedNode.annotations[0].textSetColor : null;
+          selectedItem.nodeProperties.textSetColor = selectedNode.annotations[0].textSetColor ? selectedNode.annotations[0].textSetColor : 'transparent';
           selectedItem.nodeProperties.textTooltip = selectedNode.annotations[0].textTooltip ? selectedNode.annotations[0].textTooltip : null;
           selectedItem.nodeProperties.textContinueBlink = selectedNode.annotations[0].textContinueBlink ? selectedNode.annotations[0].textContinueBlink : false;
           selectedItem.nodeProperties.textIsChecked = selectedNode.annotations[0].textIsChecked ? selectedNode.annotations[0].textIsChecked : false;
@@ -640,7 +746,7 @@ export class UtilityMethods {
           selectedItem.nodeProperties.textCheckAudio = selectedNode.annotations[0].textCheckAudio ? selectedNode.annotations[0].textCheckAudio : false;
           selectedItem.nodeProperties.textBlinkTime = selectedNode.annotations[0].textBlinkTime ? selectedNode.annotations[0].textBlinkTime : null;
           selectedItem.nodeProperties.textSetStr = selectedNode.annotations[0].textSetStr ? selectedNode.annotations[0].textSetStr : null;
-          selectedItem.nodeProperties.textDecimal = selectedNode.annotations[0].textDecimal ? selectedNode.annotations[0].textDecimal : null;
+          selectedItem.nodeProperties.textDecimal = selectedNode.annotations[0].textDecimal ? selectedNode.annotations[0].textDecimal : 2;
           selectedItem.nodeProperties.textAudioFile = selectedNode.annotations[0].textAudioFile ? selectedNode.annotations[0].textAudioFile : null;
           selectedItem.nodeProperties.textAudioFileName = selectedNode.annotations[0].textAudioFileName ? selectedNode.annotations[0].textAudioFileName : null;
           selectedItem.nodeProperties.textLowLimitCheckColor = selectedNode.annotations[0].textLowLimitCheckColor ? selectedNode.annotations[0].textLowLimitCheckColor : false;
@@ -648,7 +754,7 @@ export class UtilityMethods {
           selectedItem.nodeProperties.textLowLimitCheckShape = selectedNode.annotations[0].textLowLimitCheckShape ? selectedNode.annotations[0].textLowLimitCheckShape : false;
           selectedItem.nodeProperties.textLowLimitCheckAudio = selectedNode.annotations[0].textLowLimitCheckAudio ? selectedNode.annotations[0].textLowLimitCheckAudio : false;
           selectedItem.nodeProperties.textLowLimitValue = selectedNode.annotations[0].textLowLimitValue ? selectedNode.annotations[0].textLowLimitValue : null;
-          selectedItem.nodeProperties.textLowLimitColorValue = selectedNode.annotations[0].textLowLimitColorValue ? selectedNode.annotations[0].textLowLimitColorValue : null;
+          selectedItem.nodeProperties.textLowLimitColorValue = selectedNode.annotations[0].textLowLimitColorValue ? selectedNode.annotations[0].textLowLimitColorValue : 'transparent';
           selectedItem.nodeProperties.textLowLimitTextValue = selectedNode.annotations[0].textLowLimitTextValue ? selectedNode.annotations[0].textLowLimitTextValue : null;
           selectedItem.nodeProperties.textLowLimitShapeValue = selectedNode.annotations[0].textLowLimitShapeValue ? selectedNode.annotations[0].textLowLimitShapeValue : null;
           selectedItem.nodeProperties.textLowLimitAudioValue = selectedNode.annotations[0].textLowLimitAudioValue ? selectedNode.annotations[0].textLowLimitAudioValue : null;
@@ -657,7 +763,7 @@ export class UtilityMethods {
           selectedItem.nodeProperties.textHighLimitCheckText = selectedNode.annotations[0].textHighLimitCheckText ? selectedNode.annotations[0].textHighLimitCheckText : false;
           selectedItem.nodeProperties.textHighLimitCheckShape = selectedNode.annotations[0].textHighLimitCheckShape ? selectedNode.annotations[0].textHighLimitCheckShape : false;
           selectedItem.nodeProperties.textHighLimitCheckAudio = selectedNode.annotations[0].textHighLimitCheckAudio ? selectedNode.annotations[0].textHighLimitCheckAudio : false;
-          selectedItem.nodeProperties.textHighLimitColorValue = selectedNode.annotations[0].textHighLimitColorValue ? selectedNode.annotations[0].textHighLimitColorValue : null;
+          selectedItem.nodeProperties.textHighLimitColorValue = selectedNode.annotations[0].textHighLimitColorValue ? selectedNode.annotations[0].textHighLimitColorValue : 'transparent';
           selectedItem.nodeProperties.textHighLimitTextValue = selectedNode.annotations[0].textHighLimitTextValue ? selectedNode.annotations[0].textHighLimitTextValue : null;
           selectedItem.nodeProperties.textHighLimitShapeValue = selectedNode.annotations[0].textHighLimitShapeValue ? selectedNode.annotations[0].textHighLimitShapeValue : null;
           selectedItem.nodeProperties.textHighLimitAudioValue = selectedNode.annotations[0].textHighLimitAudioValue ? selectedNode.annotations[0].textHighLimitAudioValue : null;
@@ -670,16 +776,38 @@ export class UtilityMethods {
           selectedItem.nodeProperties.isTextInvincible = selectedNode.annotations[0].isTextInvincible ? selectedNode.annotations[0].isTextInvincible : false;
 
 
-
           // bit-display
           selectedItem.nodeProperties.bitTagName = selectedNode.annotations[0].bitTagName ? selectedNode.annotations[0].bitTagName : null;
           selectedItem.nodeProperties.bitTextChName = selectedNode.annotations[0].bitTextChName ? selectedNode.annotations[0].bitTextChName : null;
-          selectedItem.nodeProperties.hideOn1 = selectedNode.annotations[0].hideOn1 ? selectedNode.annotations[0].hideOn1 : null;
-          selectedItem.nodeProperties.hideOn0 = selectedNode.annotations[0].hideOn0 ? selectedNode.annotations[0].hideOn0 : null;
-          selectedItem.nodeProperties.bit1Color = selectedNode.annotations[0].bit1Color ? selectedNode.annotations[0].bit1Color : null;
-          selectedItem.nodeProperties.bit0Color = selectedNode.annotations[0].bit0Color ? selectedNode.annotations[0].bit0Color : null;
-
-
+          selectedItem.nodeProperties.hideOnNormal = selectedNode.annotations[0].hideOnNormal ? selectedNode.annotations[0].hideOnNormal : null;
+          selectedItem.nodeProperties.hideOnAbNormal = selectedNode.annotations[0].hideOnAbNormal ? selectedNode.annotations[0].hideOnAbNormal : null;
+          selectedItem.nodeProperties.bit1Color = selectedNode.annotations[0].bit1Color ? selectedNode.annotations[0].bit1Color : 'transparent';
+          selectedItem.nodeProperties.bit0Color = selectedNode.annotations[0].bit0Color ? selectedNode.annotations[0].bit0Color : 'transparent';
+          selectedItem.nodeProperties.normalContinueBlink = selectedNode.annotations[0].normalContinueBlink ? selectedNode.annotations[0].normalContinueBlink : false;
+          selectedItem.nodeProperties.normalTimeBlink = selectedNode.annotations[0].normalTimeBlink ? selectedNode.annotations[0].normalTimeBlink : false;
+          selectedItem.nodeProperties.normalTimeBlinkValue = selectedNode.annotations[0].normalTimeBlinkValue ? selectedNode.annotations[0].normalTimeBlinkValue : null;
+          selectedItem.nodeProperties.bitSet1asNormal = selectedNode.annotations[0].bitSet1asNormal ? selectedNode.annotations[0].bitSet1asNormal : false;
+          selectedItem.nodeProperties.bitSet1asAbnormal = selectedNode.annotations[0].bitSet1asAbnormal ? selectedNode.annotations[0].bitSet1asAbnormal : false;
+          selectedItem.nodeProperties.bitCheck1to0 = selectedNode.annotations[0].bitCheck1to0 ? selectedNode.annotations[0].bitCheck1to0 : false;
+          selectedItem.nodeProperties.bitCheck0to1 = selectedNode.annotations[0].bitCheck0to1 ? selectedNode.annotations[0].bitCheck0to1 : false;
+          selectedItem.nodeProperties.bitCondiConBlink1to0 = selectedNode.annotations[0].bitCondiConBlink1to0 ? selectedNode.annotations[0].bitCondiConBlink1to0 : false;
+          selectedItem.nodeProperties.bitCondiTimeBlink1to0 = selectedNode.annotations[0].bitCondiTimeBlink1to0 ? selectedNode.annotations[0].bitCondiTimeBlink1to0 : false;
+          selectedItem.nodeProperties.bitCondiBlinkTimeValue1to0 = selectedNode.annotations[0].bitCondiBlinkTimeValue1to0 ? selectedNode.annotations[0].bitCondiBlinkTimeValue1to0 : 0;
+          selectedItem.nodeProperties.bitCondiConBlink0to1 = selectedNode.annotations[0].bitCondiConBlink0to1 ? selectedNode.annotations[0].bitCondiConBlink0to1 : false;
+          selectedItem.nodeProperties.bitCondiTimeBlink0to1 = selectedNode.annotations[0].bitCondiTimeBlink0to1 ? selectedNode.annotations[0].bitCondiTimeBlink0to1 : false;
+          selectedItem.nodeProperties.bitCondiBlinkTimeValue0to1 = selectedNode.annotations[0].bitCondiBlinkTimeValue0to1 ? selectedNode.annotations[0].bitCondiBlinkTimeValue0to1 : 0;
+          selectedItem.nodeProperties.bitShapeColor1to0 = selectedNode.annotations[0].bitShapeColor1to0 ? selectedNode.annotations[0].bitShapeColor1to0 : 'transparent';
+          selectedItem.nodeProperties.bitShapeColor0to1 = selectedNode.annotations[0].bitShapeColor0to1 ? selectedNode.annotations[0].bitShapeColor0to1 : 'transparent';
+          selectedItem.nodeProperties.bitAudio1to0 = selectedNode.annotations[0].bitAudio1to0 ? selectedNode.annotations[0].bitAudio1to0 : null;
+          selectedItem.nodeProperties.bitAudio0to1 = selectedNode.annotations[0].bitAudio0to1 ? selectedNode.annotations[0].bitAudio0to1 : null;
+          selectedItem.nodeProperties.bitTextFor1 = selectedNode.annotations[0].bitTextFor1 ? selectedNode.annotations[0].bitTextFor1 : null;
+          selectedItem.nodeProperties.bitTextFor0 = selectedNode.annotations[0].bitTextFor0 ? selectedNode.annotations[0].bitTextFor0 : null;
+          selectedItem.nodeProperties.bitTextColorFor0 = selectedNode.annotations[0].bitTextColorFor0 ? selectedNode.annotations[0].bitTextColorFor0 : 'transparent';
+          selectedItem.nodeProperties.bitTextColorFor1 = selectedNode.annotations[0].bitTextColorFor1 ? selectedNode.annotations[0].bitTextColorFor1 : 'transparent';
+          selectedItem.nodeProperties.bitTextFor1to0 = selectedNode.annotations[0].bitTextFor1to0 ? selectedNode.annotations[0].bitTextFor1to0 : null;
+          selectedItem.nodeProperties.bitTextFor0to1 = selectedNode.annotations[0].bitTextFor0to1 ? selectedNode.annotations[0].bitTextFor0to1 : null;
+          selectedItem.nodeProperties.bitImagefor1 = selectedNode.annotations[0].bitImagefor1 ? selectedNode.annotations[0].bitImagefor1 : null;
+          selectedItem.nodeProperties.bitImagefor0 = selectedNode.annotations[0].bitImagefor0 ? selectedNode.annotations[0].bitImagefor0 : null;
         }
 
 
@@ -692,9 +820,10 @@ export class UtilityMethods {
 
       }, 10);
 
-      console.log('selectedNode', selectedNode);
-
     });
+
+    console.log("selectedItem.nodeProperties.normalTimeBlink", selectedItem.nodeProperties.normalTimeBlink);
+
 
 
 

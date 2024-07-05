@@ -131,7 +131,7 @@ export class PageCreation {
             console.log('diagramElement.annotations[0].tagName', diagramElement.annotations[0].tagName);
             pageData.pageOptionList[0].diagram.nodes.forEach(pageElement => {
 
-                if ((diagramElement.shape.type == "Text" || diagramElement.shape.type == "Flow") && pageElement.annotations[0].content == diagramElement.annotations[0].content) {
+                if ((diagramElement.id.includes("Shape") || diagramElement.id.includes("bitLable") || diagramElement.id.includes("numeric") || diagramElement.id.includes("bitImage")) && pageElement.annotations[0].content == diagramElement.annotations[0].content && pageElement.id == diagramElement.id) {
                     pageElement.annotations[0].content = diagramElement.annotations[0].content ? diagramElement.annotations[0].content : "";
 
                     pageElement.annotations[0].tagName = diagramElement.annotations[0].tagName;
@@ -175,14 +175,42 @@ export class PageCreation {
                     pageElement.annotations[0].textBlinkTime = diagramElement.annotations[0].textBlinkTime;
                     pageElement.annotations[0].analogUnit = diagramElement.annotations[0].analogUnit;
                     pageElement.annotations[0].textDecimal = diagramElement.annotations[0].textDecimal;
+                    pageElement.annotations[0].normalContinueBlink = diagramElement.annotations[0].normalContinueBlink;
 
 
                     pageElement.annotations[0].bitTagName = diagramElement.annotations[0].bitTagName;
                     pageElement.annotations[0].bitTextChName = diagramElement.annotations[0].bitTextChName;
-                    pageElement.annotations[0].hideOn1 = diagramElement.annotations[0].hideOn1;
-                    pageElement.annotations[0].hideOn0 = diagramElement.annotations[0].hideOn0;
+                    pageElement.annotations[0].hideOnNormal = diagramElement.annotations[0].hideOnNormal;
+                    pageElement.annotations[0].hideOnAbNormal = diagramElement.annotations[0].hideOnAbNormal;
                     pageElement.annotations[0].bit1Color = diagramElement.annotations[0].bit1Color;
                     pageElement.annotations[0].bit0Color = diagramElement.annotations[0].bit0Color;
+                    pageElement.annotations[0].normalTimeBlink = diagramElement.annotations[0].normalTimeBlink;
+                    pageElement.annotations[0].normalTimeBlinkValue = diagramElement.annotations[0].normalTimeBlinkValue;
+                    pageElement.annotations[0].bitSet1asNormal = diagramElement.annotations[0].bitSet1asNormal;
+                    pageElement.annotations[0].bitSet1asAbnormal = diagramElement.annotations[0].bitSet1asAbnormal;
+                    pageElement.annotations[0].bitCheck1to0 = diagramElement.annotations[0].bitCheck1to0;
+                    pageElement.annotations[0].bitCheck0to1 = diagramElement.annotations[0].bitCheck0to1;
+                    pageElement.annotations[0].bitCondiConBlink1to0 = diagramElement.annotations[0].bitCondiConBlink1to0;
+                    pageElement.annotations[0].bitCondiTimeBlink1to0 = diagramElement.annotations[0].bitCondiTimeBlink1to0;
+                    pageElement.annotations[0].bitCondiBlinkTimeValue1to0 = diagramElement.annotations[0].bitCondiBlinkTimeValue1to0;
+                    pageElement.annotations[0].bitCondiConBlink0to1 = diagramElement.annotations[0].bitCondiConBlink0to1;
+                    pageElement.annotations[0].bitCondiTimeBlink0to1 = diagramElement.annotations[0].bitCondiTimeBlink0to1;
+                    pageElement.annotations[0].bitCondiBlinkTimeValue0to1 = diagramElement.annotations[0].bitCondiBlinkTimeValue0to1;
+                    pageElement.annotations[0].bitShapeColor1to0 = diagramElement.annotations[0].bitShapeColor1to0;
+                    pageElement.annotations[0].bitShapeColor0to1 = diagramElement.annotations[0].bitShapeColor0to1;
+                    pageElement.annotations[0].bitAudio1to0 = diagramElement.annotations[0].bitAudio1to0;
+                    pageElement.annotations[0].bitAudio0to1 = diagramElement.annotations[0].bitAudio0to1;
+                    pageElement.annotations[0].bitTextFor1 = diagramElement.annotations[0].bitTextFor1;
+                    pageElement.annotations[0].bitTextFor0 = diagramElement.annotations[0].bitTextFor0;
+                    pageElement.annotations[0].bitTextColorFor0 = diagramElement.annotations[0].bitTextColorFor0;
+                    pageElement.annotations[0].bitTextColorFor1 = diagramElement.annotations[0].bitTextColorFor1;
+                    pageElement.annotations[0].bitImagefor1 = diagramElement.annotations[0].bitImagefor1;
+                    pageElement.annotations[0].bitImagefor0 = diagramElement.annotations[0].bitImagefor0;
+
+                    pageElement.ports.forEach(element => {
+                        element.constraints = 0;
+                    });
+
 
                 } else {
                     if (pageElement.annotations[0].content == diagramElement.annotations[0].content) {
@@ -193,6 +221,8 @@ export class PageCreation {
 
             });
         })
+
+
 
 
         this.dataService.selectedAnalogChannel$.subscribe(data => {

@@ -6,10 +6,12 @@ describe('CanvasComponent', () => {
   let component: CanvasComponent;
   let fixture: ComponentFixture<CanvasComponent>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [CanvasComponent]
-    });
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ CanvasComponent ]
+    })
+    .compileComponents();
+
     fixture = TestBed.createComponent(CanvasComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
