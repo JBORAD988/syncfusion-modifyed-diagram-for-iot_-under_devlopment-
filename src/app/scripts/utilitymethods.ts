@@ -436,10 +436,7 @@ export class UtilityMethods {
           if (!selectedNode.annotations[0].textSetValue) {
             selectedNode.annotations[0].textSetValue = selectedItem.nodeProperties.textSetValue;
           }
-          selectedItem.nodeProperties.textSetColor = selectedNode.annotations[0].textSetColor ? selectedNode.annotations[0].textSetColor : copyNode[0].annotations[0].textSetColor;
-          if (!selectedNode.annotations[0].textSetColor) {
-            selectedNode.annotations[0].textSetColor = selectedItem.nodeProperties.textSetColor;
-          }
+
           selectedItem.nodeProperties.textTooltip = selectedNode.annotations[0].textTooltip ? selectedNode.annotations[0].textTooltip : copyNode[0].annotations[0].textTooltip;
           if (!selectedNode.annotations[0].textTooltip) {
             selectedNode.annotations[0].textTooltip = selectedItem.nodeProperties.textTooltip;
@@ -580,11 +577,40 @@ export class UtilityMethods {
           if (!selectedNode.annotations[0].textHighLimitBlinkTime) {
             selectedNode.annotations[0].textHighLimitBlinkTime = selectedItem.nodeProperties.textHighLimitBlinkTime;
           }
-          selectedItem.nodeProperties.isTextInvincible = selectedNode.annotations[0].isTextInvincible ? selectedNode.annotations[0].isTextInvincible : copyNode[0].annotations[0].isTextInvincible;
-          if (!selectedNode.annotations[0].isTextInvincible) {
-            selectedNode.annotations[0].isTextInvincible = selectedItem.nodeProperties.isTextInvincible;
+          selectedItem.nodeProperties.textCheckBackgroundColor = selectedNode.annotations[0].textCheckBackgroundColor ? selectedNode.annotations[0].textCheckBackgroundColor : copyNode[0].annotations[0].textCheckBackgroundColor;
+          if (!selectedNode.annotations[0].textCheckBackgroundColor) {
+            selectedNode.annotations[0].textCheckBackgroundColor = selectedItem.nodeProperties.textCheckBackgroundColor;
+          }
+          selectedItem.nodeProperties.normalBackgroundColor = selectedNode.annotations[0].normalBackgroundColor ? selectedNode.annotations[0].normalBackgroundColor : copyNode[0].annotations[0].normalBackgroundColor;
+          if (!selectedNode.annotations[0].normalBackgroundColor) {
+            selectedNode.annotations[0].normalBackgroundColor = selectedItem.nodeProperties.normalBackgroundColor;
+          }
+          selectedItem.nodeProperties.abNormalBackgroundColor = selectedNode.annotations[0].abNormalBackgroundColor ? selectedNode.annotations[0].abNormalBackgroundColor : copyNode[0].annotations[0].abNormalBackgroundColor;
+          if (!selectedNode.annotations[0].abNormalBackgroundColor) {
+            selectedNode.annotations[0].abNormalBackgroundColor = selectedItem.nodeProperties.abNormalBackgroundColor;
           }
 
+          selectedItem.nodeProperties.textSetNormal = selectedNode.annotations[0].textSetNormal ? selectedNode.annotations[0].textSetNormal : copyNode[0].annotations[0].textSetNormal;
+          if (!selectedNode.annotations[0].textSetNormal) {
+            selectedNode.annotations[0].textSetNormal = selectedItem.nodeProperties.textSetNormal;
+          }
+          selectedItem.nodeProperties.textSetAbnormal = selectedNode.annotations[0].textSetAbnormal ? selectedNode.annotations[0].textSetAbnormal : copyNode[0].annotations[0].textSetAbnormal;
+          if (!selectedNode.annotations[0].textSetAbnormal) {
+            selectedNode.annotations[0].textSetAbnormal = selectedItem.nodeProperties.textSetAbnormal;
+          }
+          selectedItem.nodeProperties.limitImageCheck = selectedNode.annotations[0].limitImageCheck ? selectedNode.annotations[0].textSetAbnormal : copyNode[0].annotations[0].limitImageCheck;
+          if (!selectedNode.annotations[0].limitImageCheck) {
+            selectedNode.annotations[0].limitImageCheck = selectedItem.nodeProperties.limitImageCheck;
+          }
+
+          selectedItem.nodeProperties.normalImage = selectedNode.annotations[0].normalImage ? selectedNode.annotations[0].normalImage : copyNode[0].annotations[0].normalImage;
+          if (!selectedNode.annotations[0].normalImage) {
+            selectedNode.annotations[0].normalImage = selectedItem.nodeProperties.normalImage;
+          }
+          selectedItem.nodeProperties.abNormalImage = selectedNode.annotations[0].abNormalImage ? selectedNode.annotations[0].abNormalImage : copyNode[0].annotations[0].abNormalImage;
+          if (!selectedNode.annotations[0].abNormalImage) {
+            selectedNode.annotations[0].abNormalImage = selectedItem.nodeProperties.abNormalImage;
+          }
 
 
 
@@ -725,16 +751,37 @@ export class UtilityMethods {
           if (!selectedNode.annotations[0].bitImageFor0to1) {
             selectedNode.annotations[0].bitImageFor0to1 = selectedItem.nodeProperties.bitImageFor0to1;
           }
+          selectedItem.nodeProperties.normalColor = selectedNode.annotations[0].normalColor ? selectedNode.annotations[0].normalColor : copyNode[0].annotations[0].normalColor;
+          if (!selectedNode.annotations[0].normalColor) {
+            selectedNode.annotations[0].normalColor = selectedItem.nodeProperties.normalColor;
+          }
+          selectedItem.nodeProperties.abNormalColor = selectedNode.annotations[0].abNormalColor ? selectedNode.annotations[0].abNormalColor : copyNode[0].annotations[0].abNormalColor;
+          if (!selectedNode.annotations[0].abNormalColor) {
+            selectedNode.annotations[0].abNormalColor = selectedItem.nodeProperties.abNormalColor;
+          }
+
+          // dateTime
+
+
+          selectedItem.nodeProperties.dateChannel = selectedNode.annotations[0].dateChannel ? selectedNode.annotations[0].dateChannel : copyNode[0].annotations[0].dateChannel;
+          if (!selectedNode.annotations[0].dateChannel) {
+            selectedNode.annotations[0].dateChannel = selectedItem.nodeProperties.dateChannel;
+          }
+          selectedItem.nodeProperties.dateTimeFormat = selectedNode.annotations[0].dateTimeFormat ? selectedNode.annotations[0].dateTimeFormat : copyNode[0].annotations[0].dateTimeFormat;
+          if (!selectedNode.annotations[0].dateTimeFormat) {
+            selectedNode.annotations[0].dateTimeFormat = selectedItem.nodeProperties.dateTimeFormat;
+          }
+
 
 
 
         } else {
 
-          if (selectedNode.shape.type === "Flow") {
+          if (selectedNode.shape.type === "Flow" || selectedNode.shape.type === "Basic" || selectedNode.shape.type === "Image") {
             if (selectedNode.id.includes("numeric")) {
               selectedItem.nodeProperties.annotationContent = selectedNode.annotations[0].textAnalogChName ? selectedNode.annotations[0].textAnalogChName : null;
             }
-            if (selectedNode.id.includes("bitDisplay"))
+            if (selectedNode.id.includes("bitImage") || selectedNode.id.includes("Shape") || selectedNode.id.includes("dateTime") || selectedNode.id.includes("itLable"))
               selectedItem.nodeProperties.annotationContent = selectedNode.annotations[0].bitTextChName ? selectedNode.annotations[0].bitTextChName : null;
           }
 
@@ -743,7 +790,6 @@ export class UtilityMethods {
           selectedItem.nodeProperties.textAnalogChName = selectedNode.annotations[0].textAnalogChName ? selectedNode.annotations[0].textAnalogChName : null;
           selectedItem.nodeProperties.textOperation = selectedNode.annotations[0].textOperation ? selectedNode.annotations[0].textOperation : null;
           selectedItem.nodeProperties.textSetValue = selectedNode.annotations[0].textSetValue ? selectedNode.annotations[0].textSetValue : null;
-          selectedItem.nodeProperties.textSetColor = selectedNode.annotations[0].textSetColor ? selectedNode.annotations[0].textSetColor : 'transparent';
           selectedItem.nodeProperties.textTooltip = selectedNode.annotations[0].textTooltip ? selectedNode.annotations[0].textTooltip : null;
           selectedItem.nodeProperties.textContinueBlink = selectedNode.annotations[0].textContinueBlink ? selectedNode.annotations[0].textContinueBlink : false;
           selectedItem.nodeProperties.textIsChecked = selectedNode.annotations[0]?.textIsChecked ? selectedNode.annotations[0]?.textIsChecked : false;
@@ -779,8 +825,18 @@ export class UtilityMethods {
           selectedItem.nodeProperties.textHighLimitBlinkContCheck = selectedNode.annotations[0].textHighLimitBlinkContCheck ? selectedNode.annotations[0].textHighLimitBlinkContCheck : false;
           selectedItem.nodeProperties.textHighLimitBlinkTimeCheck = selectedNode.annotations[0].textHighLimitBlinkTimeCheck ? selectedNode.annotations[0].textHighLimitBlinkTimeCheck : false;
           selectedItem.nodeProperties.textHighLimitBlinkTime = selectedNode.annotations[0].textHighLimitBlinkTime ? selectedNode.annotations[0].textHighLimitBlinkTime : null;
-          selectedItem.nodeProperties.isTextInvincible = selectedNode.annotations[0].isTextInvincible ? selectedNode.annotations[0].isTextInvincible : false;
 
+          selectedItem.nodeProperties.textCheckBackgroundColor = selectedNode.annotations[0].textCheckBackgroundColor ? selectedNode.annotations[0].textCheckBackgroundColor : false;
+          selectedItem.nodeProperties.normalColor = selectedNode.annotations[0].normalColor ? selectedNode.annotations[0].normalColor : 'transparent';
+          selectedItem.nodeProperties.abNormalColor = selectedNode.annotations[0].abNormalColor ? selectedNode.annotations[0].abNormalColor : 'transparent';
+          selectedItem.nodeProperties.normalBackgroundColor = selectedNode.annotations[0].normalBackgroundColor ? selectedNode.annotations[0].normalBackgroundColor : 'transparent';
+          selectedItem.nodeProperties.abNormalBackgroundColor = selectedNode.annotations[0].abNormalBackgroundColor ? selectedNode.annotations[0].abNormalBackgroundColor : 'transparent';
+          selectedItem.nodeProperties.textSetNormal = selectedNode.annotations[0].textSetNormal ? selectedNode.annotations[0].textSetNormal : null;
+          selectedItem.nodeProperties.textSetAbnormal = selectedNode.annotations[0].textSetAbnormal ? selectedNode.annotations[0].textSetAbnormal : null;
+          selectedItem.nodeProperties.limitImageCheck = selectedNode.annotations[0].limitImageCheck ? selectedNode.annotations[0].limitImageCheck : false;
+
+          selectedItem.nodeProperties.normalImage = selectedNode.annotations[0].normalImage ? selectedNode.annotations[0].normalImage : null;
+          selectedItem.nodeProperties.abNormalImage = selectedNode.annotations[0].normalImage ? selectedNode.annotations[0].abNormalImage : null;
 
           // bit-display
           selectedItem.nodeProperties.bitTagName = selectedNode.annotations[0].bitTagName ? selectedNode.annotations[0].bitTagName : null;
@@ -816,6 +872,13 @@ export class UtilityMethods {
           selectedItem.nodeProperties.bitImagefor0 = selectedNode.annotations[0].bitImagefor0 ? selectedNode.annotations[0].bitImagefor0 : null;
           selectedItem.nodeProperties.bitImageFor1to0 = selectedNode.annotations[0].bitImageFor1to0 ? selectedNode.annotations[0].bitImageFor1to0 : null;
           selectedItem.nodeProperties.bitImageFor0to1 = selectedNode.annotations[0].bitImageFor0to1 ? selectedNode.annotations[0].bitImageFor0to1 : null;
+
+
+          // dateTime
+
+          selectedItem.nodeProperties.dateChannel = selectedNode.annotations[0].dateChannel ? selectedNode.annotations[0].dateChannel : null;
+          selectedItem.nodeProperties.dateTimeFormat = selectedNode.annotations[0].dateTimeFormat ? selectedNode.annotations[0].dateTimeFormat : null;
+
         }
 
 
@@ -829,10 +892,6 @@ export class UtilityMethods {
       }, 10);
 
     });
-
-    console.log("selectedItem.nodeProperties.normalTimeBlink", selectedItem.nodeProperties.normalTimeBlink);
-
-
 
 
     let toolbarTextStyle: any = document.getElementById("toolbarTextStyle");

@@ -286,20 +286,79 @@ export class DiagramClientSideEvents {
     if (selectedObject instanceof Node) {
       object = selectedObject as Node;
 
+
       if (object.shape.type == 'Text' || object.shape.type == 'Flow' || object.shape.type == 'Basic' || object.shape.type == 'Image') {
         if (object.shape && (object.shape.type === "Text" || object.shape.type === "Flow" || object.shape.type == 'Basic' || object.shape.type == 'Image')) {
-          console.log(object);
 
-          if (object.tooltip.content == "numeric1") {
-            document.getElementById("numeric1PropertyDiv").style.display = "";
+          if (object.tooltip.content == "Limit1Value") {
+
+            document.getElementById("Limit1ValuePropertyDiv").style.display = "";
+            document.getElementById("limit1Text2PropertyDiv").style.display = "";
             document.getElementById("numericPropertyDiv").style.display = "";
             document.getElementById("bitDisplayPropertyDiv").style.display = "none";
             document.getElementById("numeric2PropertyDiv").style.display = "none";
+            document.getElementById("dateTimePropertyDiv").style.display = "none";
+            document.getElementById("limit1TextPropertyDiv").style.display = "none";
+            document.getElementById("limit1Text3PropertyDiv").style.display = "none";
+            document.getElementById("limit1ImagePropertyDiv").style.display = "none";
+
+          } else if (object.id.includes("Limit1Text")) {
+
+            document.getElementById("Limit1ValuePropertyDiv").style.display = "";
+            document.getElementById("numericPropertyDiv").style.display = "";
+            document.getElementById("limit1TextPropertyDiv").style.display = "";
+            document.getElementById("limit1Text2PropertyDiv").style.display = "";
+            document.getElementById("limit1Text3PropertyDiv").style.display = "";
+            document.getElementById("bitDisplayPropertyDiv").style.display = "none";
+            document.getElementById("numeric2PropertyDiv").style.display = "none";
+            document.getElementById("dateTimePropertyDiv").style.display = "none";
+            document.getElementById("limit1ImagePropertyDiv").style.display = "none";
+
+          } else if (object.id.includes("Limit1Shape")) {
+
+            document.getElementById("Limit1ValuePropertyDiv").style.display = "";
+            document.getElementById("numericPropertyDiv").style.display = "";
+            document.getElementById("limit1TextPropertyDiv").style.display = "";
+            document.getElementById("bitDisplayPropertyDiv").style.display = "none";
+            document.getElementById("numeric2PropertyDiv").style.display = "none";
+            document.getElementById("dateTimePropertyDiv").style.display = "none";
+            document.getElementById("limit1Text2PropertyDiv").style.display = "none";
+            document.getElementById("limit1Text3PropertyDiv").style.display = "none";
+            document.getElementById("limit1ImagePropertyDiv").style.display = "none";
+
+
+          } else if (object.id.includes("Limit1Image")) {
+
+            document.getElementById("Limit1ValuePropertyDiv").style.display = "";
+            document.getElementById("numericPropertyDiv").style.display = "";
+            document.getElementById("limit1ImagePropertyDiv").style.display = "";
+            document.getElementById("limit1TextPropertyDiv").style.display = "none";
+            document.getElementById("bitDisplayPropertyDiv").style.display = "none";
+            document.getElementById("numeric2PropertyDiv").style.display = "none";
+            document.getElementById("dateTimePropertyDiv").style.display = "none";
+            document.getElementById("limit1Text2PropertyDiv").style.display = "none";
+            document.getElementById("limit1Text3PropertyDiv").style.display = "none";
+
+          } else if (object.id.includes("Limit2Value")) {
+
+            document.getElementById("numericPropertyDiv").style.display = "";
+            document.getElementById("numeric2PropertyDiv").style.display = "";
+            document.getElementById("Limit1ValuePropertyDiv").style.display = "none";
+            document.getElementById("limit1Text2PropertyDiv").style.display = "none";
+            document.getElementById("bitDisplayPropertyDiv").style.display = "none";
+            document.getElementById("dateTimePropertyDiv").style.display = "none";
+            document.getElementById("limit1TextPropertyDiv").style.display = "none";
+            document.getElementById("limit1Text3PropertyDiv").style.display = "none";
+            document.getElementById("limit1ImagePropertyDiv").style.display = "none";
+
           } else if (object.tooltip.content == "numeric2") {
-            document.getElementById("numeric1PropertyDiv").style.display = "none";
+
+            document.getElementById("Limit1ValuePropertyDiv").style.display = "none";
             document.getElementById("bitDisplayPropertyDiv").style.display = "none";
             document.getElementById("numeric2PropertyDiv").style.display = "";
             document.getElementById("numericPropertyDiv").style.display = "";
+            document.getElementById("dateTimePropertyDiv").style.display = "none";
+
 
           } else if (object.id.includes("bitLable")) {
             document.getElementById("bitDisplayPropertyDiv").style.display = "";
@@ -312,8 +371,11 @@ export class DiagramClientSideEvents {
             document.getElementById("bitShapeOnePropertyDiv").style.display = "none";
             document.getElementById("bitShapePropertyDiv").style.display = "none";
             document.getElementById("numericPropertyDiv").style.display = "none";
-            document.getElementById("numeric1PropertyDiv").style.display = "none";
+            document.getElementById("dateTimePropertyDiv").style.display = "none";
+            document.getElementById("Limit1ValuePropertyDiv").style.display = "none";
             document.getElementById("numeric2PropertyDiv").style.display = "none";
+
+
 
           } else if (object.id.includes("Shape")) {
 
@@ -328,8 +390,10 @@ export class DiagramClientSideEvents {
             document.getElementById("bitLableTwoPropertyDiv").style.display = "none";
             document.getElementById("bitLablePropertyDiv").style.display = "none";
             document.getElementById("numericPropertyDiv").style.display = "none";
-            document.getElementById("numeric1PropertyDiv").style.display = "none";
+            document.getElementById("dateTimePropertyDiv").style.display = "none";
+            document.getElementById("Limit1ValuePropertyDiv").style.display = "none";
             document.getElementById("numeric2PropertyDiv").style.display = "none";
+
 
           } else if (object.id.includes("bitImage")) {
 
@@ -344,16 +408,33 @@ export class DiagramClientSideEvents {
             document.getElementById("bitLableTwoPropertyDiv").style.display = "none";
             document.getElementById("bitLablePropertyDiv").style.display = "none";
             document.getElementById("numericPropertyDiv").style.display = "none";
-            document.getElementById("numeric1PropertyDiv").style.display = "none";
+            document.getElementById("dateTimePropertyDiv").style.display = "none";
+            document.getElementById("Limit1ValuePropertyDiv").style.display = "none";
             document.getElementById("numeric2PropertyDiv").style.display = "none";
 
+
+          } else if (object.id.includes("dateTime")) {
+
+            document.getElementById("dateTimePropertyDiv").style.display = "";
+            document.getElementById("bitDisplayPropertyDiv").style.display = "none";
+            document.getElementById("bitCommonConditionPropertyDiv").style.display = "none";
+            document.getElementById("bitImagePropertyDiv").style.display = "none";
+            document.getElementById("bitImageOnePropertyDiv").style.display = "none";
+            document.getElementById("bitShapeTwoPropertyDiv").style.display = "none";
+            document.getElementById("bitShapePropertyDiv").style.display = "none";
+            document.getElementById("bitShapeOnePropertyDiv").style.display = "none";
+            document.getElementById("bitLableOnePropertyDiv").style.display = "none";
+            document.getElementById("bitLableTwoPropertyDiv").style.display = "none";
+            document.getElementById("bitLablePropertyDiv").style.display = "none";
+            document.getElementById("numericPropertyDiv").style.display = "none";
+            document.getElementById("Limit1ValuePropertyDiv").style.display = "none";
+            document.getElementById("numeric2PropertyDiv").style.display = "none";
 
           }
 
           document.getElementById("textPropertyContainer").style.display = "";
           document.getElementById("toolbarTextAlignmentDiv").style.display = "none";
           document.getElementById("textPositionDiv").style.display = "none";
-          document.getElementById("nodePropertyContainer").style.display = "none";
           document.getElementById("diagramPropertyContainer").style.display = "none";
           document.getElementById("textColorDiv").className =
             "col-xs-6 db-col-left";
@@ -401,7 +482,6 @@ export class DiagramClientSideEvents {
         }
       }
       if (object.id.includes("CustomImageShape") || object.id.includes("image")) {
-        console.log("start-end");
 
         this.selectedItem.utilityMethods.objectTypeChange("node");
         this.selectedItem.utilityMethods.bindNodeProperties(
@@ -552,9 +632,6 @@ export class DiagramClientSideEvents {
     obj.width = 100;
     obj.height *= ratio;
     obj.zIndex = 999;
-    console.log(obj);
-
-    console.log(obj.zIndex);
 
   }
 
@@ -601,6 +678,19 @@ export class DiagramPropertyBinding {
 
     selectedNode.annotations[0].textCheck = event.checked;
 
+    diagram.dataBind();
+  }
+
+
+
+  textImageChange(event: any) {
+
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+
+    selectedNode.annotations[0].limitImageCheck = event.checked;
+
+    diagram.dataBind();
   }
 
   textTooltipChange(event: any) {
@@ -807,6 +897,42 @@ export class DiagramPropertyBinding {
     }
 
   }
+
+
+  normalImageChange(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+
+    if (selectedNode) {
+      const file = event.target.files[0];
+      const fileName = event.target.files[0].name
+
+      this.convertToBase64(file).then(base64 => {
+        selectedNode.annotations[0].normalImage = base64;
+      });
+
+      diagram.dataBind();
+    }
+
+  }
+
+  abnormalImageChange(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+
+    if (selectedNode) {
+      const file = event.target.files[0];
+      const fileName = event.target.files[0].name
+
+      this.convertToBase64(file).then(base64 => {
+        selectedNode.annotations[0].abNormalImage = base64;
+      });
+
+      diagram.dataBind();
+    }
+
+  }
+
 
 
   bitImageChangeFor0(event: any) {
@@ -1033,17 +1159,73 @@ export class DiagramPropertyBinding {
     }
   }
 
-  textOperationColorChange(event: any) {
+
+  textNormalColorChange(event: any) {
     let diagram: Diagram = this.selectedItem.selectedDiagram;
     let selectedNode = diagram.selectedItems.nodes[0];
 
     if (selectedNode) {
-      let newContent = event.value as string;
-
-      selectedNode.annotations[0].textSetColor = newContent;
-
-      diagram.dataBind();
+      selectedNode.annotations[0].normalColor = event.value;
     }
+
+    diagram.dataBind();
+  }
+
+  textNormalBackColorChange(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+
+    if (selectedNode) {
+      selectedNode.annotations[0].normalBackgroundColor = event.value;
+    }
+
+    diagram.dataBind();
+  }
+
+  textAbnormalColorChange(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+
+    if (selectedNode) {
+      selectedNode.annotations[0].abNormalColor = event.value;
+    }
+
+    diagram.dataBind();
+  }
+
+
+  textAbnormalBackColorChange(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+
+    if (selectedNode) {
+      selectedNode.annotations[0].abNormalBackgroundColor = event.value;
+    }
+
+    diagram.dataBind();
+  }
+
+  dateChannelChange(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+
+    if (selectedNode) {
+      selectedNode.annotations[0].content = event.value;
+      selectedNode.annotations[0].dateChannel = event.value;
+    }
+
+    diagram.dataBind();
+  }
+
+  dateTimeFormatChange(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+
+    if (selectedNode) {
+      selectedNode.annotations[0].dateTimeFormat = event.value;
+    }
+
+    diagram.dataBind();
   }
 
   blinkTextIntervalId: any;
@@ -1335,8 +1517,6 @@ export class DiagramPropertyBinding {
 
     if (selectedNode) {
       let newContent = event.value as string;
-      console.log("call");
-
 
       selectedNode.annotations[0].content = newContent?.toString();
 
@@ -1557,12 +1737,31 @@ export class DiagramPropertyBinding {
     diagram.dataBind();
   }
 
+  textStrNormalChange(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+
+    if (selectedNode) {
+      selectedNode.annotations[0].textSetNormal = event.target.value;
+    }
+
+    diagram.dataBind();
+  }
+
+  textStrAbNormalChange(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+
+    if (selectedNode) {
+      selectedNode.annotations[0].textSetAbnormal = event.target.value;
+    }
+
+    diagram.dataBind();
+  }
 
   bitText1Change(event: any) {
     let diagram: Diagram = this.selectedItem.selectedDiagram;
     let selectedNode = diagram.selectedItems.nodes[0];
-
-    console.log(event.target.value);
 
     if (selectedNode) {
       selectedNode.annotations[0].bitTextFor1 = event.target.value;
@@ -1677,22 +1876,6 @@ export class DiagramPropertyBinding {
   }
 
 
-  isTextInvincible(event: any): void {
-    this.selectedItem.isModified = true;
-    let diagram: Diagram = this.selectedItem.selectedDiagram;
-    let selectedNode = diagram.selectedItems.nodes[0];
-    let connector: ConnectorModel = diagram.selectedItems.connectors[0];
-    let invincible = event.checked;
-    selectedNode.annotations[0].isTextInvincible = event.checked;
-    if (selectedNode.annotations[0].isTextInvincible) {
-      selectedNode.annotations[0].style.opacity = 0;
-    } else {
-      selectedNode.annotations[0].style.opacity = 100;
-    }
-
-
-    diagram.dataBind();
-  }
 
 
 
@@ -1758,6 +1941,17 @@ export class DiagramPropertyBinding {
     diagram.dataBind();
   }
 
+  textCheckBackgroundColorChange(event: any) {
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+    let selectedNode = diagram.selectedItems.nodes[0];
+
+    if (selectedNode) {
+      selectedNode.annotations[0].textCheckBackgroundColor = event.checked;
+    }
+
+    diagram.dataBind();
+  }
+
   textCheckStrChange(event: any) {
     let diagram: Diagram = this.selectedItem.selectedDiagram;
     let selectedNode = diagram.selectedItems.nodes[0];
@@ -1782,8 +1976,6 @@ export class DiagramPropertyBinding {
 
   textDecimalValueChange(event: any) {
     let diagram: Diagram = this.selectedItem.selectedDiagram;
-
-    console.log("call");
 
     let selectedNode = diagram.selectedItems.nodes[0];
     if (selectedNode) {

@@ -118,20 +118,18 @@ export class PageCreation {
     public savePage(): string {
 
         let diagram: Diagram = this.selectedItem.selectedDiagram;
-        console.log('diagram', diagram);
 
         let pageData: { [key: string]: Object } = {};
         this.saveDiagramSettings();
         pageData.pageOptionList = this.pageOptionList;
         pageData.activePage = this.activePage.name;
         pageData.diagramType = this.selectedItem.diagramType;
-        console.log('diagram', diagram);
 
         diagram.nodes.forEach(diagramElement => {
             console.log('diagramElement.annotations[0].tagName', diagramElement.annotations[0].tagName);
             pageData.pageOptionList[0].diagram.nodes.forEach(pageElement => {
 
-                if ((diagramElement.id.includes("Shape") || diagramElement.id.includes("bit") || diagramElement.id.includes("numeric")) && pageElement.annotations[0].content == diagramElement.annotations[0].content && pageElement.id == diagramElement.id) {
+                if ((diagramElement.id.includes("dateTime") || diagramElement.id.includes("Shape") || diagramElement.id.includes("bit") || diagramElement.id.includes("Limit")) && pageElement.annotations[0].content == diagramElement.annotations[0].content && pageElement.id == diagramElement.id) {
                     pageElement.annotations[0].content = diagramElement.annotations[0].content ? diagramElement.annotations[0].content : "";
 
                     if (diagramElement.id.includes("bitImage")) {
@@ -141,7 +139,6 @@ export class PageCreation {
                     pageElement.annotations[0].tagName = diagramElement.annotations[0].tagName;
                     pageElement.annotations[0].textAnalogChName = diagramElement.annotations[0].textAnalogChName;
                     pageElement.annotations[0].textTooltip = diagramElement.annotations[0].textTooltip;
-                    pageElement.annotations[0].isTextInvincible = diagramElement.annotations[0].isTextInvincible;
                     pageElement.annotations[0].textLowLimitValue = diagramElement.annotations[0].textLowLimitValue;
                     pageElement.annotations[0].textLowLimitCheckColor = diagramElement.annotations[0].textLowLimitCheckColor;
                     pageElement.annotations[0].textLowLimitColorValue = diagramElement.annotations[0].textLowLimitColorValue;
@@ -171,7 +168,7 @@ export class PageCreation {
                     pageElement.annotations[0].textOperation = diagramElement.annotations[0].textOperation;
                     pageElement.annotations[0].textSetValue = diagramElement.annotations[0].textSetValue;
                     pageElement.annotations[0].textCheckColor = diagramElement.annotations[0].textCheckColor;
-                    pageElement.annotations[0].textSetColor = diagramElement.annotations[0].textSetColor;
+                    pageElement.annotations[0].textCheckBackgroundColor = diagramElement.annotations[0].textCheckBackgroundColor;
                     pageElement.annotations[0].textCheckStr = diagramElement.annotations[0].textCheckStr;
                     pageElement.annotations[0].textSetStr = diagramElement.annotations[0].textSetStr;
                     pageElement.annotations[0].textContinueBlink = diagramElement.annotations[0].textContinueBlink;
@@ -181,6 +178,11 @@ export class PageCreation {
                     pageElement.annotations[0].textDecimal = diagramElement.annotations[0].textDecimal;
                     pageElement.annotations[0].normalContinueBlink = diagramElement.annotations[0].normalContinueBlink;
 
+                    pageElement.annotations[0].textSetNormal = diagramElement.annotations[0].textSetNormal;
+                    pageElement.annotations[0].textSetAbnormal = diagramElement.annotations[0].textSetAbnormal;
+                    pageElement.annotations[0].limitImageCheck = diagramElement.annotations[0].limitImageCheck;
+                    pageElement.annotations[0].normalImage = diagramElement.annotations[0].normalImage;
+                    pageElement.annotations[0].abNormalImage = diagramElement.annotations[0].abNormalImage;
 
                     pageElement.annotations[0].bitTagName = diagramElement.annotations[0].bitTagName;
                     pageElement.annotations[0].bitTextChName = diagramElement.annotations[0].bitTextChName;
@@ -212,6 +214,15 @@ export class PageCreation {
                     pageElement.annotations[0].bitImagefor0 = diagramElement.annotations[0].bitImagefor0;
                     pageElement.annotations[0].bitImageFor1to0 = diagramElement.annotations[0].bitImageFor1to0;
                     pageElement.annotations[0].bitImageFor0to1 = diagramElement.annotations[0].bitImageFor0to1;
+
+                    pageElement.annotations[0].normalColor = diagramElement.annotations[0].normalColor;
+                    pageElement.annotations[0].normalBackgroundColor = diagramElement.annotations[0].normalBackgroundColor;
+                    pageElement.annotations[0].abNormalColor = diagramElement.annotations[0].abNormalColor;
+                    pageElement.annotations[0].abNormalBackgroundColor = diagramElement.annotations[0].abNormalBackgroundColor;
+
+                    // dateTime
+                    pageElement.annotations[0].dateChannel = diagramElement.annotations[0].dateChannel;
+                    pageElement.annotations[0].dateTimeFormat = diagramElement.annotations[0].dateTimeFormat;
 
                     pageElement.ports.forEach(element => {
                         element.constraints = 0;

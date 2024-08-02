@@ -64,6 +64,35 @@ export class NodeProperties {
   }
 
 
+
+  private m_annotationdateChannel: any = {
+    dateChannel: ''
+  }
+
+  public get dateChannel(): string {
+    return this.m_annotationdateChannel.dateChannel;
+  }
+
+  @Input() public set dateChannel(dateChannel: string) {
+    this.m_annotationdateChannel.dateChannel = dateChannel;
+    this.triggerPropertyChange("dateChannel", this.m_annotationdateChannel.dateChannel);
+  }
+
+  private m_annotationdateTimeFormat: any = {
+    dateTimeFormat: ''
+  }
+
+  public get dateTimeFormat(): string {
+    return this.m_annotationdateTimeFormat.dateTimeFormat;
+  }
+
+  @Input() public set dateTimeFormat(dateTimeFormat: string) {
+    this.m_annotationdateTimeFormat.dateTimeFormat = dateTimeFormat;
+    this.triggerPropertyChange("dateTimeFormat", this.m_annotationdateTimeFormat.dateTimeFormat);
+  }
+
+
+
   private m_annotationnormalContinueBlink: any = {
     normalContinueBlink: false
   }
@@ -837,17 +866,31 @@ export class NodeProperties {
 
 
 
-  private m_textSetColor: any = {
-    textSetColor: ''
+  private m_normalColor: any = {
+    normalColor: ''
   }
 
-  public get textSetColor(): string {
-    return this.m_textSetColor.textSetColor;
+  public get normalColor(): string {
+    return this.m_normalColor.normalColor;
   }
 
-  @Input() public set textSetColor(textSetColor: string) {
-    this.m_textSetColor.textSetColor = textSetColor;
-    this.triggerPropertyChange("textSetColor", this.m_textSetColor.textSetColor);
+  @Input() public set normalColor(normalColor: string) {
+    this.m_normalColor.normalColor = normalColor;
+    this.triggerPropertyChange("normalColor", this.m_normalColor.normalColor);
+  }
+
+
+  private m_abNormalColor: any = {
+    abNormalColor: ''
+  }
+
+  public get abNormalColor(): string {
+    return this.m_abNormalColor.abNormalColor;
+  }
+
+  @Input() public set abNormalColor(abNormalColor: string) {
+    this.m_abNormalColor.abNormalColor = abNormalColor;
+    this.triggerPropertyChange("abNormalColor", this.m_abNormalColor.abNormalColor);
   }
 
   private m_textTooltip: any = {
@@ -947,18 +990,6 @@ export class NodeProperties {
   }
 
 
-  private m_isTextInvincible: any = {
-    isTextInvincible: false
-  }
-
-  public get isTextInvincible(): boolean {
-    return this.m_isTextInvincible.isTextInvincible;
-  }
-
-  @Input() public set isTextInvincible(isTextInvincible: boolean) {
-    this.m_isTextInvincible.isTextInvincible = isTextInvincible;
-    this.triggerPropertyChange("isInvincible", this.m_isTextInvincible.isTextInvincible);
-  }
 
 
   private m_textLowLimitBlinkTime: any = {
@@ -990,7 +1021,7 @@ export class NodeProperties {
 
 
   private m_textIsChecked: any = {
-    textIsChecked: ''
+    textIsChecked: false
   }
 
   public get textIsChecked(): boolean {
@@ -1001,6 +1032,21 @@ export class NodeProperties {
     this.m_textIsChecked.textIsChecked = textIsChecked;
     this.triggerPropertyChange("textIsChecked", this.m_textIsChecked.textIsChecked);
   }
+
+
+  private m_limitImageCheck: any = {
+    limitImageCheck: false
+  }
+
+  public get limitImageCheck(): boolean {
+    return this.m_limitImageCheck.limitImageCheck;
+  }
+
+  @Input() public set limitImageCheck(limitImageCheck: boolean) {
+    this.m_limitImageCheck.limitImageCheck = limitImageCheck;
+    this.triggerPropertyChange("limitImageCheck", this.m_limitImageCheck.limitImageCheck);
+  }
+
 
 
   private m_textBlinkTime: any = {
@@ -1029,8 +1075,67 @@ export class NodeProperties {
     this.triggerPropertyChange("analogUnit", this.m_analogUnit.analogUnit);
   }
 
+
+  private m_normalImage: any = {
+    normalImage: ''
+  }
+
+  public get normalImage(): string {
+    return this.m_normalImage.normalImage;
+  }
+
+  @Input() public set normalImage(normalImage: string) {
+    this.m_normalImage.normalImage = normalImage;
+    this.triggerPropertyChange("normalImage", this.m_normalImage.normalImage);
+  }
+
+
+  private m_abNormalImage: any = {
+    abNormalImage: ''
+  }
+
+  public get abNormalImage(): string {
+    return this.m_abNormalImage.abNormalImage;
+  }
+
+  @Input() public set abNormalImage(abNormalImage: string) {
+    this.m_abNormalImage.abNormalImage = abNormalImage;
+    this.triggerPropertyChange("abNormalImage", this.m_abNormalImage.abNormalImage);
+  }
+
+
+  private m_textSetNormal: any = {
+    textSetNormal: ''
+  }
+
+  public get textSetNormal(): string {
+    return this.m_textSetNormal.textSetNormal;
+  }
+
+  @Input() public set textSetNormal(textSetNormal: string) {
+    this.m_textSetNormal.textSetNormal = textSetNormal;
+    this.triggerPropertyChange("textSetNormal", this.m_textSetNormal.textSetNormal);
+  }
+
+
+
+
+  private m_textSetAbnormal: any = {
+    textSetAbnormal: ''
+  }
+
+  public get textSetAbnormal(): string {
+    return this.m_textSetAbnormal.textSetAbnormal;
+  }
+
+  @Input() public set textSetAbnormal(textSetAbnormal: string) {
+    this.m_textSetAbnormal.textSetAbnormal = textSetAbnormal;
+    this.triggerPropertyChange("textSetAbnormal", this.m_textSetAbnormal.textSetAbnormal);
+  }
+
+
   private m_textCheckColor: any = {
-    textCheckColor: ''
+    textCheckColor: false
   }
 
   public get textCheckColor(): boolean {
@@ -1041,6 +1146,48 @@ export class NodeProperties {
     this.m_textCheckColor.textCheckColor = textCheckColor;
     this.triggerPropertyChange("textCheckColor", this.m_textCheckColor.textCheckColor);
   }
+
+
+  private m_textCheckBackgroundColor: any = {
+    textCheckBackgroundColor: false
+  }
+
+  public get textCheckBackgroundColor(): boolean {
+    return this.m_textCheckBackgroundColor.textCheckBackgroundColor;
+  }
+
+  @Input() public set textCheckBackgroundColor(textCheckBackgroundColor: boolean) {
+    this.m_textCheckBackgroundColor.textCheckBackgroundColor = textCheckBackgroundColor;
+    this.triggerPropertyChange("textCheckBackgroundColor", this.m_textCheckBackgroundColor.textCheckBackgroundColor);
+  }
+
+
+  private m_normalBackgroundColor: any = {
+    normalBackgroundColor: ''
+  }
+
+  public get normalBackgroundColor(): string {
+    return this.m_normalBackgroundColor.normalBackgroundColor;
+  }
+
+  @Input() public set normalBackgroundColor(normalBackgroundColor: string) {
+    this.m_normalBackgroundColor.normalBackgroundColor = normalBackgroundColor;
+    this.triggerPropertyChange("normalBackgroundColor", this.m_normalBackgroundColor.normalBackgroundColor);
+  }
+
+  private m_abNormalBackgroundColor: any = {
+    abNormalBackgroundColor: ''
+  }
+
+  public get abNormalBackgroundColor(): string {
+    return this.m_abNormalBackgroundColor.abNormalBackgroundColor;
+  }
+
+  @Input() public set abNormalBackgroundColor(abNormalBackgroundColor: string) {
+    this.m_abNormalBackgroundColor.abNormalBackgroundColor = abNormalBackgroundColor;
+    this.triggerPropertyChange("abNormalBackgroundColor", this.m_abNormalBackgroundColor.abNormalBackgroundColor);
+  }
+
 
   private m_textCheckStr: any = {
     textCheckStr: ''

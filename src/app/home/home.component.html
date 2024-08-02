@@ -451,7 +451,7 @@
                 </div>
               </div>
               <div class="db-prop-separator"></div>
-              <div style="margin-top: 10px">
+              <div id="nodePopupProperties" style="margin-top: 10px">
                 <div>
                   <p>Select Tag:</p>
                   <div>
@@ -1014,7 +1014,7 @@
             </div>
 
 
-            <div class="Numeric-Opration" id="numeric1PropertyDiv" style="margin-bottom: 10px; display: block;">
+            <div class="Numeric-Opration" id="Limit1ValuePropertyDiv" style="margin-bottom: 10px; display: block;">
 
               <div class="Header-Numeric-Opration">
                 <p>Numeric Operations:</p>
@@ -1044,20 +1044,54 @@
               </div>
 
 
-              <div *ngIf="selectedItem.nodeProperties.textOperation && selectedItem.nodeProperties.textSetValue">
+              <div
+                [ngStyle]="{'display': selectedItem.nodeProperties.textOperation && selectedItem.nodeProperties.textSetValue ? 'block' : 'none'}">
                 <div class="text-condition-checkbox" style="margin-top: 10px;">
-                  <div style="display: flex; flex-direction: row; justify-content: space-around; margin-top: 10px;">
-                    <div>
+
+                  <div>
+                    <p style="margin-bottom: 0;">Hide On:</p>
+
+                    <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                      <div>
+                        <ejs-checkbox id="printMultiplePage" label="Normal"
+                          (change)="diagramPropertyBinding.texthideOnNormalChange($event)"
+                          [(checked)]="selectedItem.nodeProperties.hideOnNormal"></ejs-checkbox>
+                      </div>
+                      <div>
+                        <ejs-checkbox id="printMultiplePage" label="AbNormal"
+                          (change)="diagramPropertyBinding.texthideOnAbNormalChange($event)"
+                          [(checked)]="selectedItem.nodeProperties.hideOnAbNormal"></ejs-checkbox>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style="display: flex; flex-direction: row; justify-content: space-between; margin-top: 10px;">
+                    <div id="limit1Text2PropertyDiv">
                       <ejs-checkbox label="Color" [(checked)]="selectedItem.nodeProperties.textCheckColor"
                         (change)="diagramPropertyBinding.textCheckColorChange($event)"></ejs-checkbox>
                     </div>
-                    <div>
-                      <ejs-checkbox label="Text" [(checked)]="selectedItem.nodeProperties.textCheckStr"
-                        (change)="diagramPropertyBinding.textCheckStrChange($event)"></ejs-checkbox>
-                    </div>
+
                     <div>
                       <ejs-checkbox label="Audio File" [(checked)]="selectedItem.nodeProperties.textCheckAudio"
                         (change)="diagramPropertyBinding.textCheckWaveChange($event)"></ejs-checkbox>
+                    </div>
+                  </div>
+
+                  <div style="display: flex; flex-direction: row; justify-content: space-between; margin-top: 10px;">
+                    <div id="limit1TextPropertyDiv">
+                      <ejs-checkbox label="BackGround"
+                        [(checked)]="selectedItem.nodeProperties.textCheckBackgroundColor"
+                        (change)="diagramPropertyBinding.textCheckBackgroundColorChange($event)"></ejs-checkbox>
+                    </div>
+
+                    <div id="limit1ImagePropertyDiv">
+                      <ejs-checkbox label="Image" [(checked)]="selectedItem.nodeProperties.limitImageCheck"
+                        (change)="diagramPropertyBinding.textImageChange($event)"></ejs-checkbox>
+                    </div>
+
+                    <div id="limit1Text3PropertyDiv" style="margin-right: 32px;">
+                      <ejs-checkbox label="Text" [(checked)]="selectedItem.nodeProperties.textCheckStr"
+                        (change)="diagramPropertyBinding.textCheckStrChange($event)"></ejs-checkbox>
                     </div>
                   </div>
 
@@ -1067,25 +1101,110 @@
                   style="margin-bottom: 10px; display: flex; flex-direction: column;">
 
                   <div style="margin-top: 10px; margin-bottom: 10px;"
-                    *ngIf="selectedItem.nodeProperties.textCheckColor">
-                    <div class="col-xs-12 db-col-left">
-                      <div class="db-color-container">
-                        <div class="db-color-input">
-                          <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
-                            [value]="selectedItem.nodeProperties.textSetColor"
-                            (change)="diagramPropertyBinding.textOperationColorChange($event)" />
-                        </div>
-                        <div class="db-color-btn">
-                          <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
+                    [ngStyle]="{'display': selectedItem.nodeProperties.textCheckColor ? 'block' : 'none'}">
+
+                    <div>
+                      <p style="margin-bottom: 0;">Set Color For Normal:</p>
+                      <div class="col-xs-12 db-col-left">
+                        <div class="db-color-container">
+                          <div class="db-color-input">
+                            <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
+                              [value]="selectedItem.nodeProperties.normalColor ? selectedItem.nodeProperties.normalColor : 'transparent'"
+                              (change)="diagramPropertyBinding.textNormalColorChange($event)" />
+                          </div>
+                          <div class="db-color-btn">
+                            <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
+                          </div>
                         </div>
                       </div>
                     </div>
+
+                    <div>
+                      <p style="margin-bottom: 0;">Set Color For AbNormal:</p>
+                      <div class="col-xs-12 db-col-left">
+                        <div class="db-color-container">
+                          <div class="db-color-input">
+                            <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
+                              [value]="selectedItem.nodeProperties.abNormalColor ? selectedItem.nodeProperties.abNormalColor : 'transparent'"
+                              (change)="diagramPropertyBinding.textAbnormalColorChange($event)" />
+                          </div>
+                          <div class="db-color-btn">
+                            <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
 
-                  <div style="margin-top: 10px;" *ngIf="selectedItem.nodeProperties.textCheckStr">
-                    <input class="e-input" type="text" placeholder="Set Text" style="background: #FFFFFF;"
-                      [value]="selectedItem.nodeProperties.textSetStr"
-                      (change)="diagramPropertyBinding.textStrChange($event)" />
+                  <div *ngIf="selectedItem.nodeProperties.limitImageCheck">
+                    <div>
+                      <p style="margin-bottom: 0;">Set Normal Image:</p>
+                      <input id="textAudioFile" class="e-input" style="background: #FFFFFF;" type="file"
+                        placeholder="Set Audio" accept="Image/*"
+                        (change)="diagramPropertyBinding.normalImageChange($event)" />
+                    </div>
+                    <div style="margin-top: 10px;">
+                      <p style="margin-bottom: 0;">Set Abnormal Image:</p>
+                      <input id="textAudioFile" class="e-input" style="background: #FFFFFF;" type="file"
+                        placeholder="Set Audio" accept="Image/*"
+                        (change)="diagramPropertyBinding.abnormalImageChange($event)" />
+                    </div>
+                  </div>
+
+                  <div style="margin-top: 10px; margin-bottom: 10px;"
+                    [ngStyle]="{'display': selectedItem.nodeProperties.textCheckBackgroundColor ? 'block' : 'none'}">
+
+                    <div>
+                      <p style="margin-bottom: 0;">Set Color For Normal BackGround:</p>
+                      <div class="col-xs-12 db-col-left">
+                        <div class="db-color-container">
+                          <div class="db-color-input">
+                            <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
+                              [value]="selectedItem.nodeProperties.normalBackgroundColor ? selectedItem.nodeProperties.normalBackgroundColor : 'transparent'"
+                              (change)="diagramPropertyBinding.textNormalBackColorChange($event)" />
+                          </div>
+                          <div class="db-color-btn">
+                            <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <p style="margin-bottom: 0;">Set Color For AbNormal BackGround:</p>
+                      <div class="col-xs-12 db-col-left">
+                        <div class="db-color-container">
+                          <div class="db-color-input">
+                            <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
+                              [value]="selectedItem.nodeProperties.abNormalBackgroundColor ? selectedItem.nodeProperties.abNormalBackgroundColor : 'transparent'"
+                              (change)="diagramPropertyBinding.textAbnormalBackColorChange($event)" />
+                          </div>
+                          <div class="db-color-btn">
+                            <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div>
+                    <div style="margin-top: 10px;"
+                      [ngStyle]="{'display': selectedItem.nodeProperties.textCheckStr ? 'block' : 'none'}">
+                      <p>Set Text For Normal:</p>
+                      <input class="e-input" type="text" placeholder="Set Text" style="background: #FFFFFF;"
+                        [value]="selectedItem.nodeProperties.textSetNormal"
+                        (change)="diagramPropertyBinding.textStrNormalChange($event)" />
+                    </div>
+
+                    <div style="margin-top: 10px;"
+                      [ngStyle]="{'display': selectedItem.nodeProperties.textCheckStr ? 'block' : 'none'}">
+                      <p>Set Text For AbNormal:</p>
+                      <input class="e-input" type="text" placeholder="Set Text" style="background: #FFFFFF;"
+                        [value]="selectedItem.nodeProperties.textSetAbnormal"
+                        (change)="diagramPropertyBinding.textStrAbNormalChange($event)" />
+                    </div>
                   </div>
 
                   <div class="file-text-container" style="margin-top: 10px"
@@ -1123,15 +1242,727 @@
 
 
 
-                <div style="margin-top: 10px;">
-                  <ejs-checkbox label="Invincible" [(checked)]="selectedItem.nodeProperties.isTextInvincible"
-                    (change)="diagramPropertyBinding.isTextInvincible($event)"></ejs-checkbox>
-                </div>
+                <div class="db-prop-separator"></div>
+
               </div>
 
-              <div class="db-prop-separator"></div>
+
+
+
+              <div id="bitDisplayPropertyDiv">
+
+                <div>
+                  <p>Select Tag:</p>
+                  <div>
+                    <ejs-dropdownlist #dropdown [dataSource]="stationData" placeholder="select Tag"
+                      [value]="selectedItem.nodeProperties.bitTagName ? selectedItem.nodeProperties.bitTagName : null"
+                      (change)="diagramPropertyBinding.changeBitTextStation($event)"
+                      (change)="tagChangeBitTextName($event)"></ejs-dropdownlist>
+                  </div>
+                </div>
+
+                <div>
+                  <div style="margin-top: 10px">
+                    <p style="margin-bottom: 0">Select Digital Channel:</p>
+                    <div>
+                      <ejs-dropdownlist id="multiselect-checkbox" #checkbox [dataSource]="digitalTextChName"
+                        [value]="selectedItem.nodeProperties.annotationContent ? selectedItem.nodeProperties.annotationContent : null"
+                        placeholder="select analog channel"
+                        (change)="diagramPropertyBinding.changeTextDigital($event)"></ejs-dropdownlist>
+                    </div>
+                  </div>
+                </div>
+
+                <div style="margin-top: 10px;">
+                  <p style="margin-bottom: 0;">Set ToolTip:</p>
+                  <div>
+                    <input class="e-input" type="text" placeholder="ToolTip"
+                      [value]="selectedItem.nodeProperties.textTooltip ? selectedItem.nodeProperties.textTooltip : null"
+                      style="background: #FFFFFF;" (change)="diagramPropertyBinding.textTooltipChange($event)" />
+                  </div>
+                </div>
+
+                <div style="margin-top: 10px;">
+
+                  <p style="margin-bottom: 0;">Set Value:<span style="color: red;">*</span></p>
+
+                  <div style="display: flex;flex-direction: row;justify-content: space-between;">
+                    <div>
+                      <ejs-checkbox id="printMultiplePage" label="1 as Normal"
+                        (change)="diagramPropertyBinding.bitSetValue1asNormal($event)"
+                        [(checked)]="selectedItem.nodeProperties.bitSet1asNormal"></ejs-checkbox>
+                    </div>
+                    <div>
+                      <ejs-checkbox id="printMultiplePage" label="1 as Abnormal"
+                        (change)="diagramPropertyBinding.bitSetValue1asAbnormal($event)"
+                        [(checked)]="selectedItem.nodeProperties.bitSet1asAbnormal"></ejs-checkbox>
+                    </div>
+                  </div>
+
+                </div>
+
+
+                <div>
+                  <p style="margin-bottom: 0;margin-top: 10px;">Normal Blinking:</p>
+                  <div style="display: flex;flex-direction: row;justify-content: space-between;">
+                    <div>
+                      <ejs-checkbox id="printMultiplePage" label="continuous"
+                        (change)="diagramPropertyBinding.normalCountBlinkChange($event)"
+                        [(checked)]="selectedItem.nodeProperties.normalContinueBlink"></ejs-checkbox>
+                    </div>
+                    <div>
+                      <ejs-checkbox id="printMultiplePage" label="Time Duration"
+                        (change)="diagramPropertyBinding.normalTimeBlinkChange($event)"
+                        [(checked)]="selectedItem.nodeProperties.normalTimeBlink"></ejs-checkbox>
+                    </div>
+                  </div>
+                  <div style="margin-top: 10px;" *ngIf="selectedItem.nodeProperties.normalTimeBlink">
+                    <input class="e-input" type="text" placeholder="Set Time Duration"
+                      [value]="selectedItem.nodeProperties.normalTimeBlinkValue ? selectedItem.nodeProperties.normalTimeBlinkValue : null"
+                      style="background: #FFFFFF;"
+                      (change)="diagramPropertyBinding.normalBlinkTimeValueChange($event)" />
+                  </div>
+                </div>
+
+
+                <div class="db-prop-separator"></div>
+
+                <div id="bitLablePropertyDiv">
+
+                  <div>
+                    <div>
+                      <p style="margin-bottom: 0;">Set Text for Value 1:</p>
+                      <div>
+                        <input class="e-input" type="text" placeholder="Set Text For Value 1"
+                          style="background: #FFFFFF;" [value]="selectedItem.nodeProperties.bitTextFor1"
+                          (change)="diagramPropertyBinding.bitText1Change($event)" />
+                      </div>
+                    </div>
+
+                    <div style="margin-top: 6px; margin-bottom: 10px;">
+                      <div class="col-xs-12 db-col-left">
+                        <div class="db-color-container">
+                          <div class="db-color-input">
+                            <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
+                              [value]="selectedItem.nodeProperties.bitTextColorFor1 ? selectedItem.nodeProperties.bitTextColorFor1 : 'transparent'"
+                              (change)="diagramPropertyBinding.bitTextColorFor1($event)" />
+                          </div>
+                          <div class="db-color-btn">
+                            <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style="margin-top: 40px;">
+                      <p style="margin-bottom: 0;">Set Text for Value 0:</p>
+                      <div>
+                        <input class="e-input" type="text" placeholder="Set Text For Value 0"
+                          style="background: #FFFFFF;" [value]="selectedItem.nodeProperties.bitTextFor0"
+                          (change)="diagramPropertyBinding.bitText0Change($event)" />
+                      </div>
+                    </div>
+
+                    <div style="margin-top: 6px;">
+                      <div class="col-xs-12 db-col-left">
+                        <div class="db-color-container">
+                          <div class="db-color-input">
+                            <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
+                              [value]="selectedItem.nodeProperties.bitTextColorFor0 ? selectedItem.nodeProperties.bitTextColorFor0 : 'transparent'"
+                              (change)="diagramPropertyBinding.bitTextColorFor0($event)" />
+                          </div>
+                          <div class="db-color-btn">
+                            <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+
+                </div>
+
+                <div id="bitShapePropertyDiv">
+
+                  <div>
+
+                    <div class="row db-background-style">
+                      <div class="row db-prop-header-text">
+                        Background and Border Styles
+                      </div>
+                      <div class="row db-prop-row">
+                        <div class="col-xs-6 db-col-left">
+                          <div class="db-color-container">
+                            <div class="db-color-input">
+                              <input id="nodeFillColor" ejs-colorpicker type="color" mode="Palette"
+                                [(value)]="selectedItem.nodeProperties.fillColor" />
+                            </div>
+                            <div class="db-color-btn">
+                              <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div id="gradientStyle" class="row db-prop-row db-gradient-style-hide">
+                        <div class="col-xs-4 db-col-left">
+                          <ejs-checkbox id="gradient" label="Gradient"
+                            [(checked)]="selectedItem.nodeProperties.gradient"></ejs-checkbox>
+                        </div>
+                        <div style="margin-top: 40px;" *ngIf="selectedItem.nodeProperties.gradient">
+                          <ejs-dropdownlist [(value)]="selectedItem.nodeProperties.gradientDirection"
+                            [dataSource]="dropDownDataSources.gradientDirections" [fields]="dropdownListFields"
+                            popupWidth="200px">
+                          </ejs-dropdownlist>
+                        </div>
+                        <div style="margin-top: 10px;" *ngIf="selectedItem.nodeProperties.gradient">
+
+                          <div class="col-xs-12 db-col-left">
+                            <div class="db-color-container">
+                              <div class="db-color-input">
+                                <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
+                                  [(value)]="selectedItem.nodeProperties.gradientColor" />
+                              </div>
+                              <div class="db-color-btn">
+                                <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row db-border-style">
+                      <div class="row db-prop-header-text db-border-style-header">
+                        Border/Line Styles
+                      </div>
+                      <div class="row db-prop-row">
+                        <div class="col-xs-4 db-col-right">
+                          <span class="db-prop-text-style">Stroke Color</span>
+                        </div>
+                        <div class="col-xs-4 db-col-center">
+                          <span class="db-prop-text-style">Stroke Style</span>
+                        </div>
+                        <div class="col-xs-4 db-col-left">
+                          <span class="db-prop-text-style">Stroke Width</span>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-4 db-col-left">
+                          <div class="db-color-container">
+                            <div class="db-color-input">
+                              <input id="nodeStrokeColor" ejs-colorpicker type="color" mode="Palette"
+                                [(value)]="selectedItem.nodeProperties.strokeColor" />
+                            </div>
+                            <div class="db-color-btn">
+                              <button ejs-button iconCss="sf-icon-Pickers tb-icons"></button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-xs-4 db-col-center">
+                          <ejs-dropdownlist id="nodeBorderStyle" #borderStyle
+                            [(value)]="selectedItem.nodeProperties.strokeStyle"
+                            [dataSource]="dropDownDataSources.borderStyles" popupWidth="160px"
+                            [fields]="dropdownListFields">
+                            <ng-template #itemTemplate let-data>
+                              <div class="db-ddl-template-style">
+                                <span class="{{ data.className }}"></span>
+                              </div>
+                            </ng-template>
+                            <ng-template #valueTemplate let-data>
+                              <div class="db-ddl-template-style">
+                                <span class="{{ data.className }}"></span>
+                              </div>
+                            </ng-template>
+                          </ejs-dropdownlist>
+                        </div>
+                        <div class="col-xs-4 db-col-right">
+                          <ejs-numerictextbox id="nodeStrokeWidth" min="0" step="0.5"
+                            [(value)]="selectedItem.nodeProperties.strokeWidth"></ejs-numerictextbox>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                  <div>
+
+                    <div style="margin-top: 10px;">
+                      <p style="margin-bottom: 0;">Set Color for Bit 1:</p>
+
+                      <div>
+                        <div class="col-xs-12 db-col-left">
+                          <div class="db-color-container">
+                            <div class="db-color-input">
+                              <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
+                                [value]="selectedItem.nodeProperties.bit1Color ? selectedItem.nodeProperties.bit1Color : 'transparent'"
+                                (change)="diagramPropertyBinding.textOnBit1ColorChange($event)" />
+                            </div>
+                            <div class="db-color-btn">
+                              <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style="margin-top: 40px;">
+                      <p style="margin-bottom: 0;">Set Color for Bit 0:</p>
+                      <div>
+                        <div class="col-xs-12 db-col-left">
+                          <div class="db-color-container">
+                            <div class="db-color-input">
+                              <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
+                                [value]="selectedItem.nodeProperties.bit0Color ? selectedItem.nodeProperties.bit0Color : 'transparent'"
+                                (change)="diagramPropertyBinding.textOnBit0ColorChange($event)" />
+                            </div>
+                            <div class="db-color-btn">
+                              <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                  </div>
+
+
+
+                </div>
+
+                <div id="bitImagePropertyDiv">
+
+                  <div>
+
+                    <div class="row db-background-style">
+                      <div class="row db-prop-header-text">
+                        Background and Border Styles
+                      </div>
+                      <div class="row db-prop-row">
+                        <div class="col-xs-6 db-col-left">
+                          <div class="db-color-container">
+                            <div class="db-color-input">
+                              <input id="nodeFillColor" ejs-colorpicker type="color" mode="Palette"
+                                [(value)]="selectedItem.nodeProperties.fillColor" />
+                            </div>
+                            <div class="db-color-btn">
+                              <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div id="gradientStyle" class="row db-prop-row db-gradient-style-hide">
+                        <div class="col-xs-4 db-col-left">
+                          <ejs-checkbox id="gradient" label="Gradient"
+                            [(checked)]="selectedItem.nodeProperties.gradient"></ejs-checkbox>
+                        </div>
+                        <div style="margin-top: 40px;" *ngIf="selectedItem.nodeProperties.gradient">
+                          <ejs-dropdownlist [(value)]="selectedItem.nodeProperties.gradientDirection"
+                            [dataSource]="dropDownDataSources.gradientDirections" [fields]="dropdownListFields"
+                            popupWidth="200px">
+                          </ejs-dropdownlist>
+                        </div>
+                        <div style="margin-top: 10px;" *ngIf="selectedItem.nodeProperties.gradient">
+
+                          <div class="col-xs-12 db-col-left">
+                            <div class="db-color-container">
+                              <div class="db-color-input">
+                                <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
+                                  [(value)]="selectedItem.nodeProperties.gradientColor" />
+                              </div>
+                              <div class="db-color-btn">
+                                <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row db-border-style">
+                      <div class="row db-prop-header-text db-border-style-header">
+                        Border/Line Styles
+                      </div>
+                      <div class="row db-prop-row">
+                        <div class="col-xs-4 db-col-right">
+                          <span class="db-prop-text-style">Stroke Color</span>
+                        </div>
+                        <div class="col-xs-4 db-col-center">
+                          <span class="db-prop-text-style">Stroke Style</span>
+                        </div>
+                        <div class="col-xs-4 db-col-left">
+                          <span class="db-prop-text-style">Stroke Width</span>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-4 db-col-left">
+                          <div class="db-color-container">
+                            <div class="db-color-input">
+                              <input id="nodeStrokeColor" ejs-colorpicker type="color" mode="Palette"
+                                [(value)]="selectedItem.nodeProperties.strokeColor" />
+                            </div>
+                            <div class="db-color-btn">
+                              <button ejs-button iconCss="sf-icon-Pickers tb-icons"></button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-xs-4 db-col-center">
+                          <ejs-dropdownlist id="nodeBorderStyle" #borderStyle
+                            [(value)]="selectedItem.nodeProperties.strokeStyle"
+                            [dataSource]="dropDownDataSources.borderStyles" popupWidth="160px"
+                            [fields]="dropdownListFields">
+                            <ng-template #itemTemplate let-data>
+                              <div class="db-ddl-template-style">
+                                <span class="{{ data.className }}"></span>
+                              </div>
+                            </ng-template>
+                            <ng-template #valueTemplate let-data>
+                              <div class="db-ddl-template-style">
+                                <span class="{{ data.className }}"></span>
+                              </div>
+                            </ng-template>
+                          </ejs-dropdownlist>
+                        </div>
+                        <div class="col-xs-4 db-col-right">
+                          <ejs-numerictextbox id="nodeStrokeWidth" min="0" step="0.5"
+                            [(value)]="selectedItem.nodeProperties.strokeWidth"></ejs-numerictextbox>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div style="margin-top: 10px;">
+                    <p style="margin-bottom: 0;">Set Image:</p>
+                    <div class="col-xs-6 db-col-left">
+                      <ejs-toolbar id="toolbarNodeInsert" (clicked)="toolbarInsertClick($event)"
+                        overflowMode="Scrollable" #toolbarEditor>
+                        <e-items>
+                          <e-item prefixIcon="sf-icon-InsertImage tb-icons" tooltipText="Insert Image"
+                            cssClass="tb-item-end">
+                          </e-item>
+                        </e-items>
+                      </ejs-toolbar>
+                    </div>
+                  </div>
+
+                  <div style="margin-top: 40px;">
+                    <div>
+                      <p style="margin-bottom: 0;">Set Image for Bit 1:</p>
+                      <div>
+                        <input id="textAudioFile" class="e-input" style="background: #FFFFFF;" type="file"
+                          placeholder="Set Audio" accept="Image/*"
+                          (change)="diagramPropertyBinding.bitImageChangeFor1($event)" />
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div style="margin-top: 10px;">
+                    <div>
+                      <p style="margin-bottom: 0;">Set Image for Bit 0:</p>
+                      <div>
+                        <input id="textAudioFile" class="e-input" style="background: #FFFFFF;" type="file"
+                          placeholder="Set Audio" accept="Image/*"
+                          (change)="diagramPropertyBinding.bitImageChangeFor0($event)" />
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div id="bitCommonConditionPropertyDiv" style="margin-top: 45px;">
+
+                  <div class="db-prop-separator"></div>
+
+
+                  <p style="margin-bottom: 0;">Hide On:</p>
+
+                  <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                    <div>
+                      <ejs-checkbox id="printMultiplePage" label="Normal"
+                        (change)="diagramPropertyBinding.texthideOnNormalChange($event)"
+                        [(checked)]="selectedItem.nodeProperties.hideOnNormal"></ejs-checkbox>
+                    </div>
+                    <div>
+                      <ejs-checkbox id="printMultiplePage" label="AbNormal"
+                        (change)="diagramPropertyBinding.texthideOnAbNormalChange($event)"
+                        [(checked)]="selectedItem.nodeProperties.hideOnAbNormal"></ejs-checkbox>
+                    </div>
+                  </div>
+
+
+                  <div>
+                    <p style="margin-bottom: 0;">Choose Condition:</p>
+                    <div style="display: flex;flex-direction: row;justify-content: space-between;">
+                      <div>
+                        <ejs-checkbox id="printMultiplePage" label="For 1 to 0"
+                          (change)="diagramPropertyBinding.bitCondition1to0Change($event)"
+                          [(checked)]="selectedItem.nodeProperties.bitCheck1to0"></ejs-checkbox>
+                      </div>
+                      <div>
+                        <ejs-checkbox id="printMultiplePage" label="For 0 to 1"
+                          (change)="diagramPropertyBinding.bitCondition0to1Change($event)"
+                          [(checked)]="selectedItem.nodeProperties.bitCheck0to1"></ejs-checkbox>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                  <div [ngStyle]="{'display': selectedItem.nodeProperties.bitCheck1to0 ? 'block' : 'none'}">
+
+                    <div>
+                      <p style="margin-bottom: 0;margin-top: 10px;">Conditional Blink For 1 to 0:</p>
+                      <div style="display: flex;flex-direction: row;justify-content: space-between;">
+                        <div>
+                          <ejs-checkbox id="printMultiplePage" label="continuous"
+                            (change)="diagramPropertyBinding.bitCondiCountBlink1to0($event)"
+                            [(checked)]="selectedItem.nodeProperties.bitCondiConBlink1to0"></ejs-checkbox>
+                        </div>
+                        <div>
+                          <ejs-checkbox id="printMultiplePage" label="Time Duration"
+                            (change)="diagramPropertyBinding.bitCondiTimeBlink1to0($event)"
+                            [(checked)]="selectedItem.nodeProperties.bitCondiTimeBlink1to0"></ejs-checkbox>
+                        </div>
+                      </div>
+                      <div style="margin-top: 10px;" *ngIf="selectedItem.nodeProperties.bitCondiTimeBlink1to0">
+                        <input class="e-input" type="number" placeholder="Set Time Duration"
+                          [value]="selectedItem.nodeProperties.bitCondiBlinkTImeValue1to0 ? selectedItem.nodeProperties.bitCondiBlinkTImeValue1to0 : null"
+                          style="background: #FFFFFF;"
+                          (change)="diagramPropertyBinding.bitCondiBlinkTimeChange1to0($event)" />
+                      </div>
+                    </div>
+
+                    <div id="bitLableOnePropertyDiv" style="margin-top: 10px;">
+                      <p style="margin-bottom: 0;">Set Text For 1 to 0:</p>
+                      <div>
+                        <input class="e-input" type="text" placeholder="Set Text For 1 to 0"
+                          [value]="selectedItem.nodeProperties.bitTextFor1to0 ? selectedItem.nodeProperties.bitTextFor1to0 : null"
+                          style="background: #FFFFFF;" (change)="diagramPropertyBinding.bitTextChange1to0($event)" />
+                      </div>
+                    </div>
+
+
+
+                    <div id="bitShapeOnePropertyDiv">
+
+                      <p style="margin-bottom: 0;margin-top: 10px;">Set Shape Color For 1 to 0:</p>
+
+                      <div class="col-xs-12 db-col-left">
+                        <div class="db-color-container">
+                          <div class="db-color-input">
+                            <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
+                              [value]="selectedItem.nodeProperties.bitShapeColor1to0 ? selectedItem.nodeProperties.bitShapeColor1to0 : 'transparent'"
+                              (change)="diagramPropertyBinding.bitShapeColor1to0Change($event)" />
+                          </div>
+                          <div class="db-color-btn">
+                            <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <div id="bitImageOnePropertyDiv">
+                      <div style="margin-top: 10px;">
+                        <div>
+                          <p style="margin-bottom: 0;">Set Image for Bit 1 to 0:</p>
+                          <div>
+                            <input id="textAudioFile" class="e-input" style="background: #FFFFFF;" type="file"
+                              placeholder="Set Audio" accept="Image/*"
+                              (change)="diagramPropertyBinding.bitImageChangeFor1to0($event)" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style="margin-top: 10px;">
+                      <p style="margin-bottom: 0;">Set Audio File For 1 to 0:</p>
+                      <div>
+                        <input id="textAudioFile" class="e-input" style="background: #FFFFFF;" type="file"
+                          placeholder="Set Audio" accept="audio/*"
+                          (change)="diagramPropertyBinding.bitAudio1to0Change($event)" />
+                      </div>
+                    </div>
+
+                  </div>
+
+
+                  <div [ngStyle]="{'display': selectedItem.nodeProperties.bitCheck0to1 ? 'block' : 'none'}">
+
+                    <div>
+                      <p style="margin-bottom: 0;margin-top: 10px;">Conditional Blink For 0 to 1:</p>
+                      <div style="display: flex;flex-direction: row;justify-content: space-between;">
+                        <div>
+                          <ejs-checkbox id="printMultiplePage" label="continuous"
+                            (change)="diagramPropertyBinding.bitCondiCountBlink0to1($event)"
+                            [(checked)]="selectedItem.nodeProperties.bitCondiConBlink0to1"></ejs-checkbox>
+                        </div>
+                        <div>
+                          <ejs-checkbox id="printMultiplePage" label="Time Duration"
+                            (change)="diagramPropertyBinding.bitCondiTimeBlink0to1($event)"
+                            [(checked)]="selectedItem.nodeProperties.bitCondiTimeBlink0to1"></ejs-checkbox>
+                        </div>
+                      </div>
+                      <div style="margin-top: 10px;" *ngIf="selectedItem.nodeProperties.bitCondiTimeBlink0to1">
+                        <input class="e-input" type="number" placeholder="Set Time Duration"
+                          [value]="selectedItem.nodeProperties.bitCondiBlinkTImeValue0to1 ? selectedItem.nodeProperties.bitCondiBlinkTImeValue0to1 : null"
+                          style="background: #FFFFFF;"
+                          (change)="diagramPropertyBinding.bitCondiBlinkTimeChange0to1($event)" />
+                      </div>
+                    </div>
+
+
+                    <div style="margin-top: 10px;" id="bitLableTwoPropertyDiv">
+                      <p style="margin-bottom: 0;">Set Text For 0 to 1:</p>
+                      <div>
+                        <input class="e-input" type="text" placeholder="Set Text For 0 to 1"
+                          [value]="selectedItem.nodeProperties.bitTextFor0to1 ? selectedItem.nodeProperties.bitTextFor0to1 : null"
+                          style="background: #FFFFFF;" (change)="diagramPropertyBinding.bitTextChange0to1($event)" />
+                      </div>
+                    </div>
+
+                    <div id="bitShapeTwoPropertyDiv" style="margin-top: 10px;">
+
+                      <p style="margin-bottom: 0;">Set Shape Color For 0 to 1:</p>
+
+                      <div class="col-xs-12 db-col-left">
+                        <div class="db-color-container">
+                          <div class="db-color-input">
+                            <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
+                              [value]="selectedItem.nodeProperties.bitShapeColor0to1 ? selectedItem.nodeProperties.bitShapeColor0to1 : 'transparent'"
+                              (change)="diagramPropertyBinding.bitShapeColor0to1Change($event)" />
+                          </div>
+                          <div class="db-color-btn">
+                            <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <div id="bitImageTwoPropertyDiv">
+                      <div style="margin-top: 10px;">
+                        <div>
+                          <p style="margin-bottom: 0;">Set Image for Bit 0 to 1:</p>
+                          <div>
+                            <input id="textAudioFile" class="e-input" style="background: #FFFFFF;" type="file"
+                              placeholder="Set Audio" accept="Image/*"
+                              (change)="diagramPropertyBinding.bitImageChangeFor0to1($event)" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style="margin-top: 10px;">
+                      <p style="margin-bottom: 0;">Set Audio File For 0 to 1:</p>
+                      <div>
+                        <input id="textAudioFile" class="e-input" style="background: #FFFFFF;" type="file"
+                          placeholder="Set Audio" accept="audio/*"
+                          (change)="diagramPropertyBinding.bitAudio0to1Change($event)" />
+                      </div>
+                    </div>
+
+
+                  </div>
+
+
+
+
+
+
+
+                </div>
+
+              </div>
+
+
+              <div id="dateTimePropertyDiv">
+
+                <div>
+                  <div>
+                    <p style="margin-bottom: 0;">Select Tag:</p>
+                    <div>
+                      <ejs-dropdownlist #dropdown [dataSource]="stationData" placeholder="select Tag"
+                        [value]="selectedItem.nodeProperties.textAnnotationsTagName ? selectedItem.nodeProperties.textAnnotationsTagName : null"
+                        (change)="diagramPropertyBinding.changeTextStation($event)"
+                        (change)="tagChangeTextName($event)"></ejs-dropdownlist>
+                    </div>
+                  </div>
+
+
+
+                  <div>
+                    <div style="margin-top: 10px">
+                      <p style="margin-bottom: 0">Select Analog Channel:</p>
+                      <div>
+                        <ejs-dropdownlist id="multiselect-checkbox" #checkbox [dataSource]="analogTextChName"
+                          [value]="selectedItem.nodeProperties.dateChannel ? selectedItem.nodeProperties.dateChannel : null"
+                          placeholder="select analog channel"
+                          (change)="diagramPropertyBinding.dateChannelChange($event)"></ejs-dropdownlist>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style="margin-top: 10px">
+                    <div>
+                      <p style="margin-bottom: 0">Select DateTime Format:</p>
+                      <div>
+                        <ejs-dropdownlist id="multiselect-checkbox" #checkbox [dataSource]="dateTimeFormate"
+                          [value]="selectedItem.nodeProperties.dateTimeFormat ? selectedItem.nodeProperties.dateTimeFormat : null"
+                          placeholder="select DateTime Format"
+                          (change)="diagramPropertyBinding.dateTimeFormatChange($event)"></ejs-dropdownlist>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div>
+                      <p style="font-size: 12px; margin-bottom: 0; margin-top: 10px;">Add Tooltip:</p>
+                    </div>
+                    <div style="margin-top: 5px;">
+                      <input class="e-input" type="text" placeholder="ToolTip"
+                        [value]="selectedItem.nodeProperties.textTooltip ? selectedItem.nodeProperties.textTooltip : null"
+                        style="background: #FFFFFF;" (change)="diagramPropertyBinding.textTooltipChange($event)" />
+                    </div>
+                  </div>
+
+                  <div>
+                    <p style="margin-bottom: 0;margin-top: 10px;">Normal Blinking:</p>
+                    <div style="display: flex;flex-direction: row;justify-content: space-between;">
+                      <div>
+                        <ejs-checkbox id="printMultiplePage" label="continuous"
+                          (change)="diagramPropertyBinding.normalCountBlinkChange($event)"
+                          [(checked)]="selectedItem.nodeProperties.normalContinueBlink"></ejs-checkbox>
+                      </div>
+                      <div>
+                        <ejs-checkbox id="printMultiplePage" label="Time Duration"
+                          (change)="diagramPropertyBinding.normalTimeBlinkChange($event)"
+                          [(checked)]="selectedItem.nodeProperties.normalTimeBlink"></ejs-checkbox>
+                      </div>
+                    </div>
+                    <div style="margin-top: 10px;" *ngIf="selectedItem.nodeProperties.normalTimeBlink">
+                      <input class="e-input" type="text" placeholder="Set Time Duration"
+                        [value]="selectedItem.nodeProperties.normalTimeBlinkValue ? selectedItem.nodeProperties.normalTimeBlinkValue : null"
+                        style="background: #FFFFFF;"
+                        (change)="diagramPropertyBinding.normalBlinkTimeValueChange($event)" />
+                    </div>
+                  </div>
+
+
+
+                </div>
+
+              </div>
+
+
 
             </div>
+
+
 
 
             <div id="numeric2PropertyDiv" style="display: block;">
@@ -1200,14 +2031,14 @@
                   <div *ngIf="selectedItem.nodeProperties.textLowLimitCheckColor"
                     style="margin-top: 10px; width: 100%;">
                     <!-- <div class="db-color-container">
-                    <div class="db-color-input">
-                      <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
-                        (change)="diagramPropertyBinding.textLowLimitColorChange($event)" />
-                    </div>
-                    <div class="db-color-btn">
-                      <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
-                    </div>
-                  </div> -->
+                  <div class="db-color-input">
+                    <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
+                      (change)="diagramPropertyBinding.textLowLimitColorChange($event)" />
+                  </div>
+                  <div class="db-color-btn">
+                    <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
+                  </div>
+                </div> -->
 
                     <div class="col-xs-12 db-col-left">
                       <div class="db-color-container">
@@ -1312,14 +2143,14 @@
                   <div *ngIf="selectedItem.nodeProperties.textHighLimitCheckColor"
                     style="margin-top: 10px; width: 100%;">
                     <!-- <div class="db-color-container">
-                      <div class="db-color-input">
-                        <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
-                          (change)="diagramPropertyBinding.textHighLimitColorChange($event)" />
-                      </div>
-                      <div class="db-color-btn">
-                        <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
-                      </div>
-                    </div> -->
+                    <div class="db-color-input">
+                      <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
+                        (change)="diagramPropertyBinding.textHighLimitColorChange($event)" />
+                    </div>
+                    <div class="db-color-btn">
+                      <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
+                    </div>
+                  </div> -->
 
                     <div class="col-xs-12 db-col-left">
                       <div class="db-color-container">
@@ -1362,431 +2193,7 @@
 
             </div>
 
-            <div id="bitDisplayPropertyDiv">
 
-              <div>
-                <p>Select Tag:</p>
-                <div>
-                  <ejs-dropdownlist #dropdown [dataSource]="stationData" placeholder="select Tag"
-                    [value]="selectedItem.nodeProperties.bitTagName ? selectedItem.nodeProperties.bitTagName : null"
-                    (change)="diagramPropertyBinding.changeBitTextStation($event)"
-                    (change)="tagChangeBitTextName($event)"></ejs-dropdownlist>
-                </div>
-              </div>
-
-              <div>
-                <div style="margin-top: 10px">
-                  <p style="margin-bottom: 0">Select Digital Channel:</p>
-                  <div>
-                    <ejs-dropdownlist id="multiselect-checkbox" #checkbox [dataSource]="digitalTextChName"
-                      [value]="selectedItem.nodeProperties.annotationContent ? selectedItem.nodeProperties.annotationContent : null"
-                      placeholder="select analog channel"
-                      (change)="diagramPropertyBinding.changeTextDigital($event)"></ejs-dropdownlist>
-                  </div>
-                </div>
-              </div>
-
-              <div style="margin-top: 10px;">
-                <p style="margin-bottom: 0;">Set ToolTip:</p>
-                <div>
-                  <input class="e-input" type="text" placeholder="ToolTip"
-                    [value]="selectedItem.nodeProperties.textTooltip ? selectedItem.nodeProperties.textTooltip : null"
-                    style="background: #FFFFFF;" (change)="diagramPropertyBinding.textTooltipChange($event)" />
-                </div>
-              </div>
-
-              <div style="margin-top: 10px;">
-
-                <p style="margin-bottom: 0;">Set Value:<span style="color: red;">*</span></p>
-
-                <div style="display: flex;flex-direction: row;justify-content: space-between;">
-                  <div>
-                    <ejs-checkbox id="printMultiplePage" label="1 as Normal"
-                      (change)="diagramPropertyBinding.bitSetValue1asNormal($event)"
-                      [(checked)]="selectedItem.nodeProperties.bitSet1asNormal"></ejs-checkbox>
-                  </div>
-                  <div>
-                    <ejs-checkbox id="printMultiplePage" label="1 as Abnormal"
-                      (change)="diagramPropertyBinding.bitSetValue1asAbnormal($event)"
-                      [(checked)]="selectedItem.nodeProperties.bitSet1asAbnormal"></ejs-checkbox>
-                  </div>
-                </div>
-
-              </div>
-
-
-              <div>
-                <p style="margin-bottom: 0;margin-top: 10px;">Normal Blinking:</p>
-                <div style="display: flex;flex-direction: row;justify-content: space-between;">
-                  <div>
-                    <ejs-checkbox id="printMultiplePage" label="continuous"
-                      (change)="diagramPropertyBinding.normalCountBlinkChange($event)"
-                      [(checked)]="selectedItem.nodeProperties.normalContinueBlink"></ejs-checkbox>
-                  </div>
-                  <div>
-                    <ejs-checkbox id="printMultiplePage" label="Time Duration"
-                      (change)="diagramPropertyBinding.normalTimeBlinkChange($event)"
-                      [(checked)]="selectedItem.nodeProperties.normalTimeBlink"></ejs-checkbox>
-                  </div>
-                </div>
-                <div style="margin-top: 10px;" *ngIf="selectedItem.nodeProperties.normalTimeBlink">
-                  <input class="e-input" type="text" placeholder="Set Time Duration"
-                    [value]="selectedItem.nodeProperties.normalTimeBlinkValue ? selectedItem.nodeProperties.normalTimeBlinkValue : null"
-                    style="background: #FFFFFF;" (change)="diagramPropertyBinding.normalBlinkTimeValueChange($event)" />
-                </div>
-              </div>
-
-
-              <div class="db-prop-separator"></div>
-
-              <div id="bitLablePropertyDiv">
-
-                <div>
-                  <div>
-                    <p style="margin-bottom: 0;">Set Text for Value 1:</p>
-                    <div>
-                      <input class="e-input" type="text" placeholder="Set Text For Value 1" style="background: #FFFFFF;"
-                        [value]="selectedItem.nodeProperties.bitTextFor1"
-                        (change)="diagramPropertyBinding.bitText1Change($event)" />
-                    </div>
-                  </div>
-
-                  <div style="margin-top: 6px; margin-bottom: 10px;">
-                    <div class="col-xs-12 db-col-left">
-                      <div class="db-color-container">
-                        <div class="db-color-input">
-                          <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
-                            [value]="selectedItem.nodeProperties.bitTextColorFor1 ? selectedItem.nodeProperties.bitTextColorFor1 : 'transparent'"
-                            (change)="diagramPropertyBinding.bitTextColorFor1($event)" />
-                        </div>
-                        <div class="db-color-btn">
-                          <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div style="margin-top: 40px;">
-                    <p style="margin-bottom: 0;">Set Text for Value 0:</p>
-                    <div>
-                      <input class="e-input" type="text" placeholder="Set Text For Value 0" style="background: #FFFFFF;"
-                        [value]="selectedItem.nodeProperties.bitTextFor0"
-                        (change)="diagramPropertyBinding.bitText0Change($event)" />
-                    </div>
-                  </div>
-
-                  <div style="margin-top: 6px;">
-                    <div class="col-xs-12 db-col-left">
-                      <div class="db-color-container">
-                        <div class="db-color-input">
-                          <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
-                            [value]="selectedItem.nodeProperties.bitTextColorFor0 ? selectedItem.nodeProperties.bitTextColorFor0 : 'transparent'"
-                            (change)="diagramPropertyBinding.bitTextColorFor0($event)" />
-                        </div>
-                        <div class="db-color-btn">
-                          <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-
-
-              </div>
-
-              <div id="bitShapePropertyDiv">
-
-                <div>
-
-                  <div style="margin-top: 10px;">
-                    <p style="margin-bottom: 0;">Set Color for Bit 1:</p>
-
-                    <div>
-                      <div class="col-xs-12 db-col-left">
-                        <div class="db-color-container">
-                          <div class="db-color-input">
-                            <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
-                              [value]="selectedItem.nodeProperties.bit1Color ? selectedItem.nodeProperties.bit1Color : 'transparent'"
-                              (change)="diagramPropertyBinding.textOnBit1ColorChange($event)" />
-                          </div>
-                          <div class="db-color-btn">
-                            <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div style="margin-top: 40px;">
-                    <p style="margin-bottom: 0;">Set Color for Bit 0:</p>
-                    <div>
-                      <div class="col-xs-12 db-col-left">
-                        <div class="db-color-container">
-                          <div class="db-color-input">
-                            <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
-                              [value]="selectedItem.nodeProperties.bit0Color ? selectedItem.nodeProperties.bit0Color : 'transparent'"
-                              (change)="diagramPropertyBinding.textOnBit0ColorChange($event)" />
-                          </div>
-                          <div class="db-color-btn">
-                            <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-
-                </div>
-
-
-
-              </div>
-
-              <div id="bitImagePropertyDiv">
-
-                <div>
-                  <p style="margin-bottom: 0;">Set Image:</p>
-                  <div class="col-xs-6 db-col-left">
-                    <ejs-toolbar id="toolbarNodeInsert" (clicked)="toolbarInsertClick($event)" overflowMode="Scrollable"
-                      #toolbarEditor>
-                      <e-items>
-                        <e-item prefixIcon="sf-icon-InsertImage tb-icons" tooltipText="Insert Image"
-                          cssClass="tb-item-end">
-                        </e-item>
-                      </e-items>
-                    </ejs-toolbar>
-                  </div>
-                </div>
-
-                <div style="margin-top: 40px;">
-                  <div>
-                    <p style="margin-bottom: 0;">Set Image for Bit 1:</p>
-                    <div>
-                      <input id="textAudioFile" class="e-input" style="background: #FFFFFF;" type="file"
-                        placeholder="Set Audio" accept="Image/*"
-                        (change)="diagramPropertyBinding.bitImageChangeFor1($event)" />
-                    </div>
-                  </div>
-                </div>
-
-
-                <div style="margin-top: 10px;">
-                  <div>
-                    <p style="margin-bottom: 0;">Set Image for Bit 0:</p>
-                    <div>
-                      <input id="textAudioFile" class="e-input" style="background: #FFFFFF;" type="file"
-                        placeholder="Set Audio" accept="Image/*"
-                        (change)="diagramPropertyBinding.bitImageChangeFor0($event)" />
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-
-              <div id="bitCommonConditionPropertyDiv" style="margin-top: 45px;">
-
-                <div class="db-prop-separator"></div>
-
-
-                <p style="margin-bottom: 0;">Hide On:</p>
-
-                <div style="display: flex; flex-direction: row; justify-content: space-between;">
-                  <div>
-                    <ejs-checkbox id="printMultiplePage" label="Normal"
-                      (change)="diagramPropertyBinding.texthideOnNormalChange($event)"
-                      [(checked)]="selectedItem.nodeProperties.hideOnNormal"></ejs-checkbox>
-                  </div>
-                  <div>
-                    <ejs-checkbox id="printMultiplePage" label="AbNormal"
-                      (change)="diagramPropertyBinding.texthideOnAbNormalChange($event)"
-                      [(checked)]="selectedItem.nodeProperties.hideOnAbNormal"></ejs-checkbox>
-                  </div>
-                </div>
-
-
-                <div>
-                  <p style="margin-bottom: 0;">Choose Condition:</p>
-                  <div style="display: flex;flex-direction: row;justify-content: space-between;">
-                    <div>
-                      <ejs-checkbox id="printMultiplePage" label="For 1 to 0"
-                        (change)="diagramPropertyBinding.bitCondition1to0Change($event)"
-                        [(checked)]="selectedItem.nodeProperties.bitCheck1to0"></ejs-checkbox>
-                    </div>
-                    <div>
-                      <ejs-checkbox id="printMultiplePage" label="For 0 to 1"
-                        (change)="diagramPropertyBinding.bitCondition0to1Change($event)"
-                        [(checked)]="selectedItem.nodeProperties.bitCheck0to1"></ejs-checkbox>
-                    </div>
-                  </div>
-                </div>
-
-                <div [ngStyle]="{'display': selectedItem.nodeProperties.bitCheck1to0 ? 'block' : 'none'}">
-
-                  <div>
-                    <p style="margin-bottom: 0;margin-top: 10px;">Conditional Blink For 1 to 0:</p>
-                    <div style="display: flex;flex-direction: row;justify-content: space-between;">
-                      <div>
-                        <ejs-checkbox id="printMultiplePage" label="continuous"
-                          (change)="diagramPropertyBinding.bitCondiCountBlink1to0($event)"
-                          [(checked)]="selectedItem.nodeProperties.bitCondiConBlink1to0"></ejs-checkbox>
-                      </div>
-                      <div>
-                        <ejs-checkbox id="printMultiplePage" label="Time Duration"
-                          (change)="diagramPropertyBinding.bitCondiTimeBlink1to0($event)"
-                          [(checked)]="selectedItem.nodeProperties.bitCondiTimeBlink1to0"></ejs-checkbox>
-                      </div>
-                    </div>
-                    <div style="margin-top: 10px;" *ngIf="selectedItem.nodeProperties.bitCondiTimeBlink1to0">
-                      <input class="e-input" type="number" placeholder="Set Time Duration"
-                        [value]="selectedItem.nodeProperties.bitCondiBlinkTImeValue1to0 ? selectedItem.nodeProperties.bitCondiBlinkTImeValue1to0 : null"
-                        style="background: #FFFFFF;"
-                        (change)="diagramPropertyBinding.bitCondiBlinkTimeChange1to0($event)" />
-                    </div>
-                  </div>
-
-                  <div id="bitLableOnePropertyDiv" style="margin-top: 10px;">
-                    <p style="margin-bottom: 0;">Set Text For 1 to 0:</p>
-                    <div>
-                      <input class="e-input" type="text" placeholder="Set Text For 1 to 0"
-                        [value]="selectedItem.nodeProperties.bitTextFor1to0 ? selectedItem.nodeProperties.bitTextFor1to0 : null"
-                        style="background: #FFFFFF;" (change)="diagramPropertyBinding.bitTextChange1to0($event)" />
-                    </div>
-                  </div>
-
-
-
-                  <div id="bitShapeOnePropertyDiv">
-
-                    <p style="margin-bottom: 0;margin-top: 10px;">Set Shape Color For 1 to 0:</p>
-
-                    <div class="col-xs-12 db-col-left">
-                      <div class="db-color-container">
-                        <div class="db-color-input">
-                          <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
-                            [value]="selectedItem.nodeProperties.bitShapeColor1to0 ? selectedItem.nodeProperties.bitShapeColor1to0 : 'transparent'"
-                            (change)="diagramPropertyBinding.bitShapeColor1to0Change($event)" />
-                        </div>
-                        <div class="db-color-btn">
-                          <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-
-                  <div id="bitImageOnePropertyDiv">
-                    <div style="margin-top: 10px;">
-                      <div>
-                        <p style="margin-bottom: 0;">Set Image for Bit 1 to 0:</p>
-                        <div>
-                          <input id="textAudioFile" class="e-input" style="background: #FFFFFF;" type="file"
-                            placeholder="Set Audio" accept="Image/*"
-                            (change)="diagramPropertyBinding.bitImageChangeFor1to0($event)" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div style="margin-top: 10px;">
-                    <p style="margin-bottom: 0;">Set Audio File For 1 to 0:</p>
-                    <div>
-                      <input id="textAudioFile" class="e-input" style="background: #FFFFFF;" type="file"
-                        placeholder="Set Audio" accept="audio/*"
-                        (change)="diagramPropertyBinding.bitAudio1to0Change($event)" />
-                    </div>
-                  </div>
-
-                </div>
-
-
-                <div [ngStyle]="{'display': selectedItem.nodeProperties.bitCheck0to1 ? 'block' : 'none'}">
-
-                  <div>
-                    <p style="margin-bottom: 0;margin-top: 10px;">Conditional Blink For 0 to 1:</p>
-                    <div style="display: flex;flex-direction: row;justify-content: space-between;">
-                      <div>
-                        <ejs-checkbox id="printMultiplePage" label="continuous"
-                          (change)="diagramPropertyBinding.bitCondiCountBlink0to1($event)"
-                          [(checked)]="selectedItem.nodeProperties.bitCondiConBlink0to1"></ejs-checkbox>
-                      </div>
-                      <div>
-                        <ejs-checkbox id="printMultiplePage" label="Time Duration"
-                          (change)="diagramPropertyBinding.bitCondiTimeBlink0to1($event)"
-                          [(checked)]="selectedItem.nodeProperties.bitCondiTimeBlink0to1"></ejs-checkbox>
-                      </div>
-                    </div>
-                    <div style="margin-top: 10px;" *ngIf="selectedItem.nodeProperties.bitCondiTimeBlink0to1">
-                      <input class="e-input" type="number" placeholder="Set Time Duration"
-                        [value]="selectedItem.nodeProperties.bitCondiBlinkTImeValue0to1 ? selectedItem.nodeProperties.bitCondiBlinkTImeValue0to1 : null"
-                        style="background: #FFFFFF;"
-                        (change)="diagramPropertyBinding.bitCondiBlinkTimeChange0to1($event)" />
-                    </div>
-                  </div>
-
-
-                  <div style="margin-top: 10px;" id="bitLableTwoPropertyDiv">
-                    <p style="margin-bottom: 0;">Set Text For 0 to 1:</p>
-                    <div>
-                      <input class="e-input" type="text" placeholder="Set Text For 0 to 1"
-                        [value]="selectedItem.nodeProperties.bitTextFor0to1 ? selectedItem.nodeProperties.bitTextFor0to1 : null"
-                        style="background: #FFFFFF;" (change)="diagramPropertyBinding.bitTextChange0to1($event)" />
-                    </div>
-                  </div>
-
-                  <div id="bitShapeTwoPropertyDiv" style="margin-top: 10px;">
-
-                    <p style="margin-bottom: 0;">Set Shape Color For 0 to 1:</p>
-
-                    <div class="col-xs-12 db-col-left">
-                      <div class="db-color-container">
-                        <div class="db-color-input">
-                          <input id="mindmapFill" ejs-colorpicker mode="Palette" type="color"
-                            [value]="selectedItem.nodeProperties.bitShapeColor0to1 ? selectedItem.nodeProperties.bitShapeColor0to1 : 'transparent'"
-                            (change)="diagramPropertyBinding.bitShapeColor0to1Change($event)" />
-                        </div>
-                        <div class="db-color-btn">
-                          <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-
-                  <div id="bitImageTwoPropertyDiv">
-                    <div style="margin-top: 10px;">
-                      <div>
-                        <p style="margin-bottom: 0;">Set Image for Bit 0 to 1:</p>
-                        <div>
-                          <input id="textAudioFile" class="e-input" style="background: #FFFFFF;" type="file"
-                            placeholder="Set Audio" accept="Image/*"
-                            (change)="diagramPropertyBinding.bitImageChangeFor0to1($event)" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div style="margin-top: 10px;">
-                    <p style="margin-bottom: 0;">Set Audio File For 0 to 1:</p>
-                    <div>
-                      <input id="textAudioFile" class="e-input" style="background: #FFFFFF;" type="file"
-                        placeholder="Set Audio" accept="audio/*"
-                        (change)="diagramPropertyBinding.bitAudio0to1Change($event)" />
-                    </div>
-                  </div>
-
-
-                </div>
-
-
-
-
-
-
-
-              </div>
-
-            </div>
 
 
 
@@ -1795,277 +2202,274 @@
           </div>
 
 
-
-
-        </div>
-
-
-        <div id="mindMapContainer" class="db-mindmap-prop-container">
-          <div class="row db-prop-header-text">MindMap Pattern</div>
-          <div class="row db-prop-row">
-            <div class="col-xs-6 org-pattern-parent">
-              <div (click)="mindmapPropertyBinding.mindmapPatternChange($event)"
-                class="mindmap-pattern-style mindmap-pattern1"></div>
+          <div id="mindMapContainer" class="db-mindmap-prop-container">
+            <div class="row db-prop-header-text">MindMap Pattern</div>
+            <div class="row db-prop-row">
+              <div class="col-xs-6 org-pattern-parent">
+                <div (click)="mindmapPropertyBinding.mindmapPatternChange($event)"
+                  class="mindmap-pattern-style mindmap-pattern1"></div>
+              </div>
+              <div class="col-xs-6 org-pattern-parent">
+                <div (click)="mindmapPropertyBinding.mindmapPatternChange($event)"
+                  class="mindmap-pattern-style mindmap-pattern2"></div>
+              </div>
             </div>
-            <div class="col-xs-6 org-pattern-parent">
-              <div (click)="mindmapPropertyBinding.mindmapPatternChange($event)"
-                class="mindmap-pattern-style mindmap-pattern2"></div>
+            <div class="row db-prop-row" style="margin-top: 5px">
+              <div class="col-xs-6 org-pattern-parent">
+                <div (click)="mindmapPropertyBinding.mindmapPatternChange($event)"
+                  class="mindmap-pattern-style mindmap-pattern3"></div>
+              </div>
+              <div class="col-xs-6 org-pattern-parent">
+                <div (click)="mindmapPropertyBinding.mindmapPatternChange($event)"
+                  class="mindmap-pattern-style mindmap-pattern4"></div>
+              </div>
             </div>
-          </div>
-          <div class="row db-prop-row" style="margin-top: 5px">
-            <div class="col-xs-6 org-pattern-parent">
-              <div (click)="mindmapPropertyBinding.mindmapPatternChange($event)"
-                class="mindmap-pattern-style mindmap-pattern3"></div>
+            <div class="db-prop-separator"></div>
+            <div class="row db-prop-header-text">MindMap Levels Styles</div>
+            <div class="row db-prop-row">
+              <div class="col-xs-6 db-col-left">
+                <ejs-dropdownlist id="mindMapLevels" [(value)]="selectedItem.mindmapSettings.levelType"
+                  [dataSource]="dropDownDataSources.mindmapLevels" [fields]="dropdownListFields">
+                </ejs-dropdownlist>
+              </div>
             </div>
-            <div class="col-xs-6 org-pattern-parent">
-              <div (click)="mindmapPropertyBinding.mindmapPatternChange($event)"
-                class="mindmap-pattern-style mindmap-pattern4"></div>
-            </div>
-          </div>
-          <div class="db-prop-separator"></div>
-          <div class="row db-prop-header-text">MindMap Levels Styles</div>
-          <div class="row db-prop-row">
-            <div class="col-xs-6 db-col-left">
-              <ejs-dropdownlist id="mindMapLevels" [(value)]="selectedItem.mindmapSettings.levelType"
-                [dataSource]="dropDownDataSources.mindmapLevels" [fields]="dropdownListFields">
-              </ejs-dropdownlist>
-            </div>
-          </div>
-          <div id="mindMapFill" class="row db-prop-row">
-            <div class="col-xs-6 db-col-left">
-              <div class="db-color-container">
-                <div class="db-color-input">
-                  <input id="mindmapFill" ejs-colorpicker mode="Palette" [(value)]="selectedItem.mindmapSettings.fill"
-                    type="color" />
-                </div>
-                <div class="db-color-btn">
-                  <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
+            <div id="mindMapFill" class="row db-prop-row">
+              <div class="col-xs-6 db-col-left">
+                <div class="db-color-container">
+                  <div class="db-color-input">
+                    <input id="mindmapFill" ejs-colorpicker mode="Palette" [(value)]="selectedItem.mindmapSettings.fill"
+                      type="color" />
+                  </div>
+                  <div class="db-color-btn">
+                    <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row db-prop-row">
-            <div class="col-xs-4 db-col-left">
-              <div class="db-color-container">
-                <div class="db-color-input">
-                  <input id="mindmapStroke" ejs-colorpicker mode="Palette"
-                    [(value)]="selectedItem.mindmapSettings.stroke" type="color" />
-                </div>
-                <div class="db-color-btn">
-                  <button ejs-button iconCss="sf-icon-Pickers tb-icons"></button>
+            <div class="row db-prop-row">
+              <div class="col-xs-4 db-col-left">
+                <div class="db-color-container">
+                  <div class="db-color-input">
+                    <input id="mindmapStroke" ejs-colorpicker mode="Palette"
+                      [(value)]="selectedItem.mindmapSettings.stroke" type="color" />
+                  </div>
+                  <div class="db-color-btn">
+                    <button ejs-button iconCss="sf-icon-Pickers tb-icons"></button>
+                  </div>
                 </div>
               </div>
+              <div class="col-xs-4 db-col-center">
+                <ejs-dropdownlist [(value)]="selectedItem.mindmapSettings.strokeStyle"
+                  [dataSource]="dropDownDataSources.borderStyles" [fields]="dropdownListFields" popupWidth="160px">
+                  <ng-template #itemTemplate let-data>
+                    <div class="db-ddl-template-style">
+                      <span class="{{ data.className }}"></span>
+                    </div>
+                  </ng-template>
+                  <ng-template #valueTemplate let-data>
+                    <div class="db-ddl-template-style">
+                      <span class="{{ data.className }}"></span>
+                    </div>
+                  </ng-template>
+                </ejs-dropdownlist>
+              </div>
+              <div class="col-xs-4 db-col-right">
+                <ejs-numerictextbox min="0.5" step="0.5"
+                  [(value)]="selectedItem.mindmapSettings.strokeWidth"></ejs-numerictextbox>
+              </div>
             </div>
-            <div class="col-xs-4 db-col-center">
-              <ejs-dropdownlist [(value)]="selectedItem.mindmapSettings.strokeStyle"
-                [dataSource]="dropDownDataSources.borderStyles" [fields]="dropdownListFields" popupWidth="160px">
-                <ng-template #itemTemplate let-data>
-                  <div class="db-ddl-template-style">
-                    <span class="{{ data.className }}"></span>
-                  </div>
-                </ng-template>
-                <ng-template #valueTemplate let-data>
-                  <div class="db-ddl-template-style">
-                    <span class="{{ data.className }}"></span>
-                  </div>
-                </ng-template>
-              </ejs-dropdownlist>
+            <div class="row db-prop-row">
+              <div class="col-xs-2 db-col-right db-prop-text-style" style="padding-top: 6px">
+                <span class="db-prop-text-style">Opacity</span>
+              </div>
+              <div class="col-xs-8 db-col-left" style="padding-right: 10px">
+                <ejs-slider [(value)]="selectedItem.mindmapSettings.opacity" min="0" max="100" step="10"
+                  type="MinRange">
+                </ejs-slider>
+              </div>
+              <div class="col-xs-2 db-col-right">
+                <input type="text" readOnly="true" [value]="selectedItem.mindmapSettings.opacityText"
+                  class="db-readonly-input" />
+              </div>
             </div>
-            <div class="col-xs-4 db-col-right">
-              <ejs-numerictextbox min="0.5" step="0.5"
-                [(value)]="selectedItem.mindmapSettings.strokeWidth"></ejs-numerictextbox>
+            <div style="margin-top: 10px; margin-bottom: 15px"></div>
+            <div class="row db-prop-header-text">Text Style</div>
+            <div class="row db-prop-row">
+              <div class="col-xs-8 db-col-left">
+                <ejs-dropdownlist height="34px" [dataSource]="dropDownDataSources.fontFamilyList"
+                  [(value)]="selectedItem.mindmapSettings.fontFamily" [fields]="dropdownListFields">
+                </ejs-dropdownlist>
+              </div>
+              <div class="col-xs-4 db-col-right">
+                <ejs-numerictextbox min="1" step="1"
+                  [(value)]="selectedItem.mindmapSettings.fontSize"></ejs-numerictextbox>
+              </div>
             </div>
-          </div>
-          <div class="row db-prop-row">
-            <div class="col-xs-2 db-col-right db-prop-text-style" style="padding-top: 6px">
-              <span class="db-prop-text-style">Opacity</span>
-            </div>
-            <div class="col-xs-8 db-col-left" style="padding-right: 10px">
-              <ejs-slider [(value)]="selectedItem.mindmapSettings.opacity" min="0" max="100" step="10" type="MinRange">
-              </ejs-slider>
-            </div>
-            <div class="col-xs-2 db-col-right">
-              <input type="text" readOnly="true" [value]="selectedItem.mindmapSettings.opacityText"
-                class="db-readonly-input" />
-            </div>
-          </div>
-          <div style="margin-top: 10px; margin-bottom: 15px"></div>
-          <div class="row db-prop-header-text">Text Style</div>
-          <div class="row db-prop-row">
-            <div class="col-xs-8 db-col-left">
-              <ejs-dropdownlist height="34px" [dataSource]="dropDownDataSources.fontFamilyList"
-                [(value)]="selectedItem.mindmapSettings.fontFamily" [fields]="dropdownListFields">
-              </ejs-dropdownlist>
-            </div>
-            <div class="col-xs-4 db-col-right">
-              <ejs-numerictextbox min="1" step="1"
-                [(value)]="selectedItem.mindmapSettings.fontSize"></ejs-numerictextbox>
-            </div>
-          </div>
-          <div class="row db-prop-row">
-            <div class="col-xs-6 db-col-left">
-              <ejs-toolbar overflowMode="Scrollable" (clicked)="
+            <div class="row db-prop-row">
+              <div class="col-xs-6 db-col-left">
+                <ejs-toolbar overflowMode="Scrollable" (clicked)="
                   mindmapPropertyBinding.mindmapTextStyleChange($event)
                 ">
+                  <e-items>
+                    <e-item prefixIcon="sf-icon-Bold tb-icons" tooltipText="Bold" cssClass="tb-item-start">
+                    </e-item>
+                    <e-item prefixIcon="sf-icon-Italic tb-icons" tooltipText="Italic" cssClass="tb-item-middle">
+                    </e-item>
+                    <e-item prefixIcon="sf-icon-Underline tb-icons" tooltipText="Underline" cssClass="tb-item-end">
+                    </e-item>
+                  </e-items>
+                </ejs-toolbar>
+              </div>
+              <div class="col-xs-6 db-col-right" id="textColorDiv">
+                <div class="db-color-container">
+                  <div class="db-color-input">
+                    <input id="mindmapTextColor" ejs-colorpicker mode="Palette" type="color"
+                      [(value)]="selectedItem.mindmapSettings.fontColor" />
+                  </div>
+                  <div class="db-color-btn">
+                    <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row db-prop-row">
+              <div class="col-xs-2 db-col-right db-prop-text-style" style="padding-top: 6px">
+                <span class="db-prop-text-style">Opacity</span>
+              </div>
+              <div class="col-xs-8 db-col-left" style="padding-right: 10px">
+                <ejs-slider [(value)]="selectedItem.mindmapSettings.textOpacity" min="0" max="100" step="10"
+                  type="MinRange">
+                </ejs-slider>
+              </div>
+              <div class="col-xs-2 db-col-right">
+                <input type="text" [value]="selectedItem.mindmapSettings.textOpacityText" class="db-readonly-input"
+                  readOnly="true" />
+              </div>
+            </div>
+          </div>
+          <div id="orgChartContainer" class="db-orgchart-prop-container">
+            <div class="row db-prop-row db-prop-header-text">Import</div>
+            <div class="row db-prop-row" style="height: 28px">
+              <button ejs-button id="btnImportData" content="Import Data" cssClass="db-btn-primary"
+                (click)="btnImportClick($event)"></button>
+            </div>
+            <div class="db-prop-separator"></div>
+            <div class="row db-prop-header-text">OrgChart Settings</div>
+            <div class="row db-prop-row">
+              <div class="col-xs-6 db-col-left">
+                <span class="db-prop-text-style">Horizontal Spacing</span>
+              </div>
+              <div class="col-xs-6 db-col-right">
+                <span class="db-prop-text-style">Vertical Spacing</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-6 db-col-left">
+                <ejs-numerictextbox id="orgHorizontalSpacing" min="25" step="1" format="n0" value="50"
+                  (change)="orgChartPropertyBinding.orgChartSpacingChange($event)"></ejs-numerictextbox>
+              </div>
+              <div class="col-xs-6 db-col-right">
+                <ejs-numerictextbox id="orgVerticalSpacing" min="25" step="1" format="n0" value="50"
+                  (change)="orgChartPropertyBinding.orgChartSpacingChange($event)"></ejs-numerictextbox>
+              </div>
+            </div>
+            <div class="row db-prop-row">
+              <ejs-toolbar id="orgChartAlignment" overflowMode="Scrollable"
+                (clicked)="orgChartPropertyBinding.orgChartAligmentChange($event)">
                 <e-items>
-                  <e-item prefixIcon="sf-icon-Bold tb-icons" tooltipText="Bold" cssClass="tb-item-start">
+                  <e-item prefixIcon="sf-icon-TextLeft tb-icons" tooltipText="Align Left" cssClass="tb-item-start">
                   </e-item>
-                  <e-item prefixIcon="sf-icon-Italic tb-icons" tooltipText="Italic" cssClass="tb-item-middle">
+                  <e-item prefixIcon="sf-icon-TextHorizontalCenter tb-icons" tooltipText="Align Center"
+                    cssClass="tb-item-middle">
                   </e-item>
-                  <e-item prefixIcon="sf-icon-Underline tb-icons" tooltipText="Underline" cssClass="tb-item-end">
+                  <e-item prefixIcon="sf-icon-TextRight tb-icons" tooltipText="Align Right" cssClass="tb-item-middle">
+                  </e-item>
+                  <e-item prefixIcon="sf-icon-TextTop tb-icons" tooltipText="Align Top" cssClass="tb-item-middle">
+                  </e-item>
+                  <e-item prefixIcon="sf-icon-TextVerticalCenter tb-icons" tooltipText="Align Middle"
+                    cssClass="tb-item-middle">
+                  </e-item>
+                  <e-item prefixIcon="sf-icon-TextBottom tb-icons" tooltipText="Align Bottom" cssClass="tb-item-end">
                   </e-item>
                 </e-items>
               </ejs-toolbar>
             </div>
-            <div class="col-xs-6 db-col-right" id="textColorDiv">
-              <div class="db-color-container">
-                <div class="db-color-input">
-                  <input id="mindmapTextColor" ejs-colorpicker mode="Palette" type="color"
-                    [(value)]="selectedItem.mindmapSettings.fontColor" />
-                </div>
-                <div class="db-color-btn">
-                  <button ejs-button iconCss="sf-icon-ColorPickers tb-icons"></button>
-                </div>
-              </div>
+            <div class="db-prop-separator"></div>
+            <div class="row db-prop-row db-prop-header-text">
+              Orientation Styles
             </div>
-          </div>
-          <div class="row db-prop-row">
-            <div class="col-xs-2 db-col-right db-prop-text-style" style="padding-top: 6px">
-              <span class="db-prop-text-style">Opacity</span>
-            </div>
-            <div class="col-xs-8 db-col-left" style="padding-right: 10px">
-              <ejs-slider [(value)]="selectedItem.mindmapSettings.textOpacity" min="0" max="100" step="10"
-                type="MinRange">
-              </ejs-slider>
-            </div>
-            <div class="col-xs-2 db-col-right">
-              <input type="text" [value]="selectedItem.mindmapSettings.textOpacityText" class="db-readonly-input"
-                readOnly="true" />
-            </div>
-          </div>
-        </div>
-        <div id="orgChartContainer" class="db-orgchart-prop-container">
-          <div class="row db-prop-row db-prop-header-text">Import</div>
-          <div class="row db-prop-row" style="height: 28px">
-            <button ejs-button id="btnImportData" content="Import Data" cssClass="db-btn-primary"
-              (click)="btnImportClick($event)"></button>
-          </div>
-          <div class="db-prop-separator"></div>
-          <div class="row db-prop-header-text">OrgChart Settings</div>
-          <div class="row db-prop-row">
-            <div class="col-xs-6 db-col-left">
-              <span class="db-prop-text-style">Horizontal Spacing</span>
-            </div>
-            <div class="col-xs-6 db-col-right">
-              <span class="db-prop-text-style">Vertical Spacing</span>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-6 db-col-left">
-              <ejs-numerictextbox id="orgHorizontalSpacing" min="25" step="1" format="n0" value="50"
-                (change)="orgChartPropertyBinding.orgChartSpacingChange($event)"></ejs-numerictextbox>
-            </div>
-            <div class="col-xs-6 db-col-right">
-              <ejs-numerictextbox id="orgVerticalSpacing" min="25" step="1" format="n0" value="50"
-                (change)="orgChartPropertyBinding.orgChartSpacingChange($event)"></ejs-numerictextbox>
-            </div>
-          </div>
-          <div class="row db-prop-row">
-            <ejs-toolbar id="orgChartAlignment" overflowMode="Scrollable"
-              (clicked)="orgChartPropertyBinding.orgChartAligmentChange($event)">
-              <e-items>
-                <e-item prefixIcon="sf-icon-TextLeft tb-icons" tooltipText="Align Left" cssClass="tb-item-start">
-                </e-item>
-                <e-item prefixIcon="sf-icon-TextHorizontalCenter tb-icons" tooltipText="Align Center"
-                  cssClass="tb-item-middle">
-                </e-item>
-                <e-item prefixIcon="sf-icon-TextRight tb-icons" tooltipText="Align Right" cssClass="tb-item-middle">
-                </e-item>
-                <e-item prefixIcon="sf-icon-TextTop tb-icons" tooltipText="Align Top" cssClass="tb-item-middle">
-                </e-item>
-                <e-item prefixIcon="sf-icon-TextVerticalCenter tb-icons" tooltipText="Align Middle"
-                  cssClass="tb-item-middle">
-                </e-item>
-                <e-item prefixIcon="sf-icon-TextBottom tb-icons" tooltipText="Align Bottom" cssClass="tb-item-end">
-                </e-item>
-              </e-items>
-            </ejs-toolbar>
-          </div>
-          <div class="db-prop-separator"></div>
-          <div class="row db-prop-row db-prop-header-text">
-            Orientation Styles
-          </div>
-          <div class="row db-prop-row">
-            <div class="col-xs-6 org-pattern-parent">
-              <div (click)="
+            <div class="row db-prop-row">
+              <div class="col-xs-6 org-pattern-parent">
+                <div (click)="
                   orgChartPropertyBinding.layoutOrientationChange($event)
                 " class="org-pattern-style org-pattern-1 vertical-alternate" style="
                   background-image: url('./assets/dbstyle/orgchart_images/org-pattern1.svg');
                 "></div>
-            </div>
-            <div class="col-xs-6 org-pattern-parent">
-              <div (click)="
+              </div>
+              <div class="col-xs-6 org-pattern-parent">
+                <div (click)="
                   orgChartPropertyBinding.layoutOrientationChange($event)
                 " class="org-pattern-style org-pattern-2 vertical-left" style="
                   background-image: url('./assets/dbstyle/orgchart_images/org-pattern2.svg');
                 "></div>
+              </div>
             </div>
-          </div>
-          <div class="row db-prop-row" style="margin-top: 5px">
-            <div class="col-xs-6 org-pattern-parent">
-              <div (click)="
+            <div class="row db-prop-row" style="margin-top: 5px">
+              <div class="col-xs-6 org-pattern-parent">
+                <div (click)="
                   orgChartPropertyBinding.layoutOrientationChange($event)
                 " class="org-pattern-style org-pattern-3 vertical-right" style="
                   background-image: url('./assets/dbstyle/orgchart_images/org-pattern3.svg');
                 "></div>
-            </div>
-            <div class="col-xs-6 org-pattern-parent">
-              <div (click)="
+              </div>
+              <div class="col-xs-6 org-pattern-parent">
+                <div (click)="
                   orgChartPropertyBinding.layoutOrientationChange($event)
                 " class="org-pattern-style org-pattern-4 horizontal-center" style="
                   background-image: url('./assets/dbstyle/orgchart_images/org-pattern4.svg');
                 "></div>
+              </div>
             </div>
-          </div>
-          <div class="row db-prop-row" style="margin-top: 5px">
-            <div class="col-xs-6 org-pattern-parent">
-              <div (click)="
+            <div class="row db-prop-row" style="margin-top: 5px">
+              <div class="col-xs-6 org-pattern-parent">
+                <div (click)="
                   orgChartPropertyBinding.layoutOrientationChange($event)
                 " class="org-pattern-style org-pattern-5 horizontal-right" style="
                   background-image: url('./assets/dbstyle/orgchart_images/org-pattern5.svg');
                 "></div>
-            </div>
-            <div class="col-xs-6 org-pattern-parent">
-              <div (click)="
+              </div>
+              <div class="col-xs-6 org-pattern-parent">
+                <div (click)="
                   orgChartPropertyBinding.layoutOrientationChange($event)
                 " class="org-pattern-style org-pattern-6 horizontal-left" style="
                   background-image: url('./assets/dbstyle/orgchart_images/org-pattern6.svg');
                 "></div>
-            </div>
-          </div>
-          <div class="db-prop-separator"></div>
-          <div class="row db-prop-header-text">OrgChart Templates</div>
-          <div class="row db-prop-row">
-            <div class="col-xs-6 org-pattern-parent">
-              <div id="orgPattern1" (click)="orgChartPropertyBinding.layoutPatternChange($event)"
-                class="org-pattern-style">
               </div>
             </div>
-            <div class="col-xs-6 org-pattern-parent">
-              <div id="orgPattern2" (click)="orgChartPropertyBinding.layoutPatternChange($event)"
-                class="org-pattern-style">
+            <div class="db-prop-separator"></div>
+            <div class="row db-prop-header-text">OrgChart Templates</div>
+            <div class="row db-prop-row">
+              <div class="col-xs-6 org-pattern-parent">
+                <div id="orgPattern1" (click)="orgChartPropertyBinding.layoutPatternChange($event)"
+                  class="org-pattern-style">
+                </div>
+              </div>
+              <div class="col-xs-6 org-pattern-parent">
+                <div id="orgPattern2" (click)="orgChartPropertyBinding.layoutPatternChange($event)"
+                  class="org-pattern-style">
+                </div>
               </div>
             </div>
-          </div>
-          <div class="row db-prop-row">
-            <div class="col-xs-6 org-pattern-parent">
-              <div id="orgPattern3" (click)="orgChartPropertyBinding.layoutPatternChange($event)"
-                class="org-pattern-style">
+            <div class="row db-prop-row">
+              <div class="col-xs-6 org-pattern-parent">
+                <div id="orgPattern3" (click)="orgChartPropertyBinding.layoutPatternChange($event)"
+                  class="org-pattern-style">
+                </div>
               </div>
-            </div>
-            <div class="col-xs-6 org-pattern-parent">
-              <div id="orgPattern4" (click)="orgChartPropertyBinding.layoutPatternChange($event)"
-                class="org-pattern-style">
+              <div class="col-xs-6 org-pattern-parent">
+                <div id="orgPattern4" (click)="orgChartPropertyBinding.layoutPatternChange($event)"
+                  class="org-pattern-style">
+                </div>
               </div>
             </div>
           </div>
@@ -2073,468 +2477,468 @@
       </div>
     </div>
   </div>
-</div>
-<ejs-dialog id="exportDialog" #exportDialog width="400px" header="Export Diagram" [target]="dlgTarget" isModal="true"
-  [animationSettings]="dialogAnimationSettings" [buttons]="exportingButtons" [visible]="dialogVisibility"
-  showCloseIcon="true">
-  <ng-template #content>
-    <div id="exportDialogContent">
-      <div class="row">
-        <div class="row">File Name</div>
-        <div class="row db-dialog-child-prop-row">
-          <input type="text" id="exportfileName" [(ngModel)]="selectedItem.exportSettings.fileName" />
-        </div>
-      </div>
-      <div class="row db-dialog-prop-row">
-        <div class="col-xs-6 db-col-left">
-          <div class="row">Format</div>
+  <ejs-dialog id="exportDialog" #exportDialog width="400px" header="Export Diagram" [target]="dlgTarget" isModal="true"
+    [animationSettings]="dialogAnimationSettings" [buttons]="exportingButtons" [visible]="dialogVisibility"
+    showCloseIcon="true">
+    <ng-template #content>
+      <div id="exportDialogContent">
+        <div class="row">
+          <div class="row">File Name</div>
           <div class="row db-dialog-child-prop-row">
-            <ejs-dropdownlist id="exportFormat" [(value)]="selectedItem.exportSettings.format"
-              [dataSource]="dropDownDataSources.fileFormats" [fields]="dropdownListFields">
-            </ejs-dropdownlist>
+            <input type="text" id="exportfileName" [(ngModel)]="selectedItem.exportSettings.fileName" />
           </div>
         </div>
-        <div class="col-xs-6 db-col-right">
+        <div class="row db-dialog-prop-row">
+          <div class="col-xs-6 db-col-left">
+            <div class="row">Format</div>
+            <div class="row db-dialog-child-prop-row">
+              <ejs-dropdownlist id="exportFormat" [(value)]="selectedItem.exportSettings.format"
+                [dataSource]="dropDownDataSources.fileFormats" [fields]="dropdownListFields">
+              </ejs-dropdownlist>
+            </div>
+          </div>
+          <div class="col-xs-6 db-col-right">
+            <div class="row">Region</div>
+            <div class="row db-dialog-child-prop-row">
+              <ejs-dropdownlist id="exportRegion" [(value)]="selectedItem.exportSettings.region"
+                [dataSource]="dropDownDataSources.diagramRegions" [fields]="dropdownListFields">
+              </ejs-dropdownlist>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </ejs-dialog>
+
+  <ejs-dialog id="printDialog" #printDialog width="335px" header="Print Diagram" [target]="dlgTarget" isModal="true"
+    [animationSettings]="dialogAnimationSettings" [buttons]="printingButtons" [visible]="dialogVisibility"
+    showCloseIcon="true">
+    <ng-template #content>
+      <div id="printDialogContent">
+        <div class="row">
           <div class="row">Region</div>
           <div class="row db-dialog-child-prop-row">
-            <ejs-dropdownlist id="exportRegion" [(value)]="selectedItem.exportSettings.region"
+            <ejs-dropdownlist [(value)]="selectedItem.printSettings.region"
               [dataSource]="dropDownDataSources.diagramRegions" [fields]="dropdownListFields">
             </ejs-dropdownlist>
           </div>
         </div>
-      </div>
-    </div>
-  </ng-template>
-</ejs-dialog>
-
-<ejs-dialog id="printDialog" #printDialog width="335px" header="Print Diagram" [target]="dlgTarget" isModal="true"
-  [animationSettings]="dialogAnimationSettings" [buttons]="printingButtons" [visible]="dialogVisibility"
-  showCloseIcon="true">
-  <ng-template #content>
-    <div id="printDialogContent">
-      <div class="row">
-        <div class="row">Region</div>
-        <div class="row db-dialog-child-prop-row">
-          <ejs-dropdownlist [(value)]="selectedItem.printSettings.region"
-            [dataSource]="dropDownDataSources.diagramRegions" [fields]="dropdownListFields">
-          </ejs-dropdownlist>
+        <div class="row db-dialog-prop-row">
+          <div class="row">Print Settings</div>
+          <div class="row db-dialog-child-prop-row">
+            <ejs-dropdownlist [dataSource]="dropDownDataSources.paperList" [fields]="dropdownListFields"
+              [(value)]="selectedItem.printSettings.paperSize">
+            </ejs-dropdownlist>
+          </div>
         </div>
-      </div>
-      <div class="row db-dialog-prop-row">
-        <div class="row">Print Settings</div>
-        <div class="row db-dialog-child-prop-row">
-          <ejs-dropdownlist [dataSource]="dropDownDataSources.paperList" [fields]="dropdownListFields"
-            [(value)]="selectedItem.printSettings.paperSize">
-          </ejs-dropdownlist>
-        </div>
-      </div>
-      <div id="printCustomSize" class="row db-dialog-prop-row" style="display: none; height: 28px">
-        <div class="col-xs-6 db-col-left">
-          <div class="db-text-container">
-            <div class="db-text">
-              <span>W</span>
+        <div id="printCustomSize" class="row db-dialog-prop-row" style="display: none; height: 28px">
+          <div class="col-xs-6 db-col-left">
+            <div class="db-text-container">
+              <div class="db-text">
+                <span>W</span>
+              </div>
+              <div class="db-text-input">
+                <ejs-numerictextbox id="printPageWidth" min="100" step="1" format="n0"
+                  [(value)]="selectedItem.printSettings.pageWidth"></ejs-numerictextbox>
+              </div>
             </div>
-            <div class="db-text-input">
-              <ejs-numerictextbox id="printPageWidth" min="100" step="1" format="n0"
-                [(value)]="selectedItem.printSettings.pageWidth"></ejs-numerictextbox>
+          </div>
+          <div class="col-xs-6 db-col-right">
+            <div class="db-text-container">
+              <div class="db-text">
+                <span>H</span>
+              </div>
+              <div class="db-text-input">
+                <ejs-numerictextbox id="printPageHeight" min="100" step="1" format="n0"
+                  [(value)]="selectedItem.printSettings.pageHeight"></ejs-numerictextbox>
+              </div>
             </div>
           </div>
         </div>
-        <div class="col-xs-6 db-col-right">
-          <div class="db-text-container">
-            <div class="db-text">
-              <span>H</span>
-            </div>
-            <div class="db-text-input">
-              <ejs-numerictextbox id="printPageHeight" min="100" step="1" format="n0"
-                [(value)]="selectedItem.printSettings.pageHeight"></ejs-numerictextbox>
-            </div>
+        <div id="printOrientation" class="row db-dialog-prop-row" style="height: 28px; padding: 5px 0px">
+          <div class="col-xs-3 db-prop-col-style" style="margin-right: 8px">
+            <ejs-radiobutton id="printPortrait" label="Portrait" name="printSettings"
+              [(checked)]="selectedItem.printSettings.isPortrait">
+            </ejs-radiobutton>
+          </div>
+          <div class="col-xs-3 db-prop-col-style">
+            <ejs-radiobutton id="printLandscape" label="Landscape" name="printSettings"
+              [(checked)]="selectedItem.printSettings.isLandscape">
+            </ejs-radiobutton>
           </div>
         </div>
-      </div>
-      <div id="printOrientation" class="row db-dialog-prop-row" style="height: 28px; padding: 5px 0px">
-        <div class="col-xs-3 db-prop-col-style" style="margin-right: 8px">
-          <ejs-radiobutton id="printPortrait" label="Portrait" name="printSettings"
-            [(checked)]="selectedItem.printSettings.isPortrait">
-          </ejs-radiobutton>
-        </div>
-        <div class="col-xs-3 db-prop-col-style">
-          <ejs-radiobutton id="printLandscape" label="Landscape" name="printSettings"
-            [(checked)]="selectedItem.printSettings.isLandscape">
-          </ejs-radiobutton>
+        <div class="row db-dialog-prop-row" style="margin-top: 16px">
+          <ejs-checkbox id="printMultiplePage" label="Scale to fit 1 page"
+            [(checked)]="selectedItem.printSettings.multiplePage"></ejs-checkbox>
         </div>
       </div>
-      <div class="row db-dialog-prop-row" style="margin-top: 16px">
-        <ejs-checkbox id="printMultiplePage" label="Scale to fit 1 page"
-          [(checked)]="selectedItem.printSettings.multiplePage"></ejs-checkbox>
-      </div>
-    </div>
-  </ng-template>
-</ejs-dialog>
+    </ng-template>
+  </ejs-dialog>
 
-<ejs-dialog id="fileUploadDialog" #fileUploadDialog width="500px" height="485px" header="Upload File"
-  [target]="dlgTarget" isModal="true" [animationSettings]="dialogAnimationSettings" [buttons]="uploadButtons"
-  showCloseIcon="true" allowDragging="true" [visible]="dialogVisibility">
-  <ng-template #content>
-    <div id="uploadDialogContent" class="db-upload-content firstPage">
-      <ejs-tooltip #tooltip (beforeRender)="onTooltipBeforeRender($event)" (created)="tooltipCreated($event)"
-        [position]="tooltipPosition">
-        <div id="uploadInformationDiv" class="row db-dialog-prop-row" style="margin-top: 0px">
-          <div class="row">
-            <div class="row" style="font-size: 12px; font-weight: 500; color: black">
-              <div class="db-info-text">Choose Format</div>
-              <div class="db-format-type" style="display: none"></div>
-            </div>
-            <div class="row db-dialog-child-prop-row">
-              <div class="col-xs-3 db-prop-col-style">
-                <ejs-radiobutton id="csvFormat" label="csv" name="uploadFileFormat" checked="true"
-                  (change)="downloadFile.downloadFormatChange($event)">
-                </ejs-radiobutton>
+  <ejs-dialog id="fileUploadDialog" #fileUploadDialog width="500px" height="485px" header="Upload File"
+    [target]="dlgTarget" isModal="true" [animationSettings]="dialogAnimationSettings" [buttons]="uploadButtons"
+    showCloseIcon="true" allowDragging="true" [visible]="dialogVisibility">
+    <ng-template #content>
+      <div id="uploadDialogContent" class="db-upload-content firstPage">
+        <ejs-tooltip #tooltip (beforeRender)="onTooltipBeforeRender($event)" (created)="tooltipCreated($event)"
+          [position]="tooltipPosition">
+          <div id="uploadInformationDiv" class="row db-dialog-prop-row" style="margin-top: 0px">
+            <div class="row">
+              <div class="row" style="font-size: 12px; font-weight: 500; color: black">
+                <div class="db-info-text">Choose Format</div>
+                <div class="db-format-type" style="display: none"></div>
               </div>
-              <div class="col-xs-3 db-prop-col-style">
-                <ejs-radiobutton id="xmlFormat" label="xml" name="uploadFileFormat"
-                  (change)="downloadFile.downloadFormatChange($event)">
-                </ejs-radiobutton>
-              </div>
-              <div class="col-xs-3 db-prop-col-style">
-                <ejs-radiobutton id="jsonFormat" label="json" name="uploadFileFormat"
-                  (change)="downloadFile.downloadFormatChange($event)">
-                </ejs-radiobutton>
-              </div>
-              <!-- <ejs-dropdownlist value="CSV" [dataSource]='dropDownDataSources.importFormat' [fields]='dropdownListFields'>
+              <div class="row db-dialog-child-prop-row">
+                <div class="col-xs-3 db-prop-col-style">
+                  <ejs-radiobutton id="csvFormat" label="csv" name="uploadFileFormat" checked="true"
+                    (change)="downloadFile.downloadFormatChange($event)">
+                  </ejs-radiobutton>
+                </div>
+                <div class="col-xs-3 db-prop-col-style">
+                  <ejs-radiobutton id="xmlFormat" label="xml" name="uploadFileFormat"
+                    (change)="downloadFile.downloadFormatChange($event)">
+                  </ejs-radiobutton>
+                </div>
+                <div class="col-xs-3 db-prop-col-style">
+                  <ejs-radiobutton id="jsonFormat" label="json" name="uploadFileFormat"
+                    (change)="downloadFile.downloadFormatChange($event)">
+                  </ejs-radiobutton>
+                </div>
+                <!-- <ejs-dropdownlist value="CSV" [dataSource]='dropDownDataSources.importFormat' [fields]='dropdownListFields'>
                         </ejs-dropdownlist> -->
+              </div>
             </div>
-          </div>
-          <div class="row db-dialog-prop-row" style="
+            <div class="row db-dialog-prop-row" style="
               padding: 10px;
               background-color: #fff7b5;
               border: 1px solid #fff7b5;
             ">
-            <div class="db-info-parent" style="width: 10%; background-color: transparent; height: 60px"></div>
-            <div style="float: left; width: calc(90% - 5px)">
-              <ul style="padding-left: 25px; margin-bottom: 0px">
-                <li style="margin-bottom: 5px">
-                  <span id="descriptionText1" style="color: #515151; font-size: 11px; line-height: 15px">Make
-                    sure that
-                    the every column of your table has a
-                    header</span>
-                </li>
-                <li>
-                  <span id="descriptionText2" style="color: #515151; font-size: 11px; line-height: 15px">Each
-                    employee
-                    should have a reporting person (except for
-                    top most employee of the organization) and it should be
-                    indicated by any field from your data source.</span>
-                </li>
-              </ul>
+              <div class="db-info-parent" style="width: 10%; background-color: transparent; height: 60px"></div>
+              <div style="float: left; width: calc(90% - 5px)">
+                <ul style="padding-left: 25px; margin-bottom: 0px">
+                  <li style="margin-bottom: 5px">
+                    <span id="descriptionText1" style="color: #515151; font-size: 11px; line-height: 15px">Make
+                      sure that
+                      the every column of your table has a
+                      header</span>
+                  </li>
+                  <li>
+                    <span id="descriptionText2" style="color: #515151; font-size: 11px; line-height: 15px">Each
+                      employee
+                      should have a reporting person (except for
+                      top most employee of the organization) and it should be
+                      indicated by any field from your data source.</span>
+                  </li>
+                </ul>
+              </div>
             </div>
-          </div>
-          <div class="row db-dialog-prop-row">
-            <button id="btnDownloadFile" #btnDownloadFile ejs-button
-              [content]="selectedItem.orgDataSettings.buttonContent"
-              (click)="downloadFile.downloadExampleFiles($event)"></button>
-          </div>
-          <div class="row">
-            <div id="dropArea">
-              <span id="dropRegion" class="droparea">
-                Drop files here or
-                <a href id="browseFile">
-                  <u>Browse</u>
-                </a>
-              </span>
-              <ejs-uploader #defaultupload id="defaultfileupload" [asyncSettings]="path"
-                (success)="onUploadSuccess($event)" (failure)="onUploadFailure($event)"
-                (progress)="onUploadFileSelected($event)"
-                [allowedExtensions]="selectedItem.orgDataSettings.extensionType">
-              </ejs-uploader>
+            <div class="row db-dialog-prop-row">
+              <button id="btnDownloadFile" #btnDownloadFile ejs-button
+                [content]="selectedItem.orgDataSettings.buttonContent"
+                (click)="downloadFile.downloadExampleFiles($event)"></button>
             </div>
-          </div>
-        </div>
-        <div id="parentChildRelationDiv" class="row db-dialog-prop-row">
-          <div class="row db-dialog-child-prop-row" style="margin-top: 20px">
             <div class="row">
-              <div class="db-info-text">Employee Id</div>
-              <div class="db-info-style db-employee-id"></div>
-            </div>
-            <div class="row db-dialog-child-prop-row">
-              <ejs-dropdownlist id="employeeId" (change)="orgChartPropertyBinding.orgDropDownChange($event)"
-                [dataSource]="selectedItem.orgDataSettings.dataSourceColumns" [fields]="dropdownListFields">
-              </ejs-dropdownlist>
-            </div>
-          </div>
-          <div class="row db-dialog-prop-row">
-            <div class="row">
-              <div class="db-info-text">Supervisor Id</div>
-              <div class="db-info-style db-supervisor-id"></div>
-            </div>
-            <div class="row db-dialog-child-prop-row">
-              <ejs-dropdownlist id="superVisorId" (change)="orgChartPropertyBinding.orgDropDownChange($event)"
-                [dataSource]="selectedItem.orgDataSettings.dataSourceColumns" [fields]="dropdownListFields">
-              </ejs-dropdownlist>
+              <div id="dropArea">
+                <span id="dropRegion" class="droparea">
+                  Drop files here or
+                  <a href id="browseFile">
+                    <u>Browse</u>
+                  </a>
+                </span>
+                <ejs-uploader #defaultupload id="defaultfileupload" [asyncSettings]="path"
+                  (success)="onUploadSuccess($event)" (failure)="onUploadFailure($event)"
+                  (progress)="onUploadFileSelected($event)"
+                  [allowedExtensions]="selectedItem.orgDataSettings.extensionType">
+                </ejs-uploader>
+              </div>
             </div>
           </div>
-        </div>
-        <div id="moreInformationDiv" class="row db-dialog-prop-row">
-          <div id="bindingFields" class="row">
-            <div class="row">
-              <div class="db-info-text">Name</div>
-              <div class="db-info-style db-nameField-id"></div>
+          <div id="parentChildRelationDiv" class="row db-dialog-prop-row">
+            <div class="row db-dialog-child-prop-row" style="margin-top: 20px">
+              <div class="row">
+                <div class="db-info-text">Employee Id</div>
+                <div class="db-info-style db-employee-id"></div>
+              </div>
+              <div class="row db-dialog-child-prop-row">
+                <ejs-dropdownlist id="employeeId" (change)="orgChartPropertyBinding.orgDropDownChange($event)"
+                  [dataSource]="selectedItem.orgDataSettings.dataSourceColumns" [fields]="dropdownListFields">
+                </ejs-dropdownlist>
+              </div>
             </div>
-            <div class="row db-dialog-child-prop-row">
-              <ejs-dropdownlist id="orgNameField" (change)="orgChartPropertyBinding.orgDropDownChange($event)"
-                [dataSource]="selectedItem.orgDataSettings.dataSourceColumns"
-                [fields]="dropdownListFields"></ejs-dropdownlist>
-            </div>
-          </div>
-          <div id="bindingFields" class="row db-dialog-prop-row" style="margin-top: 20px">
-            <div class="row">
-              <div class="db-info-text">Binding Fields</div>
-              <div class="db-info-style db-bindingField-id"></div>
-            </div>
-            <div class="row db-dialog-child-prop-row">
-              <ejs-multiselect id="orgBindingFields" (change)="orgChartPropertyBinding.orgMultiSelectChange($event)"
-                [dataSource]="selectedItem.orgDataSettings.dataSourceColumns" mode="Delimiter"
-                [fields]="dropdownListFields"></ejs-multiselect>
-            </div>
-          </div>
-          <div id="imageFields" class="row db-dialog-prop-row">
-            <div class="row">
-              <div class="db-info-text">Image Field</div>
-              <div class="db-info-style db-imageField-id"></div>
-            </div>
-            <div class="row db-dialog-child-prop-row">
-              <ejs-dropdownlist id="orgImageField" (change)="orgChartPropertyBinding.orgDropDownChange($event)"
-                [dataSource]="selectedItem.orgDataSettings.dataSourceColumns" [fields]="dropdownListFields">
-              </ejs-dropdownlist>
+            <div class="row db-dialog-prop-row">
+              <div class="row">
+                <div class="db-info-text">Supervisor Id</div>
+                <div class="db-info-style db-supervisor-id"></div>
+              </div>
+              <div class="row db-dialog-child-prop-row">
+                <ejs-dropdownlist id="superVisorId" (change)="orgChartPropertyBinding.orgDropDownChange($event)"
+                  [dataSource]="selectedItem.orgDataSettings.dataSourceColumns" [fields]="dropdownListFields">
+                </ejs-dropdownlist>
+              </div>
             </div>
           </div>
-          <div id="additionalFields" class="row db-dialog-prop-row">
-            <div class="row">
-              <div class="db-info-text">Additional Fields</div>
-              <div class="db-info-style db-additionalField-id"></div>
+          <div id="moreInformationDiv" class="row db-dialog-prop-row">
+            <div id="bindingFields" class="row">
+              <div class="row">
+                <div class="db-info-text">Name</div>
+                <div class="db-info-style db-nameField-id"></div>
+              </div>
+              <div class="row db-dialog-child-prop-row">
+                <ejs-dropdownlist id="orgNameField" (change)="orgChartPropertyBinding.orgDropDownChange($event)"
+                  [dataSource]="selectedItem.orgDataSettings.dataSourceColumns"
+                  [fields]="dropdownListFields"></ejs-dropdownlist>
+              </div>
             </div>
-            <div class="row db-dialog-child-prop-row">
-              <ejs-multiselect id="orgAdditionalField" (change)="orgChartPropertyBinding.orgMultiSelectChange($event)"
-                [dataSource]="selectedItem.orgDataSettings.dataSourceColumns" mode="Delimiter"
-                [fields]="dropdownListFields"></ejs-multiselect>
+            <div id="bindingFields" class="row db-dialog-prop-row" style="margin-top: 20px">
+              <div class="row">
+                <div class="db-info-text">Binding Fields</div>
+                <div class="db-info-style db-bindingField-id"></div>
+              </div>
+              <div class="row db-dialog-child-prop-row">
+                <ejs-multiselect id="orgBindingFields" (change)="orgChartPropertyBinding.orgMultiSelectChange($event)"
+                  [dataSource]="selectedItem.orgDataSettings.dataSourceColumns" mode="Delimiter"
+                  [fields]="dropdownListFields"></ejs-multiselect>
+              </div>
+            </div>
+            <div id="imageFields" class="row db-dialog-prop-row">
+              <div class="row">
+                <div class="db-info-text">Image Field</div>
+                <div class="db-info-style db-imageField-id"></div>
+              </div>
+              <div class="row db-dialog-child-prop-row">
+                <ejs-dropdownlist id="orgImageField" (change)="orgChartPropertyBinding.orgDropDownChange($event)"
+                  [dataSource]="selectedItem.orgDataSettings.dataSourceColumns" [fields]="dropdownListFields">
+                </ejs-dropdownlist>
+              </div>
+            </div>
+            <div id="additionalFields" class="row db-dialog-prop-row">
+              <div class="row">
+                <div class="db-info-text">Additional Fields</div>
+                <div class="db-info-style db-additionalField-id"></div>
+              </div>
+              <div class="row db-dialog-child-prop-row">
+                <ejs-multiselect id="orgAdditionalField" (change)="orgChartPropertyBinding.orgMultiSelectChange($event)"
+                  [dataSource]="selectedItem.orgDataSettings.dataSourceColumns" mode="Delimiter"
+                  [fields]="dropdownListFields"></ejs-multiselect>
+              </div>
             </div>
           </div>
-        </div>
-      </ejs-tooltip>
-    </div>
-  </ng-template>
-</ejs-dialog>
-
-<div id="diagramTemplateDiv" class="db-diagram-template-div" style="display: none">
-  <div class="db-diagram-template-image-div">
-    <div class="db-diagram-template-image"></div>
-  </div>
-  <div class="db-diagram-template-text">
-    <span id="diagramTemplateText"></span>
-  </div>
-</div>
-
-<ejs-dialog id="saveDialog" #saveDialog width="335px" header="Save Diagram" [target]="dlgTarget" isModal="true"
-  [animationSettings]="dialogAnimationSettings" showCloseIcon="true" allowDragging="true" [visible]="dialogVisibility"
-  [buttons]="saveButtons">
-  <ng-template #content>
-    <div id="saveDialogContent">
-      <div class="row">
-        <div class="row">File Name</div>
-        <div class="row db-dialog-child-prop-row">
-          <input type="text" id="saveFileName" value="Diagram1" />
-        </div>
+        </ejs-tooltip>
       </div>
-    </div>
-  </ng-template>
-</ejs-dialog>
+    </ng-template>
+  </ejs-dialog>
 
-<ejs-dialog id="moreShapesDialog" #moreShapesDialog width="695px" height="470px" header="Shapes" [target]="dlgTarget"
-  isModal="true" [animationSettings]="dialogAnimationSettings" showCloseIcon="true" allowDragging="true"
-  [buttons]="moreShapesButtons" [visible]="dialogVisibility">
-  <ng-template #content>
-    <div id="moreShapesDialogContent">
-      <div class="row">
-        <div class="col-xs-3 temp-left-pane">
-          <ejs-listview #moreShapesList id="moreShapesList" [fields]="listViewFields"
-            [dataSource]="dropDownDataSources.listViewData" [showCheckBox]="true"
-            (select)="listViewSelectionChange($event)">
-          </ejs-listview>
-        </div>
-        <div class="col-xs-9 diagramTemplates temp-right-pane" style="padding-left: 0px; padding-right: 0px">
-          <img id="shapePreviewImage" src="./assets/dbstyle/shapes_images/flow.png" />
-        </div>
-      </div>
+  <div id="diagramTemplateDiv" class="db-diagram-template-div" style="display: none">
+    <div class="db-diagram-template-image-div">
+      <div class="db-diagram-template-image"></div>
     </div>
-  </ng-template>
-</ejs-dialog>
-
-<ejs-dialog id="tooltipDialog" #tooltipDialog width="335px" header="Edit Tooltip" [target]="dlgTarget" isModal="true"
-  [animationSettings]="dialogAnimationSettings" [visible]="dialogVisibility" [buttons]="tooltipButtons"
-  showCloseIcon="true">
-  <ng-template #content>
-    <div id="tooltipDialogContent">
-      <div class="row">
-        <div>
-          <textarea id="objectTooltip" style="resize: none; width: 100%; height: 120px"></textarea>
-        </div>
-      </div>
-    </div>
-  </ng-template>
-</ejs-dialog>
-
-<ejs-dialog id="hyperlinkDialog" #hyperlinkDialog width="400px" header="Insert Link" [target]="dlgTarget" isModal="true"
-  [animationSettings]="dialogAnimationSettings" [visible]="dialogVisibility" [buttons]="hyperlinkButtons"
-  showCloseIcon="true">
-  <ng-template #content>
-    <div id="hyperlinkDialogContent">
-      <div class="row">
-        <div class="row">Enter URL</div>
-        <div class="row db-dialog-child-prop-row">
-          <input type="text" id="hyperlink" />
-        </div>
-      </div>
-      <div class="row db-dialog-prop-row">
-        <div class="row">Link Text (Optional)</div>
-        <div class="row db-dialog-child-prop-row">
-          <input type="text" id="hyperlinkText" />
-        </div>
-      </div>
-    </div>
-  </ng-template>
-</ejs-dialog>
-
-<div class="db-custom-prop-template" style="display: none">
-  <div class="row">
-    <div class="col-xs-6 db-col-left" style="width: 70%">
-      <input class="txtPropertyName" type="text" placeholder="Enter Property Name" style="width: 100%; height: 27px" />
-    </div>
-    <div class="col-xs-6 db-col-right" style="width: 30%">
-      <button class="db-custom-prop-button" style="width: 100%; text-transform: none; box-shadow: 0 0 0 0">
-        Add Property
-      </button>
+    <div class="db-diagram-template-text">
+      <span id="diagramTemplateText"></span>
     </div>
   </div>
-</div>
 
-<div class="db-custom-prop-info-template" style="display: none">
-  <div class="row">
-    <div class="col-xs-6 db-col-left propertyNameDiv"></div>
-    <div class="col-xs-6 db-col-right propertyValueDiv">
-      <input type="text" class="propertyValue" style="height: 27px" />
-    </div>
-    <div class="propertyTooltipDiv">
-      <input type="checkbox" class="propertyCheckBox" />
-    </div>
-    <div class="propertyLabelDiv">
-      <button class="btnRemoveProperty" style="height: 20px; width: 27px"></button>
+  <ejs-dialog id="saveDialog" #saveDialog width="335px" header="Save Diagram" [target]="dlgTarget" isModal="true"
+    [animationSettings]="dialogAnimationSettings" showCloseIcon="true" allowDragging="true" [visible]="dialogVisibility"
+    [buttons]="saveButtons">
+    <ng-template #content>
+      <div id="saveDialogContent">
+        <div class="row">
+          <div class="row">File Name</div>
+          <div class="row db-dialog-child-prop-row">
+            <input type="text" id="saveFileName" value="Diagram1" />
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </ejs-dialog>
+
+  <ejs-dialog id="moreShapesDialog" #moreShapesDialog width="695px" height="470px" header="Shapes" [target]="dlgTarget"
+    isModal="true" [animationSettings]="dialogAnimationSettings" showCloseIcon="true" allowDragging="true"
+    [buttons]="moreShapesButtons" [visible]="dialogVisibility">
+    <ng-template #content>
+      <div id="moreShapesDialogContent">
+        <div class="row">
+          <div class="col-xs-3 temp-left-pane">
+            <ejs-listview #moreShapesList id="moreShapesList" [fields]="listViewFields"
+              [dataSource]="dropDownDataSources.listViewData" [showCheckBox]="true"
+              (select)="listViewSelectionChange($event)">
+            </ejs-listview>
+          </div>
+          <div class="col-xs-9 diagramTemplates temp-right-pane" style="padding-left: 0px; padding-right: 0px">
+            <img id="shapePreviewImage" src="./assets/dbstyle/shapes_images/flow.png" />
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </ejs-dialog>
+
+  <ejs-dialog id="tooltipDialog" #tooltipDialog width="335px" header="Edit Tooltip" [target]="dlgTarget" isModal="true"
+    [animationSettings]="dialogAnimationSettings" [visible]="dialogVisibility" [buttons]="tooltipButtons"
+    showCloseIcon="true">
+    <ng-template #content>
+      <div id="tooltipDialogContent">
+        <div class="row">
+          <div>
+            <textarea id="objectTooltip" style="resize: none; width: 100%; height: 120px"></textarea>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </ejs-dialog>
+
+  <ejs-dialog id="hyperlinkDialog" #hyperlinkDialog width="400px" header="Insert Link" [target]="dlgTarget"
+    isModal="true" [animationSettings]="dialogAnimationSettings" [visible]="dialogVisibility"
+    [buttons]="hyperlinkButtons" showCloseIcon="true">
+    <ng-template #content>
+      <div id="hyperlinkDialogContent">
+        <div class="row">
+          <div class="row">Enter URL</div>
+          <div class="row db-dialog-child-prop-row">
+            <input type="text" id="hyperlink" />
+          </div>
+        </div>
+        <div class="row db-dialog-prop-row">
+          <div class="row">Link Text (Optional)</div>
+          <div class="row db-dialog-child-prop-row">
+            <input type="text" id="hyperlinkText" />
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </ejs-dialog>
+
+  <div class="db-custom-prop-template" style="display: none">
+    <div class="row">
+      <div class="col-xs-6 db-col-left" style="width: 70%">
+        <input class="txtPropertyName" type="text" placeholder="Enter Property Name"
+          style="width: 100%; height: 27px" />
+      </div>
+      <div class="col-xs-6 db-col-right" style="width: 30%">
+        <button class="db-custom-prop-button" style="width: 100%; text-transform: none; box-shadow: 0 0 0 0">
+          Add Property
+        </button>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="db-place-holder" style="display: none">
-  <div class="row">
-    <input type="checkbox" class="chkPlaceholders" />
+  <div class="db-custom-prop-info-template" style="display: none">
+    <div class="row">
+      <div class="col-xs-6 db-col-left propertyNameDiv"></div>
+      <div class="col-xs-6 db-col-right propertyValueDiv">
+        <input type="text" class="propertyValue" style="height: 27px" />
+      </div>
+      <div class="propertyTooltipDiv">
+        <input type="checkbox" class="propertyCheckBox" />
+      </div>
+      <div class="propertyLabelDiv">
+        <button class="btnRemoveProperty" style="height: 20px; width: 27px"></button>
+      </div>
+    </div>
   </div>
-</div>
 
-<ejs-dialog id="customPropertyDialog" #customPropertyDialog width="500px" header="Additional Information"
-  [target]="dlgTarget" [isModal]="isModalDialog" [animationSettings]="dialogAnimationSettings" allowDragging="true"
-  showCloseIcon="true" [visible]="dialogVisibility">
-</ejs-dialog>
+  <div class="db-place-holder" style="display: none">
+    <div class="row">
+      <input type="checkbox" class="chkPlaceholders" />
+    </div>
+  </div>
 
-<div class="db-layer-template" style="display: none">
-  <div class="row">
-    <div class="db-layer-content-name">
-      <span class="db-layer-name"></span>
-      <input type="text" class="db-layer-edit" />
-    </div>
-    <div class="db-layer-content-btn">
-      <button class="db-layer-lock"></button>
-    </div>
-    <div class="db-layer-content-btn">
-      <button class="db-layer-visible"></button>
-    </div>
-    <!-- <div class="db-layer-content-btn" style="visibility: hidden">
+  <ejs-dialog id="customPropertyDialog" #customPropertyDialog width="500px" header="Additional Information"
+    [target]="dlgTarget" [isModal]="isModalDialog" [animationSettings]="dialogAnimationSettings" allowDragging="true"
+    showCloseIcon="true" [visible]="dialogVisibility">
+  </ejs-dialog>
+
+  <div class="db-layer-template" style="display: none">
+    <div class="row">
+      <div class="db-layer-content-name">
+        <span class="db-layer-name"></span>
+        <input type="text" class="db-layer-edit" />
+      </div>
+      <div class="db-layer-content-btn">
+        <button class="db-layer-lock"></button>
+      </div>
+      <div class="db-layer-content-btn">
+        <button class="db-layer-visible"></button>
+      </div>
+      <!-- <div class="db-layer-content-btn" style="visibility: hidden">
             <button class="db-layer-order-first"></button>
         </div>
         <div class="db-layer-content-btn">
             <button class="db-layer-order-second"></button>
         </div> -->
+    </div>
   </div>
-</div>
 
-<ejs-dialog id="layerDialog" #layerDialog width="300px" height="400px" header="Layers" [target]="dlgTarget"
-  [isModal]="isModalDialog" [animationSettings]="dialogAnimationSettings" allowDragging="true"
-  [visible]="dialogVisibility" [footerTemplate]="layerFooterTemplate">
-</ejs-dialog>
+  <ejs-dialog id="layerDialog" #layerDialog width="300px" height="400px" header="Layers" [target]="dlgTarget"
+    [isModal]="isModalDialog" [animationSettings]="dialogAnimationSettings" allowDragging="true"
+    [visible]="dialogVisibility" [footerTemplate]="layerFooterTemplate">
+  </ejs-dialog>
 
-<ejs-dialog id="themeDialog" #themeDialog width="174px" header="Themes" [target]="dlgTarget" [isModal]="isModalDialog"
-  [animationSettings]="dialogAnimationSettings" allowDragging="true" [visible]="dialogVisibility" showCloseIcon="true"
-  [position]="themesdialogPosition" (close)="closeThemeDialog($event)" (created)="themeDialogCreated($event)">
-  <ng-template #content>
-    <div id="themeDialogContent">
-      <div class="row">
-        <div class="db-theme-style-div">
-          <div class="db-theme-style theme1"></div>
+  <ejs-dialog id="themeDialog" #themeDialog width="174px" header="Themes" [target]="dlgTarget" [isModal]="isModalDialog"
+    [animationSettings]="dialogAnimationSettings" allowDragging="true" [visible]="dialogVisibility" showCloseIcon="true"
+    [position]="themesdialogPosition" (close)="closeThemeDialog($event)" (created)="themeDialogCreated($event)">
+    <ng-template #content>
+      <div id="themeDialogContent">
+        <div class="row">
+          <div class="db-theme-style-div">
+            <div class="db-theme-style theme1"></div>
+          </div>
+          <div class="db-theme-style-div">
+            <div class="db-theme-style theme2"></div>
+          </div>
         </div>
-        <div class="db-theme-style-div">
-          <div class="db-theme-style theme2"></div>
+        <div class="row">
+          <div class="db-theme-style-div">
+            <div class="db-theme-style theme3"></div>
+          </div>
+          <div class="db-theme-style-div">
+            <div class="db-theme-style theme4"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="db-theme-style-div">
+            <div class="db-theme-style theme5"></div>
+          </div>
+          <div class="db-theme-style-div">
+            <div class="db-theme-style theme6"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="db-theme-style-div">
+            <div class="db-theme-style theme7"></div>
+          </div>
+          <div class="db-theme-style-div">
+            <div class="db-theme-style theme8"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="db-theme-style-div">
+            <div class="db-theme-style theme9"></div>
+          </div>
+          <div class="db-theme-style-div">
+            <div class="db-theme-style theme10"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="db-theme-style-div">
+            <div class="db-theme-style theme11"></div>
+          </div>
+          <div class="db-theme-style-div">
+            <div class="db-theme-style theme12"></div>
+          </div>
         </div>
       </div>
-      <div class="row">
-        <div class="db-theme-style-div">
-          <div class="db-theme-style theme3"></div>
-        </div>
-        <div class="db-theme-style-div">
-          <div class="db-theme-style theme4"></div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="db-theme-style-div">
-          <div class="db-theme-style theme5"></div>
-        </div>
-        <div class="db-theme-style-div">
-          <div class="db-theme-style theme6"></div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="db-theme-style-div">
-          <div class="db-theme-style theme7"></div>
-        </div>
-        <div class="db-theme-style-div">
-          <div class="db-theme-style theme8"></div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="db-theme-style-div">
-          <div class="db-theme-style theme9"></div>
-        </div>
-        <div class="db-theme-style-div">
-          <div class="db-theme-style theme10"></div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="db-theme-style-div">
-          <div class="db-theme-style theme11"></div>
-        </div>
-        <div class="db-theme-style-div">
-          <div class="db-theme-style theme12"></div>
-        </div>
-      </div>
-    </div>
-  </ng-template>
-</ejs-dialog>
+    </ng-template>
+  </ejs-dialog>
 
-<ejs-dialog id="deleteConfirmationDialog" #deleteConfirmationDialog width="400px" header="Delete Field"
-  [target]="dlgTarget" isModal="true" [animationSettings]="dialogAnimationSettings" [visible]="dialogVisibility"
-  [buttons]="deleteConfirmationButtons" showCloseIcon="true">
-  <ng-template #content>
-    <div id="deleteConfirmationContent">
-      <span style="font-size: 13px; color: black">
-        Please confirm that you want to delete this field?. All data will be
-        lost for this field once you deleted.
-      </span>
-    </div>
-  </ng-template>
-</ejs-dialog>
+  <ejs-dialog id="deleteConfirmationDialog" #deleteConfirmationDialog width="400px" header="Delete Field"
+    [target]="dlgTarget" isModal="true" [animationSettings]="dialogAnimationSettings" [visible]="dialogVisibility"
+    [buttons]="deleteConfirmationButtons" showCloseIcon="true">
+    <ng-template #content>
+      <div id="deleteConfirmationContent">
+        <span style="font-size: 13px; color: black">
+          Please confirm that you want to delete this field?. All data will be
+          lost for this field once you deleted.
+        </span>
+      </div>
+    </ng-template>
+  </ejs-dialog>

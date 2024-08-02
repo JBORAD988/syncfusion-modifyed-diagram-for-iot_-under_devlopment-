@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CanvasComponent } from './canvas.component';
+import { CanvasComponent } from "../scripts/events";
 
 describe('CanvasComponent', () => {
   let component: CanvasComponent;
@@ -8,9 +8,9 @@ describe('CanvasComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CanvasComponent ]
+      declarations: [CanvasComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(CanvasComponent);
     component = fixture.componentInstance;

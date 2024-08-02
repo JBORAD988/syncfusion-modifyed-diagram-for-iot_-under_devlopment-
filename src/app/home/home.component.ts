@@ -2001,6 +2001,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
   digitalName: any;
   public Oprationdata: string[] = ['=', '<=', '>=', '!=', '<', '>'];
   unitText: string[] = ['Volts', 'Amps', 'Deg-C', 'Deg-F', 'Hz', 'KHz', 'MHz',];
+  dateTimeFormate: string[] = ['DD/MM/YYYY  HH:MM:SS', 'MM/DD/YYYY  HH:MM:SS', 'YYYY/MM/DD  HH:MM:SS']
   popupService = inject(PopupService);
   textShape: any = [
     { text: 'Ractangle', value: '■' },
@@ -2043,7 +2044,6 @@ export class HomeComponent implements AfterViewInit, OnInit {
         element.Analog.forEach((el) => {
           this.analogTextChName.push(el.chName);
         });
-
       }
     });
   }

@@ -129,6 +129,7 @@ import { ApiService } from "../service/api.service";
 import { OGCMapTile } from "ol/source";
 import { AudioService } from "../service/audio.service";
 import { interval } from "rxjs";
+import { JsonPipe } from "@angular/common";
 
 Diagram.Inject(UndoRedo, DiagramContextMenu, Snapping, DataBinding);
 Diagram.Inject(
@@ -1972,6 +1973,7 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
       this.bitTimeBlink1to0();
       this.bitTimeBlink0to1();
       this.bitTextImageProperties();
+      this.dateTimeProperties();
     }, 1000);
 
 
@@ -2026,8 +2028,7 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
     let blinkInterval = setInterval(() => {
       diagram.nodes.forEach(nodeElement => {
 
-        if (nodeElement.id.includes("numeric1")) {
-
+        if (nodeElement.id.includes("Limit1")) {
 
 
           this.analogData.forEach(element => {
@@ -2041,7 +2042,14 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
 
                   if (nodeElement.annotations[0].textSetValue == content) {
 
-                    if (nodeElement.annotations[0]?.textIsChecked) {
+                    this.textDataBlink = true;
+                    this.textDataTimeout = true;
+                    nodeElement.annotations[0].style.opacity = 100;
+
+
+                  } else {
+
+                    if (nodeElement.annotations[0]?.textIsChecked && this.hideBlink) {
 
                       if (this.textDataBlink) {
                         if (nodeElement.annotations[0].style.opacity === 0) {
@@ -2061,17 +2069,20 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
                         }
                       }
                     }
-                  } else {
-                    this.textDataBlink = true;
-                    this.textDataTimeout = true;
-                    nodeElement.annotations[0].style.opacity = 100;
+
                   }
                   break;
                 case (nodeElement.annotations[0].textOperation == '>'):
 
                   if (content > nodeElement.annotations[0].textSetValue) {
 
-                    if (nodeElement.annotations[0]?.textIsChecked) {
+                    this.textDataBlink = true;
+                    this.textDataTimeout = true;
+                    nodeElement.annotations[0].style.opacity = 100;
+
+                  } else {
+
+                    if (nodeElement.annotations[0]?.textIsChecked && this.hideBlink) {
 
                       if (this.textDataBlink) {
                         if (nodeElement.annotations[0].style.opacity === 0) {
@@ -2091,17 +2102,21 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
                         }
                       }
                     }
-                  } else {
-                    this.textDataBlink = true;
-                    this.textDataTimeout = true;
-                    nodeElement.annotations[0].style.opacity = 100;
+
                   }
                   break;
                 case (nodeElement.annotations[0].textOperation == '<'):
 
                   if (content < nodeElement.annotations[0].textSetValue) {
 
-                    if (nodeElement.annotations[0]?.textIsChecked) {
+                    this.textDataBlink = true;
+                    this.textDataTimeout = true;
+                    nodeElement.annotations[0].style.opacity = 100;
+
+
+                  } else {
+
+                    if (nodeElement.annotations[0]?.textIsChecked && this.hideBlink) {
 
                       if (this.textDataBlink) {
                         if (nodeElement.annotations[0].style.opacity === 0) {
@@ -2121,17 +2136,21 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
                         }
                       }
                     }
-                  } else {
-                    this.textDataBlink = true;
-                    this.textDataTimeout = true;
-                    nodeElement.annotations[0].style.opacity = 100;
+
                   }
                   break;
                 case (nodeElement.annotations[0].textOperation == '>='):
 
                   if (content >= nodeElement.annotations[0].textSetValue) {
 
-                    if (nodeElement.annotations[0]?.textIsChecked) {
+                    this.textDataBlink = true;
+                    this.textDataTimeout = true;
+                    nodeElement.annotations[0].style.opacity = 100;
+
+
+                  } else {
+
+                    if (nodeElement.annotations[0]?.textIsChecked && this.hideBlink) {
 
                       if (this.textDataBlink) {
                         if (nodeElement.annotations[0].style.opacity === 0) {
@@ -2151,17 +2170,21 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
                         }
                       }
                     }
-                  } else {
-                    this.textDataBlink = true;
-                    this.textDataTimeout = true;
-                    nodeElement.annotations[0].style.opacity = 100;
+
                   }
                   break;
                 case (nodeElement.annotations[0].textOperation == '<='):
 
                   if (content <= nodeElement.annotations[0].textSetValue) {
 
-                    if (nodeElement.annotations[0]?.textIsChecked) {
+                    this.textDataBlink = true;
+                    this.textDataTimeout = true;
+                    nodeElement.annotations[0].style.opacity = 100;
+
+
+                  } else {
+
+                    if (nodeElement.annotations[0]?.textIsChecked && this.hideBlink) {
 
                       if (this.textDataBlink) {
                         if (nodeElement.annotations[0].style.opacity === 0) {
@@ -2181,17 +2204,21 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
                         }
                       }
                     }
-                  } else {
-                    this.textDataBlink = true;
-                    this.textDataTimeout = true;
-                    nodeElement.annotations[0].style.opacity = 100;
+
                   }
                   break;
                 case (nodeElement.annotations[0].textOperation == '!='):
 
                   if (content != nodeElement.annotations[0].textSetValue) {
 
-                    if (nodeElement.annotations[0]?.textIsChecked) {
+                    this.textDataBlink = true;
+                    this.textDataTimeout = true;
+                    nodeElement.annotations[0].style.opacity = 100;
+
+
+                  } else {
+
+                    if (nodeElement.annotations[0]?.textIsChecked && this.hideBlink) {
 
                       if (this.textDataBlink) {
                         if (nodeElement.annotations[0].style.opacity === 0) {
@@ -2211,10 +2238,7 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
                         }
                       }
                     }
-                  } else {
-                    this.textDataBlink = true;
-                    this.textDataTimeout = true;
-                    nodeElement.annotations[0].style.opacity = 100;
+
                   }
                   break;
                 default:
@@ -2235,10 +2259,8 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
 
-
-
-
   // complete --
+  textDataContinue: boolean = true;
   textDataContinueBlinking() {
     let diagram: Diagram = this.selectedItem.selectedDiagram;
     let blinkInterval = setInterval(() => {
@@ -2249,98 +2271,104 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
           if (nodeElement.annotations[0].textAnalogChName === element.chName) {
             let content = parseFloat(element.chData);
 
-            if (nodeElement.id.includes("numeric1")) {
+            if (nodeElement.id.includes("Limit1")) {
 
               switch (true) {
                 case (nodeElement.annotations[0].textOperation == '='):
 
                   if (nodeElement.annotations[0].textSetValue == content) {
-
-                    if (nodeElement.annotations[0].textContinueBlink) {
-                      if (nodeElement.annotations[0].style.opacity === 0) {
-                        nodeElement.annotations[0].style.opacity = 100;
-                      } else {
+                    nodeElement.annotations[0].style.opacity = 100;
+                  } else {
+                    if (nodeElement.annotations[0].textContinueBlink && this.hideBlink) {
+                      if (this.textDataContinue) {
                         nodeElement.annotations[0].style.opacity = 0;
+                        this.textDataContinue = false;
+                      } else {
+                        nodeElement.annotations[0].style.opacity = 100;
+                        this.textDataContinue = true;
                       }
                     }
-
-                  } else {
-                    nodeElement.annotations[0].style.opacity = 100;
                   }
+
                   break;
                 case (nodeElement.annotations[0].textOperation == '>'):
 
                   if (content > nodeElement.annotations[0].textSetValue) {
-
-                    if (nodeElement.annotations[0].textContinueBlink) {
-                      if (nodeElement.annotations[0].style.opacity === 0) {
-                        nodeElement.annotations[0].style.opacity = 100;
-                      } else {
+                    nodeElement.annotations[0].style.opacity = 100;
+                  } else {
+                    if (nodeElement.annotations[0].textContinueBlink && this.hideBlink) {
+                      if (this.textDataContinue) {
                         nodeElement.annotations[0].style.opacity = 0;
+                        this.textDataContinue = false;
+                      } else {
+                        nodeElement.annotations[0].style.opacity = 100;
+                        this.textDataContinue = true;
                       }
                     }
-                  } else {
-                    nodeElement.annotations[0].style.opacity = 100;
                   }
                   break;
                 case (nodeElement.annotations[0].textOperation == '<'):
 
                   if (content < nodeElement.annotations[0].textSetValue) {
-                    if (nodeElement.annotations[0].textContinueBlink) {
-                      if (nodeElement.annotations[0].style.opacity === 0) {
-                        nodeElement.annotations[0].style.opacity = 100;
-                      } else {
-                        nodeElement.annotations[0].style.opacity = 0;
-                      }
-
-                    }
-                  } else {
                     nodeElement.annotations[0].style.opacity = 100;
+                  } else {
+                    if (nodeElement.annotations[0].textContinueBlink && this.hideBlink) {
+                      if (this.textDataContinue) {
+                        nodeElement.annotations[0].style.opacity = 0;
+                        this.textDataContinue = false;
+                      } else {
+                        nodeElement.annotations[0].style.opacity = 100;
+                        this.textDataContinue = true;
+                      }
+                    }
                   }
                   break;
                 case (nodeElement.annotations[0].textOperation == '>='):
 
                   if (content >= nodeElement.annotations[0].textSetValue) {
-                    if (nodeElement.annotations[0].textContinueBlink) {
-                      if (nodeElement.annotations[0].style.opacity === 0) {
-                        nodeElement.annotations[0].style.opacity = 100;
-                      } else {
-                        nodeElement.annotations[0].style.opacity = 0;
-                      }
-
-                    }
-                  } else {
                     nodeElement.annotations[0].style.opacity = 100;
+                  } else {
+                    if (nodeElement.annotations[0].textContinueBlink && this.hideBlink) {
+                      if (this.textDataContinue) {
+                        nodeElement.annotations[0].style.opacity = 0;
+                        this.textDataContinue = false;
+                      } else {
+                        nodeElement.annotations[0].style.opacity = 100;
+                        this.textDataContinue = true;
+                      }
+                    }
                   }
                   break;
                 case (nodeElement.annotations[0].textOperation == '<='):
 
                   if (content <= nodeElement.annotations[0].textSetValue) {
-                    if (nodeElement.annotations[0].textContinueBlink) {
-                      if (nodeElement.annotations[0].style.opacity === 0) {
-                        nodeElement.annotations[0].style.opacity = 100;
-                      } else {
-                        nodeElement.annotations[0].style.opacity = 0;
-                      }
-
-                    }
-                  } else {
                     nodeElement.annotations[0].style.opacity = 100;
+                  } else {
+                    if (nodeElement.annotations[0].textContinueBlink && this.hideBlink) {
+                      if (this.textDataContinue) {
+                        nodeElement.annotations[0].style.opacity = 0;
+                        this.textDataContinue = false;
+                      } else {
+                        nodeElement.annotations[0].style.opacity = 100;
+                        this.textDataContinue = true;
+                      }
+                    }
                   }
                   break;
                 case (nodeElement.annotations[0].textOperation == '!='):
 
                   if (content != nodeElement.annotations[0].textSetValue) {
-                    if (nodeElement.annotations[0].textContinueBlink) {
-                      if (nodeElement.annotations[0].style.opacity === 0) {
-                        nodeElement.annotations[0].style.opacity = 100;
-                      } else {
-                        nodeElement.annotations[0].style.opacity = 0;
-                      }
-
-                    }
-                  } else {
                     nodeElement.annotations[0].style.opacity = 100;
+                  } else {
+                    if (nodeElement.annotations[0].textContinueBlink && this.hideBlink) {
+                      if (this.textDataContinue) {
+                        nodeElement.annotations[0].style.opacity = 0;
+                        this.textDataContinue = false;
+                      } else {
+                        nodeElement.annotations[0].style.opacity = 100;
+                        this.textDataContinue = true;
+                      }
+                    }
                   }
                   break;
                 default:
@@ -2359,178 +2387,646 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
     }, 500);
   }
 
+  hideBlink?: boolean = true;
+  hideOpacity1?: boolean = true;
+  hideOpacity2?: boolean = true;
   textDataProperties() {
     let diagram: Diagram = this.selectedItem.selectedDiagram;
 
     setInterval(() => {
       diagram.nodes.forEach(nodeElement => {
-        if (nodeElement.shape.type === "Text" || nodeElement.shape.type === "Flow") {
-          if (nodeElement.id.includes("numeric1")) {
+        if (nodeElement.id.includes("Limit1")) {
 
-            console.log("run");
-
-            if (nodeElement.shape.type == "Flow") {
-              nodeElement.tooltip = {
-                content: nodeElement.annotations[0].textTooltip,
-                position: 'TopCenter',
-                relativeMode: 'Object'
-              }
-              nodeElement.constraints = (NodeConstraints.Default & ~NodeConstraints.InheritTooltip) | NodeConstraints.Tooltip;
-
+          if (nodeElement.annotations[0].textTooltip) {
+            nodeElement.tooltip = {
+              content: this.getcontent(nodeElement.annotations[0].textTooltip),
+              position: 'TopCenter',
+              relativeMode: 'Object',
+              animation: { open: { effect: 'FadeZoomIn', delay: 0 }, close: { effect: 'FadeZoomOut', delay: 0 } }
             }
-
-            this.analogData.forEach(element => {
-
-              if (nodeElement.annotations[0].textAnalogChName === element.chName) {
-                if (nodeElement.annotations[0].textDecimal) {
-                  const decimal = parseInt(nodeElement.annotations[0].textDecimal)
-                  const chData = parseFloat(element.chData)
-                  const fixedDecimalValue = chData.toFixed(decimal);
-                  nodeElement.annotations[0].content = fixedDecimalValue;
-                } else {
-                  nodeElement.annotations[0].content = (element.chData).toString();
-                }
-                let content = parseFloat(element.chData);
-
-                if (nodeElement.annotations[0].analogUnit) {
-                  nodeElement.annotations[0].content = nodeElement.annotations[0].content.concat(" ", nodeElement.annotations[0].analogUnit);
-                }
-
-                switch (true) {
-                  case (nodeElement.annotations[0].textOperation == '='):
-
-                    if (nodeElement.annotations[0].textSetValue == content) {
-                      if (nodeElement.annotations[0].textCheckColor) {
-                        nodeElement.annotations[0].style.color = nodeElement.annotations[0].textSetColor;
-                      }
-                      if (nodeElement.annotations[0].textCheckStr) {
-                        nodeElement.annotations[0].content = nodeElement.annotations[0].textSetStr;
-                      }
-                      if (nodeElement.annotations[0].textCheckAudio && this.AudioService.isStop) {
-                        this.AudioService.loadAudio(nodeElement.annotations[0].textAudioFile);
-                      }
-                    } else {
-                      nodeElement.annotations[0].style.color = '#000000';
-                      nodeElement.annotations[0].content = nodeElement.annotations[0].content;
-                      if (nodeElement.annotations[0].textCheckAudio) {
-                        this.AudioService.stopAudio()
-                      }
-                    }
-                    break;
-                  case (nodeElement.annotations[0].textOperation == '>'):
-
-
-                    if (content > nodeElement.annotations[0].textSetValue) {
-
-                      if (nodeElement.annotations[0].textCheckColor) {
-                        nodeElement.annotations[0].style.color = nodeElement.annotations[0].textSetColor;
-                      }
-                      if (nodeElement.annotations[0].textCheckStr) {
-                        nodeElement.annotations[0].content = nodeElement.annotations[0].textSetStr;
-                      }
-                      if (nodeElement.annotations[0].textCheckAudio && this.AudioService.isStop) {
-                        this.AudioService.loadAudio(nodeElement.annotations[0].textAudioFile);
-                      }
-                    } else {
-                      nodeElement.annotations[0].style.color = '#000000';
-                      nodeElement.annotations[0].content = nodeElement.annotations[0].content;
-                      if (nodeElement.annotations[0].textCheckAudio) {
-                        this.AudioService.stopAudio()
-                      }
-                    }
-                    break;
-                  case (nodeElement.annotations[0].textOperation == '<'):
-
-                    if (content < nodeElement.annotations[0].textSetValue) {
-
-                      if (nodeElement.annotations[0].textCheckColor) {
-                        nodeElement.annotations[0].style.color = nodeElement.annotations[0].textSetColor;
-                      }
-                      if (nodeElement.annotations[0].textCheckStr) {
-                        nodeElement.annotations[0].content = nodeElement.annotations[0].textSetStr;
-                      }
-                      if (nodeElement.annotations[0].textCheckAudio && this.AudioService.isStop) {
-                        this.AudioService.loadAudio(nodeElement.annotations[0].textAudioFile);
-                      }
-                    } else {
-                      nodeElement.annotations[0].style.color = '#000000';
-                      nodeElement.annotations[0].content = nodeElement.annotations[0].content;
-                      if (nodeElement.annotations[0].textCheckAudio) {
-                        this.AudioService.stopAudio()
-                      }
-                    }
-                    break;
-                  case (nodeElement.annotations[0].textOperation == '>='):
-
-                    if (content >= nodeElement.annotations[0].textSetValue) {
-                      if (nodeElement.annotations[0].textCheckColor) {
-                        nodeElement.annotations[0].style.color = nodeElement.annotations[0].textSetColor;
-                      }
-                      if (nodeElement.annotations[0].textCheckStr) {
-                        nodeElement.annotations[0].content = nodeElement.annotations[0].textSetStr;
-                      }
-                      if (nodeElement.annotations[0].textCheckAudio && this.AudioService.isStop) {
-                        this.AudioService.loadAudio(nodeElement.annotations[0].textAudioFile);
-                      }
-                    } else {
-                      nodeElement.annotations[0].style.color = '#000000';
-                      nodeElement.annotations[0].content = nodeElement.annotations[0].content;
-                      if (nodeElement.annotations[0].textCheckAudio) {
-                        this.AudioService.stopAudio()
-                      }
-                    }
-                    break;
-                  case (nodeElement.annotations[0].textOperation == '<='):
-
-                    if (content <= nodeElement.annotations[0].textSetValue) {
-                      if (nodeElement.annotations[0].textCheckColor) {
-                        nodeElement.annotations[0].style.color = nodeElement.annotations[0].textSetColor;
-                      }
-                      if (nodeElement.annotations[0].textCheckStr) {
-                        nodeElement.annotations[0].content = nodeElement.annotations[0].textSetStr;
-                      }
-                      if (nodeElement.annotations[0].textCheckAudio && this.AudioService.isStop) {
-                        this.AudioService.loadAudio(nodeElement.annotations[0].textAudioFile);
-                      }
-                    } else {
-                      nodeElement.annotations[0].style.color = '#000000';
-                      nodeElement.annotations[0].content = nodeElement.annotations[0].content;
-                      if (nodeElement.annotations[0].textCheckAudio) {
-                        this.AudioService.stopAudio()
-                      }
-                    }
-                    break;
-                  case (nodeElement.annotations[0].textOperation == '!='):
-
-                    if (nodeElement.annotations[0].content != nodeElement.annotations[0].textSetValue) {
-                      if (nodeElement.annotations[0].textCheckColor) {
-                        nodeElement.annotations[0].style.color = nodeElement.annotations[0].textSetColor;
-                      }
-                      if (nodeElement.annotations[0].textCheckStr) {
-                        nodeElement.annotations[0].content = nodeElement.annotations[0].textSetStr;
-                      }
-                      if (nodeElement.annotations[0].textCheckAudio && this.AudioService.isStop) {
-                        this.AudioService.loadAudio(nodeElement.annotations[0].textAudioFile);
-                      }
-                    } else {
-                      nodeElement.annotations[0].style.color = '#000000';
-                      nodeElement.annotations[0].content = nodeElement.annotations[0].content;
-                      if (nodeElement.annotations[0].textCheckAudio) {
-                        this.AudioService.stopAudio()
-                      }
-                    }
-                    break;
-                  default:
-                    nodeElement.annotations[0].content = nodeElement.annotations[0].content;
-                    nodeElement.annotations[0].style.color = '#000000';
-                    break;
-                }
-
-              }
-            });
+            nodeElement.constraints = (NodeConstraints.Default & ~NodeConstraints.InheritTooltip) | NodeConstraints.Tooltip;
           }
 
+          this.analogData.forEach(element => {
+
+            if (nodeElement.annotations[0].textAnalogChName === element.chName) {
+              if (nodeElement.annotations[0].textDecimal) {
+
+                const decimal = parseInt(nodeElement.annotations[0].textDecimal)
+                const chData = parseFloat(element.chData)
+                const fixedDecimalValue = chData.toFixed(decimal);
+                nodeElement.annotations[0].content = fixedDecimalValue;
+              } else {
+
+                nodeElement.annotations[0].content = (element.chData).toString();
+              }
+              let content = parseFloat(element.chData);
+
+              if (nodeElement.annotations[0].analogUnit) {
+                nodeElement.annotations[0].content = nodeElement.annotations[0].content.concat(" ", nodeElement.annotations[0].analogUnit);
+              }
+
+              switch (true) {
+                case (nodeElement.annotations[0].textOperation == '='):
+
+                  if (nodeElement.annotations[0].textSetValue == content) {
+
+                    if (nodeElement.annotations[0].normalImage) {
+                      nodeElement.shape.source = nodeElement.annotations[0].normalImage;
+                    } else {
+                      nodeElement.shape.source = "";
+                    }
+
+                    if (nodeElement.annotations[0].textCheckColor) {
+                      if (nodeElement.annotations[0].normalColor) {
+                        nodeElement.annotations[0].style.color = nodeElement.annotations[0].normalColor;
+                      }
+                    }
+
+                    if (nodeElement.annotations[0].textCheckBackgroundColor) {
+                      if (nodeElement.annotations[0].normalBackgroundColor) {
+                        nodeElement.style.fill = nodeElement.annotations[0].normalBackgroundColor;
+                      }
+                    }
+
+                    if (nodeElement.annotations[0].textSetNormal) {
+                      nodeElement.annotations[0].content = nodeElement.annotations[0].textSetNormal;
+                      if (nodeElement.annotations[0].analogUnit) {
+                        nodeElement.annotations[0].content = nodeElement.annotations[0].content.concat(" ", nodeElement.annotations[0].analogUnit);
+                      }
+                    } else {
+                      nodeElement.annotations[0].content = content.toString();
+                      if (nodeElement.annotations[0].analogUnit) {
+                        nodeElement.annotations[0].content = nodeElement.annotations[0].content.concat(" ", nodeElement.annotations[0].analogUnit);
+                      }
+                    }
+
+                    if (nodeElement.annotations[0].textCheckAudio && this.AudioService.isStop) {
+                      this.AudioService.loadAudio(nodeElement.annotations[0].textAudioFile);
+                    }
+
+                    if (nodeElement.annotations[0].hideOnNormal) {
+                      nodeElement.annotations[0].style.opacity = 0;
+                      if (nodeElement.id.includes("Limit1Image") || nodeElement.id.includes("Limit1Shape")) {
+                        nodeElement.style.opacity = 0;
+                      }
+                      this.hideBlink = false;
+                      this.hideOpacity2 = true;
+                    } else {
+                      if (this.hideOpacity1) {
+                        nodeElement.annotations[0].style.opacity = 100;
+                        if (nodeElement.id.includes("Limit1Image") || nodeElement.id.includes("Limit1Shape")) {
+                          nodeElement.style.opacity = 100;
+                        }
+                        this.hideOpacity1 = false;
+                      }
+                      this.hideBlink = true;
+                    }
+
+                  } else {
+
+                    if (nodeElement.annotations[0].abNormalImage) {
+                      nodeElement.shape.source = nodeElement.annotations[0].abNormalImage;
+                    } else {
+                      nodeElement.shape.source = "";
+                    }
+
+                    if (nodeElement.annotations[0].hideOnAbNormal) {
+                      nodeElement.annotations[0].style.opacity = 0;
+                      if (nodeElement.id.includes("Limit1Image") || nodeElement.id.includes("Limit1Shape")) {
+                        nodeElement.style.opacity = 0;
+                      }
+                      this.hideBlink = false;
+                      this.hideOpacity1 = true;
+                    } else {
+                      if (this.hideOpacity2) {
+                        nodeElement.annotations[0].style.opacity = 100;
+                        if (nodeElement.id.includes("Limit1Image") || nodeElement.id.includes("Limit1Shape")) {
+                          nodeElement.style.opacity = 100;
+                        }
+                        this.hideOpacity2 = false;
+                      }
+                      this.hideBlink = true;
+                    }
+
+                    if (nodeElement.annotations[0].abNormalColor) {
+                      nodeElement.annotations[0].style.color = nodeElement.annotations[0].abNormalColor;
+                    } else {
+                      nodeElement.annotations[0].style.color = '#000000';
+                    }
+                    if (nodeElement.annotations[0].abNormalBackgroundColor) {
+                      nodeElement.style.fill = nodeElement.annotations[0].abNormalBackgroundColor;
+                    } else {
+                      nodeElement.style.fill = '#ffffff';
+                    }
+
+                    if (nodeElement.annotations[0].textSetAbnormal) {
+                      nodeElement.annotations[0].content = nodeElement.annotations[0].textSetAbnormal;
+                      if (nodeElement.annotations[0].analogUnit) {
+                        nodeElement.annotations[0].content = nodeElement.annotations[0].content.concat(" ", nodeElement.annotations[0].analogUnit);
+                      }
+                    } else {
+                      nodeElement.annotations[0].content = content.toString();
+                      if (nodeElement.annotations[0].analogUnit) {
+                        nodeElement.annotations[0].content = nodeElement.annotations[0].content.concat(" ", nodeElement.annotations[0].analogUnit);
+                      }
+                    }
+
+                    if (nodeElement.annotations[0].textCheckAudio) {
+                      this.AudioService.stopAudio()
+                    }
+                  }
+
+                  break;
+                case (nodeElement.annotations[0].textOperation == '>'):
+
+
+                  if (content > nodeElement.annotations[0].textSetValue) {
+
+                    if (nodeElement.annotations[0].textSetNormal) {
+                      nodeElement.annotations[0].content = nodeElement.annotations[0].textSetNormal;
+                      if (nodeElement.annotations[0].analogUnit) {
+                        nodeElement.annotations[0].content = nodeElement.annotations[0].content.concat(" ", nodeElement.annotations[0].analogUnit);
+                      }
+                    } else {
+                      nodeElement.annotations[0].content = content.toString();
+                      if (nodeElement.annotations[0].analogUnit) {
+                        nodeElement.annotations[0].content = nodeElement.annotations[0].content.concat(" ", nodeElement.annotations[0].analogUnit);
+                      }
+                    }
+
+                    if (nodeElement.annotations[0].textCheckColor) {
+                      if (nodeElement.annotations[0].normalColor) {
+                        nodeElement.annotations[0].style.color = nodeElement.annotations[0].normalColor;
+                      }
+                    }
+                    if (nodeElement.annotations[0].textCheckBackgroundColor) {
+                      if (nodeElement.annotations[0].normalBackgroundColor) {
+                        nodeElement.style.fill = nodeElement.annotations[0].normalBackgroundColor;
+                      }
+                    }
+                    if (nodeElement.annotations[0].textCheckAudio && this.AudioService.isStop) {
+                      this.AudioService.loadAudio(nodeElement.annotations[0].textAudioFile);
+                    }
+
+                    if (nodeElement.annotations[0].hideOnNormal) {
+                      nodeElement.annotations[0].style.opacity = 0;
+                      if (nodeElement.id.includes("Limit1Image") || nodeElement.id.includes("Limit1Shape")) {
+                        nodeElement.style.opacity = 0;
+                      }
+                      this.hideBlink = false;
+                      this.hideOpacity2 = true;
+                    } else {
+                      if (this.hideOpacity1) {
+                        nodeElement.annotations[0].style.opacity = 100;
+                        if (nodeElement.id.includes("Limit1Image") || nodeElement.id.includes("Limit1Shape")) {
+                          nodeElement.style.opacity = 100;
+                        }
+                        this.hideOpacity1 = false;
+                      }
+                      this.hideBlink = true;
+                    }
+                  } else {
+
+                    if (nodeElement.annotations[0].hideOnAbNormal) {
+                      nodeElement.annotations[0].style.opacity = 0;
+                      if (nodeElement.id.includes("Limit1Image") || nodeElement.id.includes("Limit1Shape")) {
+                        nodeElement.style.opacity = 0;
+                      }
+                      this.hideBlink = false;
+                      this.hideOpacity1 = true;
+                    } else {
+                      if (this.hideOpacity2) {
+                        nodeElement.annotations[0].style.opacity = 100;
+                        if (nodeElement.id.includes("Limit1Image") || nodeElement.id.includes("Limit1Shape")) {
+                          nodeElement.style.opacity = 100;
+                        }
+                        this.hideOpacity2 = false;
+                      }
+                      this.hideBlink = true;
+                    }
+
+                    if (nodeElement.annotations[0].textSetAbnormal) {
+                      nodeElement.annotations[0].content = nodeElement.annotations[0].textSetAbnormal;
+                      if (nodeElement.annotations[0].analogUnit) {
+                        nodeElement.annotations[0].content = nodeElement.annotations[0].content.concat(" ", nodeElement.annotations[0].analogUnit);
+                      }
+                    } else {
+                      nodeElement.annotations[0].content = content.toString();
+                      if (nodeElement.annotations[0].analogUnit) {
+                        nodeElement.annotations[0].content = nodeElement.annotations[0].content.concat(" ", nodeElement.annotations[0].analogUnit);
+                      }
+                    }
+
+                    if (nodeElement.annotations[0].abNormalColor) {
+                      nodeElement.annotations[0].style.color = nodeElement.annotations[0].abNormalColor;
+                    } else {
+                      nodeElement.annotations[0].style.color = '#000000';
+                    }
+                    if (nodeElement.annotations[0].abNormalBackgroundColor) {
+                      nodeElement.style.fill = nodeElement.annotations[0].abNormalBackgroundColor;
+                    } else {
+                      nodeElement.style.fill = '#ffffff';
+                    }
+                    if (nodeElement.annotations[0].textCheckAudio) {
+                      this.AudioService.stopAudio()
+                    }
+                  }
+                  break;
+                case (nodeElement.annotations[0].textOperation == '<'):
+
+                  if (content < nodeElement.annotations[0].textSetValue) {
+
+                    if (nodeElement.annotations[0].textSetNormal) {
+                      nodeElement.annotations[0].content = nodeElement.annotations[0].textSetNormal;
+                      if (nodeElement.annotations[0].analogUnit) {
+                        nodeElement.annotations[0].content = nodeElement.annotations[0].content.concat(" ", nodeElement.annotations[0].analogUnit);
+                      }
+                    } else {
+                      nodeElement.annotations[0].content = content.toString();
+                      if (nodeElement.annotations[0].analogUnit) {
+                        nodeElement.annotations[0].content = nodeElement.annotations[0].content.concat(" ", nodeElement.annotations[0].analogUnit);
+                      }
+                    }
+
+                    if (nodeElement.annotations[0].textCheckColor) {
+                      if (nodeElement.annotations[0].normalColor) {
+                        nodeElement.annotations[0].style.color = nodeElement.annotations[0].normalColor;
+                      }
+                    }
+                    if (nodeElement.annotations[0].textCheckBackgroundColor) {
+                      if (nodeElement.annotations[0].normalBackgroundColor) {
+                        nodeElement.style.fill = nodeElement.annotations[0].normalBackgroundColor;
+                      }
+                    }
+                    if (nodeElement.annotations[0].textCheckAudio && this.AudioService.isStop) {
+                      this.AudioService.loadAudio(nodeElement.annotations[0].textAudioFile);
+                    }
+
+                    if (nodeElement.annotations[0].hideOnNormal) {
+                      nodeElement.annotations[0].style.opacity = 0;
+                      if (nodeElement.id.includes("Limit1Image") || nodeElement.id.includes("Limit1Shape")) {
+                        nodeElement.style.opacity = 0;
+                      }
+                      this.hideBlink = false;
+                      this.hideOpacity2 = true;
+                    } else {
+                      if (this.hideOpacity1) {
+                        nodeElement.annotations[0].style.opacity = 100;
+                        if (nodeElement.id.includes("Limit1Image") || nodeElement.id.includes("Limit1Shape")) {
+                          nodeElement.style.opacity = 100;
+                        }
+                        this.hideOpacity1 = false;
+                      }
+                      this.hideBlink = true;
+                    }
+
+                  } else {
+
+                    if (nodeElement.annotations[0].hideOnAbNormal) {
+                      nodeElement.annotations[0].style.opacity = 0;
+                      if (nodeElement.id.includes("Limit1Image") || nodeElement.id.includes("Limit1Shape")) {
+                        nodeElement.style.opacity = 0;
+                      }
+                      this.hideBlink = false;
+                      this.hideOpacity1 = true;
+                    } else {
+                      if (this.hideOpacity2) {
+                        nodeElement.annotations[0].style.opacity = 100;
+                        if (nodeElement.id.includes("Limit1Image") || nodeElement.id.includes("Limit1Shape")) {
+                          nodeElement.style.opacity = 100;
+                        }
+                        this.hideOpacity2 = false;
+                      }
+                      this.hideBlink = true;
+                    }
+
+
+                    if (nodeElement.annotations[0].textSetAbnormal) {
+                      nodeElement.annotations[0].content = nodeElement.annotations[0].textSetAbnormal;
+                      if (nodeElement.annotations[0].analogUnit) {
+                        nodeElement.annotations[0].content = nodeElement.annotations[0].content.concat(" ", nodeElement.annotations[0].analogUnit);
+                      }
+                    } else {
+                      nodeElement.annotations[0].content = content.toString();
+                      if (nodeElement.annotations[0].analogUnit) {
+                        nodeElement.annotations[0].content = nodeElement.annotations[0].content.concat(" ", nodeElement.annotations[0].analogUnit);
+                      }
+                    }
+
+                    if (nodeElement.annotations[0].abNormalColor) {
+                      nodeElement.annotations[0].style.color = nodeElement.annotations[0].abNormalColor;
+                    } else {
+                      nodeElement.annotations[0].style.color = '#000000';
+                    }
+                    if (nodeElement.annotations[0].abNormalBackgroundColor) {
+                      nodeElement.style.fill = nodeElement.annotations[0].abNormalBackgroundColor;
+                    } else {
+                      nodeElement.style.fill = '#ffffff';
+                    }
+                    if (nodeElement.annotations[0].textCheckAudio) {
+                      this.AudioService.stopAudio()
+                    }
+                  }
+                  break;
+                case (nodeElement.annotations[0].textOperation == '>='):
+
+                  if (content >= nodeElement.annotations[0].textSetValue) {
+
+                    if (nodeElement.annotations[0].textSetNormal) {
+                      nodeElement.annotations[0].content = nodeElement.annotations[0].textSetNormal;
+                      if (nodeElement.annotations[0].analogUnit) {
+                        nodeElement.annotations[0].content = nodeElement.annotations[0].content.concat(" ", nodeElement.annotations[0].analogUnit);
+                      }
+                    } else {
+                      nodeElement.annotations[0].content = content.toString();
+                      if (nodeElement.annotations[0].analogUnit) {
+                        nodeElement.annotations[0].content = nodeElement.annotations[0].content.concat(" ", nodeElement.annotations[0].analogUnit);
+                      }
+                    }
+
+                    if (nodeElement.annotations[0].textCheckColor) {
+                      if (nodeElement.annotations[0].normalColor) {
+                        nodeElement.annotations[0].style.color = nodeElement.annotations[0].normalColor;
+                      }
+                    }
+                    if (nodeElement.annotations[0].textCheckBackgroundColor) {
+                      if (nodeElement.annotations[0].normalBackgroundColor) {
+                        nodeElement.style.fill = nodeElement.annotations[0].normalBackgroundColor;
+                      }
+                    }
+                    if (nodeElement.annotations[0].textCheckAudio && this.AudioService.isStop) {
+                      this.AudioService.loadAudio(nodeElement.annotations[0].textAudioFile);
+                    }
+
+                    if (nodeElement.annotations[0].hideOnNormal) {
+                      nodeElement.annotations[0].style.opacity = 0;
+                      if (nodeElement.id.includes("Limit1Image") || nodeElement.id.includes("Limit1Shape")) {
+                        nodeElement.style.opacity = 0;
+                      }
+                      this.hideBlink = false;
+                      this.hideOpacity2 = true;
+                    } else {
+                      if (this.hideOpacity1) {
+                        nodeElement.annotations[0].style.opacity = 100;
+                        if (nodeElement.id.includes("Limit1Image") || nodeElement.id.includes("Limit1Shape")) {
+                          nodeElement.style.opacity = 100;
+                        }
+                        this.hideOpacity1 = false;
+                      }
+                      this.hideBlink = true;
+                    }
+
+                  } else {
+
+                    if (nodeElement.annotations[0].hideOnAbNormal) {
+                      nodeElement.annotations[0].style.opacity = 0;
+                      if (nodeElement.id.includes("Limit1Image") || nodeElement.id.includes("Limit1Shape")) {
+                        nodeElement.style.opacity = 0;
+                      }
+                      this.hideBlink = false;
+                      this.hideOpacity1 = true;
+                    } else {
+                      if (this.hideOpacity2) {
+                        nodeElement.annotations[0].style.opacity = 100;
+                        if (nodeElement.id.includes("Limit1Image") || nodeElement.id.includes("Limit1Shape")) {
+                          nodeElement.style.opacity = 100;
+                        }
+                        this.hideOpacity2 = false;
+                      }
+                      this.hideBlink = true;
+                    }
+
+                    if (nodeElement.annotations[0].textSetAbnormal) {
+                      nodeElement.annotations[0].content = nodeElement.annotations[0].textSetAbnormal;
+                      if (nodeElement.annotations[0].analogUnit) {
+                        nodeElement.annotations[0].content = nodeElement.annotations[0].content.concat(" ", nodeElement.annotations[0].analogUnit);
+                      }
+                    } else {
+                      nodeElement.annotations[0].content = content.toString();
+                      if (nodeElement.annotations[0].analogUnit) {
+                        nodeElement.annotations[0].content = nodeElement.annotations[0].content.concat(" ", nodeElement.annotations[0].analogUnit);
+                      }
+                    }
+
+                    if (nodeElement.annotations[0].abNormalColor) {
+                      nodeElement.annotations[0].style.color = nodeElement.annotations[0].abNormalColor;
+                    } else {
+                      nodeElement.annotations[0].style.color = '#000000';
+                    }
+                    if (nodeElement.annotations[0].abNormalBackgroundColor) {
+                      nodeElement.style.fill = nodeElement.annotations[0].abNormalBackgroundColor;
+                    } else {
+                      nodeElement.style.fill = '#ffffff';
+                    }
+                    if (nodeElement.annotations[0].textCheckAudio) {
+                      this.AudioService.stopAudio()
+                    }
+                  }
+                  break;
+                case (nodeElement.annotations[0].textOperation == '<='):
+
+                  if (content <= nodeElement.annotations[0].textSetValue) {
+
+                    if (nodeElement.annotations[0].textSetNormal) {
+                      nodeElement.annotations[0].content = nodeElement.annotations[0].textSetNormal;
+                      if (nodeElement.annotations[0].analogUnit) {
+                        nodeElement.annotations[0].content = nodeElement.annotations[0].content.concat(" ", nodeElement.annotations[0].analogUnit);
+                      }
+                    } else {
+                      nodeElement.annotations[0].content = content.toString();
+                      if (nodeElement.annotations[0].analogUnit) {
+                        nodeElement.annotations[0].content = nodeElement.annotations[0].content.concat(" ", nodeElement.annotations[0].analogUnit);
+                      }
+                    }
+
+                    if (nodeElement.annotations[0].textCheckColor) {
+                      if (nodeElement.annotations[0].normalColor) {
+                        nodeElement.annotations[0].style.color = nodeElement.annotations[0].normalColor;
+                      }
+                    }
+                    if (nodeElement.annotations[0].textCheckBackgroundColor) {
+                      if (nodeElement.annotations[0].normalBackgroundColor) {
+                        nodeElement.style.fill = nodeElement.annotations[0].normalBackgroundColor;
+                      }
+                    }
+                    if (nodeElement.annotations[0].textCheckAudio && this.AudioService.isStop) {
+                      this.AudioService.loadAudio(nodeElement.annotations[0].textAudioFile);
+                    }
+
+                    if (nodeElement.annotations[0].hideOnNormal) {
+                      nodeElement.annotations[0].style.opacity = 0;
+                      if (nodeElement.id.includes("Limit1Image") || nodeElement.id.includes("Limit1Shape")) {
+                        nodeElement.style.opacity = 0;
+                      }
+                      this.hideBlink = false;
+                      this.hideOpacity2 = true;
+                    } else {
+                      if (this.hideOpacity1) {
+                        nodeElement.annotations[0].style.opacity = 100;
+                        if (nodeElement.id.includes("Limit1Image") || nodeElement.id.includes("Limit1Shape")) {
+                          nodeElement.style.opacity = 100;
+                        }
+                        this.hideOpacity1 = false;
+                      }
+                      this.hideBlink = true;
+                    }
+
+                  } else {
+
+                    if (nodeElement.annotations[0].hideOnAbNormal) {
+                      nodeElement.annotations[0].style.opacity = 0;
+                      if (nodeElement.id.includes("Limit1Image") || nodeElement.id.includes("Limit1Shape")) {
+                        nodeElement.style.opacity = 0;
+                      }
+                      this.hideBlink = false;
+                      this.hideOpacity1 = true;
+                    } else {
+                      if (this.hideOpacity2) {
+                        nodeElement.annotations[0].style.opacity = 100;
+                        if (nodeElement.id.includes("Limit1Image") || nodeElement.id.includes("Limit1Shape")) {
+                          nodeElement.style.opacity = 100;
+                        }
+                        this.hideOpacity2 = false;
+                      }
+                      this.hideBlink = true;
+                    }
+
+                    if (nodeElement.annotations[0].textSetAbnormal) {
+                      nodeElement.annotations[0].content = nodeElement.annotations[0].textSetAbnormal;
+                      if (nodeElement.annotations[0].analogUnit) {
+                        nodeElement.annotations[0].content = nodeElement.annotations[0].content.concat(" ", nodeElement.annotations[0].analogUnit);
+                      }
+                    } else {
+                      nodeElement.annotations[0].content = content.toString();
+                      if (nodeElement.annotations[0].analogUnit) {
+                        nodeElement.annotations[0].content = nodeElement.annotations[0].content.concat(" ", nodeElement.annotations[0].analogUnit);
+                      }
+                    }
+
+                    if (nodeElement.annotations[0].abNormalColor) {
+                      nodeElement.annotations[0].style.color = nodeElement.annotations[0].abNormalColor;
+                    } else {
+                      nodeElement.annotations[0].style.color = '#000000';
+                    }
+                    if (nodeElement.annotations[0].abNormalBackgroundColor) {
+                      nodeElement.style.fill = nodeElement.annotations[0].abNormalBackgroundColor;
+                    } else {
+                      nodeElement.style.fill = '#ffffff';
+                    }
+                    if (nodeElement.annotations[0].textCheckAudio) {
+                      this.AudioService.stopAudio()
+                    }
+                  }
+                  break;
+                case (nodeElement.annotations[0].textOperation == '!='):
+
+                  if (nodeElement.annotations[0].content != nodeElement.annotations[0].textSetValue) {
+
+                    if (nodeElement.annotations[0].textSetNormal) {
+                      nodeElement.annotations[0].content = nodeElement.annotations[0].textSetNormal;
+                      if (nodeElement.annotations[0].analogUnit) {
+                        nodeElement.annotations[0].content = nodeElement.annotations[0].content.concat(" ", nodeElement.annotations[0].analogUnit);
+                      }
+                    } else {
+                      nodeElement.annotations[0].content = content.toString();
+                      if (nodeElement.annotations[0].analogUnit) {
+                        nodeElement.annotations[0].content = nodeElement.annotations[0].content.concat(" ", nodeElement.annotations[0].analogUnit);
+                      }
+                    }
+
+                    if (nodeElement.annotations[0].textCheckColor) {
+                      if (nodeElement.annotations[0].normalColor) {
+                        nodeElement.annotations[0].style.color = nodeElement.annotations[0].normalColor;
+                      }
+                    }
+                    if (nodeElement.annotations[0].textCheckBackgroundColor) {
+                      if (nodeElement.annotations[0].normalBackgroundColor) {
+                        nodeElement.style.fill = nodeElement.annotations[0].normalBackgroundColor;
+                      }
+                    }
+                    if (nodeElement.annotations[0].textCheckAudio && this.AudioService.isStop) {
+                      this.AudioService.loadAudio(nodeElement.annotations[0].textAudioFile);
+                    }
+
+                    if (nodeElement.annotations[0].hideOnNormal) {
+                      nodeElement.annotations[0].style.opacity = 0;
+                      if (nodeElement.id.includes("Limit1Image") || nodeElement.id.includes("Limit1Shape")) {
+                        nodeElement.style.opacity = 0;
+                      }
+                      this.hideBlink = false;
+                      this.hideOpacity2 = true;
+                    } else {
+                      if (this.hideOpacity1) {
+                        nodeElement.annotations[0].style.opacity = 100;
+                        if (nodeElement.id.includes("Limit1Image") || nodeElement.id.includes("Limit1Shape")) {
+                          nodeElement.style.opacity = 100;
+                        }
+                        this.hideOpacity1 = false;
+                      }
+                      this.hideBlink = true;
+                    }
+
+                  } else {
+
+                    if (nodeElement.annotations[0].hideOnAbNormal) {
+                      nodeElement.annotations[0].style.opacity = 0;
+                      if (nodeElement.id.includes("Limit1Image") || nodeElement.id.includes("Limit1Shape")) {
+                        nodeElement.style.opacity = 0;
+                      }
+                      this.hideBlink = false;
+                      this.hideOpacity1 = true;
+                    } else {
+                      if (this.hideOpacity2) {
+                        nodeElement.annotations[0].style.opacity = 100;
+                        if (nodeElement.id.includes("Limit1Image") || nodeElement.id.includes("Limit1Shape")) {
+                          nodeElement.style.opacity = 100;
+                        }
+                        this.hideOpacity2 = false;
+                      }
+                      this.hideBlink = true;
+                    }
+
+                    if (nodeElement.annotations[0].textSetAbnormal) {
+                      nodeElement.annotations[0].content = nodeElement.annotations[0].textSetAbnormal;
+                      if (nodeElement.annotations[0].analogUnit) {
+                        nodeElement.annotations[0].content = nodeElement.annotations[0].content.concat(" ", nodeElement.annotations[0].analogUnit);
+                      }
+                    } else {
+                      nodeElement.annotations[0].content = content.toString();
+                      if (nodeElement.annotations[0].analogUnit) {
+                        nodeElement.annotations[0].content = nodeElement.annotations[0].content.concat(" ", nodeElement.annotations[0].analogUnit);
+                      }
+                    }
+
+                    if (nodeElement.annotations[0].abNormalColor) {
+                      nodeElement.annotations[0].style.color = nodeElement.annotations[0].abNormalColor;
+                    } else {
+                      nodeElement.annotations[0].style.color = '#000000';
+                    }
+                    if (nodeElement.annotations[0].abNormalBackgroundColor) {
+                      nodeElement.style.fill = nodeElement.annotations[0].abNormalBackgroundColor;
+                    } else {
+                      nodeElement.style.fill = '#ffffff';
+                    }
+                    if (nodeElement.annotations[0].textCheckAudio) {
+                      this.AudioService.stopAudio()
+                    }
+                  }
+                  break;
+                default:
+                  nodeElement.annotations[0].content = nodeElement.annotations[0].content;
+                  if (nodeElement.annotations[0].analogUnit) {
+                    nodeElement.annotations[0].content = nodeElement.annotations[0].content.concat(" ", nodeElement.annotations[0].analogUnit);
+                  }
+                  nodeElement.annotations[0].style.color = '#000000';
+                  break;
+              }
+
+            }
+          });
         }
+
       });
       diagram.dataBind();
     }, 100);
@@ -2784,6 +3280,13 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
 
   }
 
+  getcontent(data: string): HTMLElement {
+    let tooltipContent: HTMLElement = document.createElement('div');
+    tooltipContent.innerHTML = `<div style="background-color: #f4f4f4; color: black; border-width:1px;border-style: solid;border-color: #d3d3d3; border-radius: 8px;white-space: nowrap;"> <span style="margin: 15px; font-size: 14px"> ${data} </span> </div>`;
+    return tooltipContent;
+  }
+
+
   visible: boolean = true;
   visible2: boolean = true;
   visible3: boolean = true;
@@ -2793,19 +3296,20 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
 
     let diagram: Diagram = this.selectedItem.selectedDiagram;
 
-
     setInterval(() => {
       diagram.nodes.forEach(nodeElement => {
         if (nodeElement.shape.type == "Flow" || nodeElement.shape.type == "Basic") {
 
 
-          nodeElement.tooltip = {
-            content: nodeElement.annotations[0].textTooltip,
-            position: 'TopCenter',
-            relativeMode: 'Object'
+          if (nodeElement.annotations[0].textTooltip) {
+            nodeElement.tooltip = {
+              content: this.getcontent(nodeElement.annotations[0].textTooltip),
+              position: 'TopCenter',
+              relativeMode: 'Object',
+              animation: { open: { effect: 'FadeZoomIn', delay: 0 }, close: { effect: 'FadeZoomOut', delay: 0 } }
+            }
+            nodeElement.constraints = (NodeConstraints.Default & ~NodeConstraints.InheritTooltip) | NodeConstraints.Tooltip;
           }
-          nodeElement.constraints = (NodeConstraints.Default & ~NodeConstraints.InheritTooltip) | NodeConstraints.Tooltip;
-
 
 
           if (nodeElement.id.includes("bitLable") || nodeElement.id.includes("Shape")) {
@@ -3105,20 +3609,18 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
     setInterval(() => {
       diagram.nodes.forEach(nodeElement => {
 
-        if (nodeElement.annotations[0].normalContinueBlink && this.blink) {
+        if (nodeElement.annotations[0].normalContinueBlink && (this.hideBlink)) {
           if (this.bitContinousBlinkCheck) {
             nodeElement.annotations[0].style.opacity = 0;
-            console.log("run");
-
-            if (nodeElement.id.includes("bitImage") || nodeElement.id.includes("Shape")) {
+            if (nodeElement.id.includes("Limit1Image")) {
               nodeElement.style.opacity = 0;
             }
             this.bitContinousBlinkCheck = false;
 
           } else {
             nodeElement.annotations[0].style.opacity = 1;
-            if (nodeElement.id.includes("bitImage") || nodeElement.id.includes("Shape")) {
-              nodeElement.style.opacity = 1;
+            if (nodeElement.id.includes("Limit1Image")) {
+              nodeElement.style.opacity = 100;
             }
             this.bitContinousBlinkCheck = true;
           }
@@ -3130,15 +3632,11 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
             if (nodeElement.annotations[0].content == "0") {
               if (this.bitContinousBlinkCheck1to0) {
                 nodeElement.annotations[0].style.opacity = 0;
-                if (nodeElement.id.includes("bitImage") || nodeElement.id.includes("Shape")) {
-                  nodeElement.style.opacity = 0;
-                }
+
                 this.bitContinousBlinkCheck1to0 = false;
               } else {
                 nodeElement.annotations[0].style.opacity = 1;
-                if (nodeElement.id.includes("bitImage") || nodeElement.id.includes("Shape")) {
-                  nodeElement.style.opacity = 1;
-                }
+
                 this.bitContinousBlinkCheck1to0 = true;
               }
             }
@@ -3150,15 +3648,11 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
             if (nodeElement.annotations[0].content == "1") {
               if (this.bitContinousBlinkCheck0to1) {
                 nodeElement.annotations[0].style.opacity = 0;
-                if (nodeElement.id.includes("bitImage") || nodeElement.id.includes("Shape")) {
-                  nodeElement.style.opacity = 0;
-                }
+
                 this.bitContinousBlinkCheck0to1 = false;
               } else {
                 nodeElement.annotations[0].style.opacity = 1;
-                if (nodeElement.id.includes("bitImage") || nodeElement.id.includes("Shape")) {
-                  nodeElement.style.opacity = 1;
-                }
+
                 this.bitContinousBlinkCheck0to1 = true;
               }
             }
@@ -3176,24 +3670,29 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
 
     let blinkInterval = setInterval(() => {
       diagram.nodes.forEach(nodeElement => {
-        if (nodeElement.annotations[0].normalTimeBlink) {
+        if (nodeElement.annotations[0].normalTimeBlink && this.hideBlink) {
           if (this.bitTimeBlinkCheck) {
             nodeElement.annotations[0].style.opacity = 0;
-            if (nodeElement.id.includes("bitImage") || nodeElement.id.includes("Shape")) {
+            if (nodeElement.id.includes("Limit1Image")) {
               nodeElement.style.opacity = 0;
             }
+
             this.bitTimeBlinkCheck = false;
           } else {
             nodeElement.annotations[0].style.opacity = 1;
-            if (nodeElement.id.includes("bitImage") || nodeElement.id.includes("Shape")) {
+            if (nodeElement.id.includes("Limit1Image")) {
               nodeElement.style.opacity = 1;
             }
+
             this.bitTimeBlinkCheck = true;
           }
           if (nodeElement.annotations[0].normalTimeBlinkValue) {
             setTimeout(() => {
               clearInterval(blinkInterval);
               nodeElement.annotations[0].style.opacity = 1;
+              if (nodeElement.id.includes("Limit1Image")) {
+                nodeElement.style.opacity = 1;
+              }
               nodeElement.style.opacity = 1;
             }, (nodeElement.annotations[0].normalTimeBlinkValue * 1000));
           }
@@ -3224,15 +3723,11 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
               if (this.intervalCheck1to0) {
                 if (this.bitTimeBlink1to0Check) {
                   nodeElement.annotations[0].style.opacity = 0;
-                  if (nodeElement.id.includes("bitImage") || nodeElement.id.includes("Shape")) {
-                    nodeElement.style.opacity = 0;
-                  }
+
                   this.bitTimeBlink1to0Check = false;
                 } else {
                   nodeElement.annotations[0].style.opacity = 1;
-                  if (nodeElement.id.includes("bitImage") || nodeElement.id.includes("Shape")) {
-                    nodeElement.style.opacity = 1;
-                  }
+
                   this.bitTimeBlink1to0Check = true;
                 }
               }
@@ -3275,15 +3770,11 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
               if (this.intervalCheck0to1) {
                 if (this.bitTimeBlink0to1Check) {
                   nodeElement.annotations[0].style.opacity = 0;
-                  if (nodeElement.id.includes("bitImage") || nodeElement.id.includes("Shape")) {
-                    nodeElement.style.opacity = 0;
-                  }
+
                   this.bitTimeBlink0to1Check = false;
                 } else {
                   nodeElement.annotations[0].style.opacity = 1;
-                  if (nodeElement.id.includes("bitImage") || nodeElement.id.includes("Shape")) {
-                    nodeElement.style.opacity = 1;
-                  }
+
                   this.bitTimeBlink0to1Check = true;
                 }
               }
@@ -3305,6 +3796,79 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
 
+  dateTimeProperties() {
+
+    let diagram: Diagram = this.selectedItem.selectedDiagram;
+
+    setInterval(() => {
+
+      diagram.nodes.forEach(nodeElement => {
+
+        if (nodeElement.id.includes("dateTime")) {
+
+          if (nodeElement.annotations[0].textTooltip) {
+            nodeElement.tooltip = {
+              content: this.getcontent(nodeElement.annotations[0].textTooltip),
+              position: 'TopCenter',
+              relativeMode: 'Object',
+              animation: { open: { effect: 'FadeZoomIn', delay: 0 }, close: { effect: 'FadeZoomOut', delay: 0 } }
+            }
+            nodeElement.constraints = (NodeConstraints.Default & ~NodeConstraints.InheritTooltip) | NodeConstraints.Tooltip;
+          }
+
+          this.analogData.forEach(element => {
+            if (nodeElement.annotations[0].dateChannel == element.chName) {
+              let dateTime = element.DateTime.replace('H', '  ');
+              nodeElement.annotations[0].content = dateTime;
+              const userFormat = nodeElement.annotations[0].dateTimeFormat;
+              let formattedDateTime = this.formatDate(element.DateTime, userFormat);
+
+              nodeElement.annotations[0].content = formattedDateTime;
+            }
+          });
+
+        }
+
+      });
+
+    }, 100);
+
+  }
+
+  padStart(str, targetLength, padString) {
+    while (str.length < targetLength) {
+      str = padString + str;
+    }
+    return str;
+  }
+
+  formatDate(dateString, format) {
+    let [datePart, timePart] = dateString.split('H');
+
+    let date = new Date(datePart + 'T' + timePart);
+
+    let day = this.padStart(String(date.getDate()), 2, '0');
+    let month = this.padStart(String(date.getMonth() + 1), 2, '0');
+    let year = date.getFullYear();
+    let hours = this.padStart(String(date.getHours()), 2, '0');
+    let minutes = this.padStart(String(date.getMinutes()), 2, '0');
+    let seconds = this.padStart(String(date.getSeconds()), 2, '0');
+
+    let formattedDate;
+    if (format === 'DD/MM/YYYY  HH:MM:SS') {
+      formattedDate = `${day}-${month}-${year}`;
+    } else if (format === 'MM/DD/YYYY  HH:MM:SS') {
+      formattedDate = `${month}-${day}-${year}`;
+    } else if (format === 'YYYY/MM/DD  HH:MM:SS') {
+      formattedDate = `${year}-${month}-${day}`;
+    } else {
+      formattedDate = dateString;
+    }
+
+    return `${formattedDate} ${hours}:${minutes}:${seconds}`;
+
+  }
+
 
   disableNodeDragging(nodeId: string, nodeType: string): void {
     const node = this.diagram.getObject(nodeId) as NodeModel;
@@ -3317,12 +3881,13 @@ export class CanvasComponent implements AfterViewInit, OnInit, OnDestroy {
         ~NodeConstraints.Drag &
         ~NodeConstraints.Resize &
         ~NodeConstraints.Delete &
+        ~NodeConstraints.Expandable &
         ~NodeConstraints.Rotate;
 
       this.diagram.dataBind();
 
     }
-    if (node.id.includes("bitLable") || node.id.includes("bitShape") || node.id.includes("bitImage") || node.id.includes("numeric")) {
+    if (node.id.includes("bitLable") || node.id.includes("Shape") || node.id.includes("bitImage") || node.id.includes("numeric") || node.id.includes("dateTime")) {
 
       node.constraints = node.constraints &
         ~NodeConstraints.Drag &

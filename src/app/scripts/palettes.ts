@@ -74,10 +74,10 @@ export class Palettes {
     return AddStation;
   }
 
-  private getNumeric1Shapes(): NodeModel[] {
-    let numeric1Shapes: NodeModel[] = [
+  private getLimit1ValueShapes(): NodeModel[] {
+    let Limit1ValueShapes: NodeModel[] = [
       {
-        id: 'numeric1',
+        id: 'Limit1Value',
         shape: { type: 'Flow', shape: 'Process' },
         style: { strokeWidth: 2 },
         annotations: [
@@ -91,7 +91,341 @@ export class Palettes {
       },
     ];
 
-    return numeric1Shapes;
+    return Limit1ValueShapes;
+  }
+
+  private getLimit2ValueShapes(): NodeModel[] {
+    let Limit2ValueShapes: NodeModel[] = [
+      {
+        id: 'Limit2Value',
+        shape: { type: 'Flow', shape: 'Process' },
+        style: { strokeWidth: 2 },
+        annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+    ];
+
+    return Limit2ValueShapes;
+  }
+
+  private getLimit1TextShapes(): NodeModel[] {
+    let getSelectionShapes: NodeModel[] = [
+
+      {
+        id: 'Limit1Text1', shape: { type: 'Basic', shape: 'Rectangle' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Limit1Text2', shape: { type: 'Basic', shape: 'Ellipse' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Limit1Text3', shape: { type: 'Basic', shape: 'Hexagon' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Limit1Text4', shape: { type: 'Basic', shape: 'Parallelogram' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Limit1Text5', shape: { type: 'Basic', shape: 'Triangle' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Limit1Text6', shape: { type: 'Basic', shape: 'Plus' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Limit1Text7', shape: { type: 'Basic', shape: 'Star' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Limit1Text8', shape: { type: 'Basic', shape: 'Pentagon' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Limit1Text9', shape: { type: 'Basic', shape: 'Heptagon' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Limit1Text10', shape: { type: 'Basic', shape: 'Octagon' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Limit1Text11', shape: { type: 'Basic', shape: 'Trapezoid' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Limit1Text12', shape: { type: 'Basic', shape: 'Decagon' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Limit1Text13', shape: { type: 'Basic', shape: 'RightTriangle' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Limit1Text14', shape: { type: 'Basic', shape: 'Cylinder' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Limit1Text15', shape: { type: 'Basic', shape: 'Diamond' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+    ];
+    return getSelectionShapes;
+  }
+
+  private getLimit1Shapes(): NodeModel[] {
+    let getSelectionShapes: NodeModel[] = [
+
+      {
+        id: 'Limit1Shape1', shape: { type: 'Basic', shape: 'Rectangle' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Limit1Shape2', shape: { type: 'Basic', shape: 'Ellipse' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Limit1Shape3', shape: { type: 'Basic', shape: 'Hexagon' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Limit1Shape4', shape: { type: 'Basic', shape: 'Parallelogram' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Limit1Shape5', shape: { type: 'Basic', shape: 'Triangle' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Limit1Shape6', shape: { type: 'Basic', shape: 'Plus' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Limit1Shape7', shape: { type: 'Basic', shape: 'Star' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Limit1Shape8', shape: { type: 'Basic', shape: 'Pentagon' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Limit1Shape9', shape: { type: 'Basic', shape: 'Heptagon' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Limit1Shape10', shape: { type: 'Basic', shape: 'Octagon' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Limit1Shape11', shape: { type: 'Basic', shape: 'Trapezoid' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Limit1Shape12', shape: { type: 'Basic', shape: 'Decagon' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Limit1Shape13', shape: { type: 'Basic', shape: 'RightTriangle' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Limit1Shape14', shape: { type: 'Basic', shape: 'Cylinder' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+      {
+        id: 'Limit1Shape15', shape: { type: 'Basic', shape: 'Diamond' }, style: { strokeWidth: 2 }, annotations: [
+          {
+            content: 'Enter text here',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      },
+    ];
+    return getSelectionShapes;
   }
 
   private getNumeric2Shapes(): NodeModel[] {
@@ -131,6 +465,25 @@ export class Palettes {
       }
     ]
     return bitLableShape;
+  }
+
+  private getDateTimeShape(): NodeModel[] {
+    let dateTime: NodeModel[] = [
+      {
+        id: 'dateTime',
+        shape: { type: 'Flow', shape: 'Process' },
+        style: { strokeWidth: 2 },
+        annotations: [
+          {
+            content: 'Enter Station',
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 0.5 },
+            horizontalAlignment: 'Center'
+          }
+        ]
+      }
+    ]
+    return dateTime;
   }
 
   private getBitDisplay2Shape(): NodeModel[] {
@@ -335,14 +688,34 @@ export class Palettes {
   private getBitImage(): NodeModel[] {
     let imageShapes: NodeModel[] = [
       {
-        id: "bitImage",
+        id: "bitImage1",
         shape: { type: "Image", source: "" },
         style: { strokeWidth: 2 },
         annotations: [
           {
             content: "Enter Text Here",
             style: { color: '#000000', fontSize: 16 },
-            offset: { x: 0.5, y: 0.5 },
+            offset: { x: 0.5, y: 1.2 },
+            horizontalAlignment: 'Center'
+          },
+        ],
+      }
+    ];
+
+    return imageShapes;
+  }
+
+  private getLimit1ImageShape(): NodeModel[] {
+    let imageShapes: NodeModel[] = [
+      {
+        id: "Limit1Image",
+        shape: { type: "Image", source: "" },
+        style: { strokeWidth: 2 },
+        annotations: [
+          {
+            content: "Enter Text Here",
+            style: { color: '#000000', fontSize: 16 },
+            offset: { x: 0.5, y: 1.2 },
             horizontalAlignment: 'Center'
           },
         ],
@@ -354,30 +727,67 @@ export class Palettes {
 
   public palettes: PaletteModel[] = [
 
+    // {
+    //   id: "station",
+    //   expanded: true,
+    //   symbols: this.getAddStation(),
+    //   title: "Add Station",
+    // },
+    // {
+    //   id: "image",
+    //   expanded: false,
+    //   symbols: this.getImageShapes(),
+    //   title: "Add Image",
+    // },
+
     {
-      id: "station",
-      expanded: true,
-      symbols: this.getAddStation(),
-      title: "Add Station",
-    },
-    {
-      id: "image",
+      id: "connectors",
       expanded: false,
-      symbols: this.getImageShapes(),
-      title: "Add Image",
+      symbols: this.getConnectors(),
+      title: "Line",
     },
     {
-      id: "numeric1",
+      id: "dateTime",
       expanded: false,
-      symbols: this.getNumeric1Shapes(),
-      title: "Numeric1",
+      symbols: this.getDateTimeShape(),
+      title: "DateTime"
     },
     {
-      id: "numeric2",
+      id: "Limit1Value",
       expanded: false,
-      symbols: this.getNumeric2Shapes(),
-      title: "Numeric2",
+      symbols: this.getLimit1ValueShapes(),
+      title: "Limit1Value",
     },
+    {
+      id: "Limit1Text",
+      expanded: false,
+      symbols: this.getLimit1TextShapes(),
+      title: "Limit1Text",
+    },
+    {
+      id: "Limit1Shape",
+      expanded: false,
+      symbols: this.getLimit1Shapes(),
+      title: "Limit1Shape",
+    },
+    {
+      id: "Limit1Image",
+      expanded: false,
+      symbols: this.getLimit1ImageShape(),
+      title: "Limit1Image",
+    },
+    {
+      id: "Limit2Value",
+      expanded: false,
+      symbols: this.getLimit2ValueShapes(),
+      title: "Limit2Value",
+    },
+    // {
+    //   id: "numeric2",
+    //   expanded: false,
+    //   symbols: this.getNumeric2Shapes(),
+    //   title: "Numeric2",
+    // },
     {
       id: "bitLable",
       expanded: false,
@@ -396,18 +806,14 @@ export class Palettes {
       symbols: this.getBitImage(),
       title: "Bit Image"
     },
+
     // {
     //   id: "bitDisplay2",
     //   expanded: false,
     //   symbols: this.getBitDisplay2Shape(),
     //   title: "Bit Display2",
     // },
-    {
-      id: "connectors",
-      expanded: false,
-      symbols: this.getConnectors(),
-      title: "Connectors",
-    },
+
   ];
   public expandMode: ExpandMode = "Multiple";
   public symbolPreview: SymbolPreviewModel = { height: 100, width: 100 };
@@ -486,12 +892,47 @@ export class Palettes {
         title: "Add Image",
       });
     }
-    if (text.indexOf("Numeric1") !== -1) {
+    if (text.indexOf("Limit1Value") !== -1) {
       palettes.push({
-        id: "numeric1",
+        id: "Limit1Value",
         expanded: false,
-        symbols: this.getNumeric1Shapes(),
-        title: "Numeric1",
+        symbols: this.getLimit1ValueShapes(),
+        title: "Limit1Value",
+      });
+    }
+
+    if (text.indexOf("Limit2Value") !== -1) {
+      palettes.push({
+        id: "Limit2Value",
+        expanded: false,
+        symbols: this.getLimit2ValueShapes(),
+        title: "Limit2Value",
+      });
+    }
+
+    if (text.indexOf("Limit1Text") !== -1) {
+      palettes.push({
+        id: "Limit1Text",
+        expanded: false,
+        symbols: this.getLimit1TextShapes(),
+        title: "Limit1Text",
+      });
+    }
+    if (text.indexOf("Limit1Shape") !== -1) {
+      palettes.push({
+        id: "Limit1Shape",
+        expanded: false,
+        symbols: this.getLimit1Shapes(),
+        title: "Limit1Shape",
+      });
+    }
+
+    if (text.indexOf("Limit1Image") !== -1) {
+      palettes.push({
+        id: "Limit1Image",
+        expanded: false,
+        symbols: this.getLimit1ImageShape(),
+        title: "Limit1Image",
       });
     }
     if (text.indexOf("Numeric2") !== -1) {
@@ -506,7 +947,7 @@ export class Palettes {
       palettes.push({
         id: "bitLable",
         expanded: false,
-        symbols: this.getNumeric2Shapes(),
+        symbols: this.getbitLableShape(),
         title: "Bit Display1",
       });
     }
@@ -532,6 +973,14 @@ export class Palettes {
         expanded: false,
         symbols: this.getBitImage(),
         title: "Bit Image",
+      });
+    }
+    if (text.indexOf("dateTime") !== -1) {
+      palettes.push({
+        id: "dateTime",
+        expanded: false,
+        symbols: this.getDateTimeShape(),
+        title: "DateTime",
       });
     }
     if (text.indexOf("Connectors") !== -1) {
