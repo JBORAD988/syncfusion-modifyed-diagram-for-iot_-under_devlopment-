@@ -67,6 +67,3 @@ If you have any questions, suggestions, or need support, feel free to reach out!
 
 Thank you for using our IoT Device Live Data Visualization Platform! We're excited to see how you make the most of real-time data tracking and management.
 
----
-
-This version includes a clickable demo video in the format you specified. Let me know if you'd like to make any further changes!
