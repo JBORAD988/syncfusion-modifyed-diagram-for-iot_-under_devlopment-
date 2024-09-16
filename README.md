@@ -52,7 +52,7 @@ The core of this platform lies in its robust template system, which allows users
 
 Click on the image below to watch the demo video showcasing the platform in action:
 
-[![Click To View the Demo](https://img.youtube.com/vi/VjcIEBhTBKI/0.jpg)](https://youtu.be/VjcIEBhTBKI)
+[![Click To View the Demo](https://img.youtube.com/vi/fzvr-SXKNu4/0.jpg)](https://youtu.be/fzvr-SXKNu4)
 
 ## Project Highlights 🚀
 
