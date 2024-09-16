@@ -38,7 +38,7 @@ export interface CustomSelectorModel extends SelectorModel{
 
 export interface CustomShapeModel extends ShapeModel {
 
-    type?: Shapes;
+   
     source?: string;
 
 }
